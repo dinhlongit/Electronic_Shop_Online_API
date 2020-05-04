@@ -17,7 +17,11 @@ class CreatePromotionProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->bigInteger("product_id")->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
             $table->bigInteger("promotion_id")->unsigned();
+            $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

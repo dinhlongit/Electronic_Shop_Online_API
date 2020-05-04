@@ -17,7 +17,7 @@ class CreateAddressesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('parrent_id')->unsigned()->nullable(); //
-
+            $table->foreign('parrent_id')->references('id')->on('addresses');
             $table->timestamps();
         });
     }

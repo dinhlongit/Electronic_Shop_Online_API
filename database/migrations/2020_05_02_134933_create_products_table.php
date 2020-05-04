@@ -15,16 +15,20 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("name");
-            $table->longText("product_photo");
-            $table->longText("description");
+            $table->string('name');
+            $table->string('photo');
+            $table->text('description');
             $table->integer("amount");
             $table->double("price");
             $table->longText("information");
-            $table->bigInteger("status_id")->unsigned(); // forein_key
-            $table->bigInteger("category_id")->unsigned();// forein_key
-            $table->bigInteger("producer_id")->unsigned();// forein_key
+            $table->bigInteger("category_id")->unsigned();
+            $table->foreign("category_id")->references("id")->on("categories")->onDelete("cascade");
 
+            $table->bigInteger("producer_id")->unsigned();
+            $table->foreign("producer_id")->references("id")->on("producers")->onDelete("cascade");
+
+            $table->bigInteger("status_id")->unsigned();
+            $table->foreign("status_id")->references("id")->on("product_statuses")->onDelete("cascade");
 
             $table->timestamps();
         });
