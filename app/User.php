@@ -36,4 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $guarded=[];
+    public function userrole(){
+        $this->hasMany('App/UserRole','user_id','id');
+    }
+
 }

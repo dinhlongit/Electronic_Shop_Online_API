@@ -25,8 +25,8 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger("address_id")->unsigned();//
             $table->foreign("address_id")->references("id")->on("addresses")->onDelete("cascade");
 
-            $table->bigInteger("product_id")->unsigned();//
-            $table->foreign("product_id")->references("id")->on("products")->onDelete("cascade");
+            $table->bigInteger("status_id")->unsigned();//
+            $table->foreign("status_id")->references("id")->on("transaction_statuses")->onDelete("cascade");
 
             $table->timestamps();
         });
