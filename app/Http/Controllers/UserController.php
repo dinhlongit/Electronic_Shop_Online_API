@@ -3,19 +3,10 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
-/**
- * @SWG\Swagger(
- *      schemes={"http", "https"},
- *      @SWG\Info(
- *          version="1.0.0",
- *          title="L5 Swagger API",
- *          description="L5 Swagger API description",
- *          @SWG\Contact(
- *              email="darius@matulionis.lt"
- *          ),
- *      )
- *  )
- */
+use App\Repositories\Post\UserInterface;
+
+
+
 class UserController extends Controller
 {
     /**
@@ -45,9 +36,19 @@ class UserController extends Controller
      * )
      *
      */
+
+
+    protected $_userRepository;
+
+    public function __construct(UserInterface $userRepository)
+    {
+        $this->_userRepository = $userRepository;
+    }
+
+
     public function index()
     {
-        $users=User::all();
+        $users=$this->_userRepository->all();
         return response()->json($users, 200,[],JSON_NUMERIC_CHECK);
     }
 

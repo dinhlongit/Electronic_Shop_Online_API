@@ -16,12 +16,16 @@ class Product extends Model
     }
     public function photoarray()
     {
-            return $this->hasMany('App\PhotoArrays','product_id','id');
+            return $this->hasMany('App\PhotoArray','product_id','id');
     }
 
     public function promotionproduct()
     {
         return $this->hasMany('App\PromotionProduct','product_id','id');
+    }
+
+    public function importproduct(){
+        return $this->hasMany("App\ImportProduct","product_id","id");
     }
     public function productstatus()
     {

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Post\UserInterface;
 use App\UserRole;
 use Illuminate\Http\Request;
 
 class UserRoleController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
