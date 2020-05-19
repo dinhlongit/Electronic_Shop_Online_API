@@ -18,7 +18,6 @@ class CreateImportProductsTable extends Migration
             $table->integer("amount");
             $table->double("export_price");
             $table->double("import_price");
-
             $table->bigInteger("product_id")->unsigned();//
             $table->foreign("product_id")->references("id")->on("products")->onDelete("cascade");
             $table->bigInteger("import_id")->unsigned();//

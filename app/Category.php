@@ -8,6 +8,10 @@ class Category extends Model
 {
     protected $guarded=[];
 
+    protected $fillable =[
+      'name','photo','parrent_id'
+    ];
+
     public function categories()
     {
         return $this->hasMany(Category::class,'parrent_id');

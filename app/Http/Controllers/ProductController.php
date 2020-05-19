@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    private $_productRepository;
+
+    public function __construct(ProductRepositoryInterface $productRepository)
+    {
+     $this->_productRepository = $productRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->_productRepository->getProducts());
     }
 
     /**

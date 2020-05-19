@@ -27,6 +27,8 @@ class Product extends Model
     public function importproduct(){
         return $this->hasMany("App\ImportProduct","product_id","id");
     }
+
+
     public function productstatus()
     {
         return $this->hasMany('App\ProductStatus','status_id','id');

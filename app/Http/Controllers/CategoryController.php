@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Resources\CategoryResource;
 use App\Repositories\Category\CategoryRepositoryInterface;
 
 use Illuminate\Http\Request;
@@ -137,7 +138,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-
           try {
              $this->_categoryRepository->delete($id);
               $result = array(
