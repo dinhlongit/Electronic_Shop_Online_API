@@ -16,6 +16,7 @@ class CreateTransactionProductsTable extends Migration
         Schema::create('transaction_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('amount');
+            $table->integer('price');
             $table->bigInteger("transaction_id")->unsigned();
             $table->foreign("transaction_id")->references("id")->on("transactions")->onDelete("cascade");
             $table->bigInteger("product_id")->unsigned();

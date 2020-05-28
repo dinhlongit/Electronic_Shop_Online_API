@@ -28,8 +28,6 @@ class HomeController extends Controller
     {
 
         $categories = $this->_categoryRepository->getCategories();
-
-
         $samsungphone = $this->_productRepository->getProductByCategory(14);
         $fan = $this->_productRepository->getProductByCategory(13);
         $fridge = $this->_productRepository->getProductByCategory(52);

@@ -15,17 +15,15 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->double("price");
-            $table->longText("description");
-            $table->string("full_name");
+            $table->string("full_name")->nullable();
 
-            $table->bigInteger("user_id")->unsigned();//
+            $table->bigInteger("user_id")->unsigned()->nullable();//
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-
+            $table->longText("street")->nullable();
             $table->bigInteger("address_id")->unsigned();//
             $table->foreign("address_id")->references("id")->on("addresses")->onDelete("cascade");
 
-            $table->bigInteger("status_id")->unsigned();//
+            $table->bigInteger("status_id")->unsigned()->default(1);//
             $table->foreign("status_id")->references("id")->on("transaction_statuses")->onDelete("cascade");
 
             $table->timestamps();
