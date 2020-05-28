@@ -24,6 +24,14 @@ class Product extends Model
         return $this->hasMany('App\PromotionProduct','product_id','id');
     }
 
+    public function promotions(){
+        return $this->belongsToMany(\App\Promotion::class,'promotion_products')->withPivot('title','product_id','promotion_id');
+    }
+    public function reviews(){
+        return $this->hasMany('App\Review','product_id','id');
+    }
+
+
     public function importproduct(){
         return $this->hasMany("App\ImportProduct","product_id","id");
     }

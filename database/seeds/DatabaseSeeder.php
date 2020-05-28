@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(Supplier::class);
         $this->call(ImportProduct::class);
         $this->call(Import::class);
+        $this->call(RoleUserSeeder::class);
+        $this->call(Role::class);
+        $this->call(ReviewSeeder::class);
+
     }
 }

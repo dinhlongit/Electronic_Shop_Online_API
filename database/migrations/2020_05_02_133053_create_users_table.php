@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('password');
             $table->string('profile_photo')->nullable();
-            $table->date("birthday");
-            $table->bigInteger('address_id')->unsigned();
+            $table->date("birthday")->nullable();
+            $table->bigInteger('address_id')->unsigned()->nullable();
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->rememberToken();
 

@@ -13,15 +13,16 @@ class PromotionSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         DB::table('promotions')->truncate();
-        $promotions = [
-            ['khuyen mai trong thang 5','2020/05/01','2020/05/08'],
-            ['khuyen mai trong thang 6','2020/06/01','2020/06/05'],
+        $reviews = [
+            ['good product',5,1,1],
+            ['hey everyone best to bye', 5,2,2],
         ];
-        foreach ($promotions as $promotion) {
-            App\Promotion::create([
-                'name'=>$promotion[0],
-                'start_date'=>$promotion[1],
-                'end_date'=>$promotion[2]
+        foreach ($reviews as $review) {
+            App\Review::create([
+                'content'=>$review[0],
+                'rating'=>$review[1],
+                'product_id'=>$review[2],
+                'user_id'=>$review[3]
             ]);
         }
 

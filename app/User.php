@@ -15,8 +15,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'name','phone_number', 'email', 'password','birthday','address','address_id'
     ];
 
     /**
@@ -40,6 +42,10 @@ class User extends Authenticatable
     protected $guarded=[];
     public function userrole(){
         $this->hasMany('App/UserRole','user_id','id');
+    }
+
+    public function roles(){
+       return $this->belongsToMany(\App\Role::class,'user_roles')->withPivot('user_id','role_id');
     }
 
 }

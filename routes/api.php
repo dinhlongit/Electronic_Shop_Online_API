@@ -13,10 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 Auth::routes();
-Route::resource('user','UserController');
-Route::resource('categories','CategoryController');
+Route::resource('home','HomeController');
 Route::resource('products','ProductController');
+Route::resource('users','UserController');
+Route::resource('promotions','PromotionController');
+Route::resource('categories','CategoryController');
+Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
+
+
+
+
+
+
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();

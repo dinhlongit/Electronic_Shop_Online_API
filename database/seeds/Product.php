@@ -19,10 +19,10 @@ class Product extends Seeder
             [3,1,"Samsung S3","bSln7PkR8J01B5eFAuStqJvjq1QduF8VSywLKexP.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:21","2020-05-19 09:43:21"],
             [4,1,"Samsung S4","AzNi1fL1ISFpGmqHmv3dtPGgnkIlBpUhexAq4HYJ.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:22","2020-05-19 09:43:22"],
             [5,1,"Samsung S5","e0ovHraogdY8z4RnFOhM8zkYmgkkcWZ7LWbtOINl.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:23","2020-05-19 09:43:23"],
-            [6,1,"Samsung S6","QvwxVMFyUuiSbAQgxlm5C7ZTO0HCUs9e4Nbun0Ah.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:24","2020-05-19 09:43:24"],
-            [7,1,"Samsung S7","xOe46M7YScwE5ZMdNdEsQkk6eO7k4LJxP3D7LTDy.jpeg","u003cpu003enull1u003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:25","2020-05-19 09:43:25"],
-            [8,1,"Samsung S8","aEFWzp2LcME8QVFBveJAmVEXEpRzZuXp88kRtqMk.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:26","2020-05-19 09:43:26"],
-            [9,1,"Samsung S9","C2D1mDTrW7Ly7dXVVTpmn4eb1Mc09nZTqW5sgWeX.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:27","2020-05-19 09:43:27"],
+            [6,3,"Samsung S6","QvwxVMFyUuiSbAQgxlm5C7ZTO0HCUs9e4Nbun0Ah.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:24","2020-05-19 09:43:24"],
+            [7,3,"Samsung S7","xOe46M7YScwE5ZMdNdEsQkk6eO7k4LJxP3D7LTDy.jpeg","u003cpu003enull1u003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:25","2020-05-19 09:43:25"],
+            [8,3,"Samsung S8","aEFWzp2LcME8QVFBveJAmVEXEpRzZuXp88kRtqMk.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:26","2020-05-19 09:43:26"],
+            [9,3,"Samsung S9","C2D1mDTrW7Ly7dXVVTpmn4eb1Mc09nZTqW5sgWeX.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",1,24,"2020-05-19 09:43:27","2020-05-19 09:43:27"],
             [10,1,"Sony 1","uv7PFwcbKAVUBAJ5xDf3MeLTDcHvPtkbY732GPM8.jpeg","u003cpu003enullu003c/pu003e","u003cpu003e1u003c/pu003e",2,43,"2020-05-19 09:43:37","2020-05-19 09:43:37"],
             [11,1,"Sony 2","epK77FSq0Uu0At4ZtzTsAVF6rrBaw3DJaNTEzCwI.jpeg","u003cpu003eqqu0026lt;/pu0026gt;u003c/pu003e","u003cpu003e1u003c/pu003e",2,43,"2020-05-19 09:43:28","2020-05-19 09:43:28"],
             [12,1,"Sony 3","8B24GjXCYt5IHbEekqlVaRHeI5YxS6UnsZpG29vr.jpeg","u003cpu003eqqu0026lt;/pu0026gt;u003c/pu003e","u003cpu003e1u003c/pu003e",2,43,"2020-05-19 09:43:29","2020-05-19 09:43:29"],
@@ -35,6 +35,7 @@ class Product extends Seeder
             [19,1,"Tủ lạnh Hatachi cao cấp","3ykD4kv7BBNQCN0RsZGoFOjU6OAxPwn5IKpSMqJe.png","u003cpu003emtu003c/pu003e","u003cpu003e1u003c/pu003e",11,57,"2020-05-19 09:43:33","2020-05-19 09:43:33"],
             [20,1,"Tivi Samsung 32IN Led thường","yNSLZCTYD9ttoUw7DRP6j2xxObQYN6wQMYgnqfsU.jpeg","u003cpu003eLoại tivi:Tivi LED thườngu003cbr /u003eSố inch: 32 inchu003cbr /u003eĐộ phu0026acirc;n giải:HDu003cbr /u003eCổng HDMI:2 cổngu003cbr /u003eCổng USB:1 cổngu003c/pu003e","u003cpu003e1u003c/pu003e",1,61,"2020-05-19 09:43:40","2020-05-19 09:43:40"],
         ];
+
 
         foreach ($products as $product) {
             App\Product::create([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Repositories\Category\CategoryRepositoryInterface;
 
@@ -25,7 +26,12 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $result = $this->_categoryRepository->getCategories();
+        $data = $this->_categoryRepository->getCategories();
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Fetch Successfully',
+            'data'=> $data
+        );
         return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
     /**
@@ -44,10 +50,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         try{
-
             $data = $request->only('name','photo','parrent_id');
             $this->_categoryRepository->create($data);
             $result = array(
@@ -75,7 +80,6 @@ class CategoryController extends Controller
     public function show($id)
     {
         $data_find = $this->_categoryRepository->find($id);
-
         if (is_null($data_find)){
             return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
         }
@@ -114,10 +118,10 @@ class CategoryController extends Controller
             }
             $this->_categoryRepository->update($id,$request->only('name','photo','parrent_id'));
             $result = array(
-                'status' => 'OK',
-                'message'=> 'Update Successfully',
-                'data'=> $data_find
-            );
+                    'status' => 'OK',
+                    'message'=> 'Update Successfully',
+                    'data'=> $data_find
+                );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
            } catch (Exception $e) {
             $result = array(

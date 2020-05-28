@@ -16,6 +16,7 @@ class ProductStatus extends Seeder
         $product_statuses = [
             ['1','Còn Hàng'],
             ['2','Hết Hàng'],
+            ['3','Sản Phẩm Mới'],
         ];
         foreach ($product_statuses as $product_status) {
             App\ProductStatus::create([
