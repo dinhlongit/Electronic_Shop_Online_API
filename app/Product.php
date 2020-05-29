@@ -36,6 +36,10 @@ class Product extends Model
         return $this->hasMany("App\ImportProduct","product_id","id");
     }
 
+    public function transactions(){
+        return $this->belongsToMany("App\Transaction","transaction_products")->withPivot('product_id','transantion_id','price','amount');
+    }
+
 
     public function productstatus()
     {

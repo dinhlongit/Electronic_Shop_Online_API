@@ -20,11 +20,7 @@ Route::resource('promotions','PromotionController');
 Route::resource('categories','CategoryController');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
-
-
-
-
-
+Route::resource('orders','TransactionController');
 
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

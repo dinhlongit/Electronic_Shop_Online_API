@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+    private $_orderRepository;
+
+    public function __construct(OrderRepositoryInterface $orderRepository)
+    {
+        $this->_orderRepository = $orderRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+      dd($this->_orderRepository->getOrders());
     }
 
     /**

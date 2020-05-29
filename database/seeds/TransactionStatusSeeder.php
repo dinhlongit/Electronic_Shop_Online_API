@@ -19,7 +19,7 @@ class TransactionStatusSeeder extends Seeder
             ['3','Đơn Hàng Hủy'],
         ];
         foreach ($tran_statuses as $trans_status) {
-            App\ProductStatus::create([
+            App\TransactionStatus::create([
                 'name'=>$trans_status[1],
             ]);
         }
