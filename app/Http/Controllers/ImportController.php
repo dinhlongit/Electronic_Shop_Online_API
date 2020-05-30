@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Import;
+use App\Repositories\Import\ImportRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ImportController extends Controller
@@ -12,9 +13,16 @@ class ImportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private  $_importRepository;
+
+    public function __construct(ImportRepositoryInterface $importRepository)
+    {
+        $this->_importRepository = $importRepository;
+    }
+
     public function index()
     {
-        //
+       dd($this->_importRepository->getImports());
     }
 
     /**

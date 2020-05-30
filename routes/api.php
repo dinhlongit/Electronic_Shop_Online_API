@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 Auth::routes();
 Route::resource('home','HomeController');
 Route::resource('products','ProductController');
+Route::resource('imports','ImportController');
 Route::resource('users','UserController');
 Route::resource('promotions','PromotionController');
 Route::resource('categories','CategoryController');
