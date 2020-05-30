@@ -111,7 +111,7 @@ class UserController extends Controller
         $result = array(
             'status' => 'OK',
             'message'=> 'Show Successfully',
-            'data'=> $this->_userRepository->getUserById($id)
+            'data'=> $this->_userRepository($id)
         );
         return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }

@@ -13,4 +13,8 @@ class Transaction extends Model
     public function transactionproduct() {
         return $this->hasMany('App\TransactionProduct','transaction_id','id');
     }
+    public function products(){
+        return $this->belongsToMany(\App\Product::class,"transaction_products")->withPivot('amount','price');
+    }
+
 }

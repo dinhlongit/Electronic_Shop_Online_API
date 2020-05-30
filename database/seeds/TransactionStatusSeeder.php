@@ -15,8 +15,10 @@ class TransactionStatusSeeder extends Seeder
         DB::table('transaction_statuses')->truncate();
         $tran_statuses = [
             ['1','Chưa Xử Lý'],
-            ['2','Đã Xử Lý'],
-            ['3','Đơn Hàng Hủy'],
+            ['2','Đã Đóng Gói'],
+            ['3','Đang Giao'],
+            ['4','Đã Giao'],
+            ['5','Đã Hủy'],
         ];
         foreach ($tran_statuses as $trans_status) {
             App\TransactionStatus::create([

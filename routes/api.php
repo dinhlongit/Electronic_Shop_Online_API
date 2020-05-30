@@ -21,6 +21,21 @@ Route::resource('categories','CategoryController');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
 Route::resource('orders','TransactionController');
+Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser');
+
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+
+    Route::post('login', 'Auth\AuthController@login');
+    Route::post('logout', 'Auth\AuthController@logout');
+    Route::post('refresh', 'Auth\AuthController@refresh');
+    Route::post('me', 'Auth\AuthController@me');
+
+});
 
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

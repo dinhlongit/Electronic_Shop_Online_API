@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Transaction;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
@@ -23,6 +25,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
+
+
       dd($this->_orderRepository->getOrders());
     }
 
@@ -44,7 +48,27 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $cart = $request->only('cart');
+            $cart = json_decode($cart['cart']);
+            $transaction_info = $request->only('full_name','user_id','street','address_id','status_id');
+            $this->_orderRepository->submitOrder($cart,$transaction_info);
+
+           // dd($cart);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Insert Successfully',
+                'data'=> $cart,$transaction_info
+            );
+            return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
+        }catch (Exception $e){
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Insert Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
@@ -66,7 +90,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+
     }
 
     /**
@@ -76,9 +100,43 @@ class TransactionController extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, $transaction_id)
     {
-        //
+        try {
+            $data_find = $this->_orderRepository->find($transaction_id);
+            if (is_null($data_find)){
+                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            }
+            $this->_orderRepository->update($transaction_id,$request->only('status_id'));
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Update Successfully',
+                'data'=> $data_find
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Update Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
+    }
+
+    public function getOrderByUser($user_id){
+        $find_user = User::find($user_id);
+        if (is_null($find_user)){
+            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        }
+        $data_find = $this->_orderRepository->getOrderByUser($user_id);
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Show Successfully',
+            'data'=> $data_find
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+
     }
 
     /**

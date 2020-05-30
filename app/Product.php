@@ -37,7 +37,7 @@ class Product extends Model
     }
 
     public function transactions(){
-        return $this->belongsToMany("App\Transaction","transaction_products")->withPivot('product_id','transantion_id','price','amount');
+        return $this->belongsToMany("App\Transaction","transaction_products")->withPivot('amount','price');
     }
 
 
