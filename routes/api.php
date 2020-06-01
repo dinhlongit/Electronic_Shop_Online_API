@@ -17,10 +17,13 @@ Route::resource('home','HomeController');
 Route::resource('products','ProductController');
 Route::resource('imports','ImportController');
 Route::resource('users','UserController');
+Route::resource('reviews','ReviewController');
+Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
 Route::resource('categories','CategoryController');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
+Route::resource('suppliers','SupplierController');
 Route::resource('orders','TransactionController');
 Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser');
 

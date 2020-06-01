@@ -45,6 +45,7 @@ class UserController extends Controller
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
+      //  $this->middleware('auth.role');
         $this->_userRepository = $userRepository;
     }
 

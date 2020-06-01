@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Supplier\SupplierRepositoryInterface;
 use App\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 class SupplierController extends Controller
 {
+    private $_supplierRepository;
+    public function __construct(SupplierRepositoryInterface $supplierRepository)
+    {
+        $this->_supplierRepository = $supplierRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $result = $this->_supplierRepository->getAll();
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -35,7 +45,24 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $data = $request->only('name');
+           $supplier =  $this->_supplierRepository->create($data);
+            $result = array(
+                'status' => 'OK',
+                'message' => 'Insert Successfully',
+                'data' => ''
+            );
+            return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message' => 'Insert Failed',
+                'data' => $supplier
+            );
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
@@ -44,9 +71,19 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show($id)
     {
-        //
+        $data_find = $this->_supplierRepository->find($id);
+
+        if (is_null($data_find)){
+            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        }
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Show Successfully',
+            'data'=> $data_find
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -57,7 +94,8 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+
+
     }
 
     /**
@@ -67,9 +105,28 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $data_find = $this->_supplierRepository->find($id);
+            if (is_null($data_find)){
+                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            }
+           $data =  $this->_supplierRepository->update($id,$request->only('name'));
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Update Successfully',
+                'data'=> $data
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Update Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
@@ -78,8 +135,28 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy($id)
     {
-        //
+
+        try {
+            $data_find = $this->_supplierRepository->find($id);
+            if (is_null($data_find)){
+                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            }
+            $data = $this->_supplierRepository->delete($id);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Delete Successfully',
+                'data'=> $data
+            );
+            return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Delete Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 }

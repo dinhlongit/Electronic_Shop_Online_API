@@ -37,7 +37,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
      $roles = $user->roles()->get()->pluck('name','id');
 
      return ['user' => $user->toArray(),
-             'role' => $roles->toArray() ];
+             'role' => $roles->toArray()];
 
     }
 
@@ -87,8 +87,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             DB::rollback();
             return $check;
         }
-
-        return $check;
+            return $check;
     }
 
     public function deleteUser($id)
