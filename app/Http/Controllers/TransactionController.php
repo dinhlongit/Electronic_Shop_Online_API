@@ -25,9 +25,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-
-
-      dd($this->_orderRepository->getOrders());
+        $result = $this->_orderRepository->getOrders();
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**

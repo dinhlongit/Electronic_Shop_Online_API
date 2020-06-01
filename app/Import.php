@@ -16,4 +16,8 @@ class Import extends Model
     public function supplier(){
         return $this->belongsTo('App\Supplier','supplier_id','id');
     }
+
+    public function products(){
+        return $this->belongsToMany(\App\Product::class,'import_products')->withPivot('amount','export_price','import_price');
+    }
 }
