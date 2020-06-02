@@ -45,13 +45,15 @@ class UserController extends Controller
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
-      //  $this->middleware('auth.role');
+
+        //$this->middleware('auth.role:Admin');
         $this->_userRepository = $userRepository;
     }
 
 
     public function index()
     {
+
         $result=$this->_userRepository->getUsers();
         return response()->json(UserResource::collection($result),Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
@@ -105,6 +107,7 @@ class UserController extends Controller
     public function show($id)
     {
 
+
         $data_find = $this->_userRepository->find($id);
         if (is_null($data_find)){
             return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
@@ -112,7 +115,7 @@ class UserController extends Controller
         $result = array(
             'status' => 'OK',
             'message'=> 'Show Successfully',
-            'data'=> $this->_userRepository($id)
+            'data'=> $this->_userRepository->getUserById($id)
         );
         return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }

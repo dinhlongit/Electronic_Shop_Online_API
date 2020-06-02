@@ -23,6 +23,32 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
+    public function unauthorized($message = null){
+        return response()->json([
+            'message' => $message ? $message : 'You are unauthorized to access this resource',
+            'success' => false
+        ], 401);
+    }
+    public function authorizeRoles($roles)
+    {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) ||
+                $this->unauthorized();
+        }
+        return $this->hasRole($roles) ||
+            $this->unauthorized();
+    }
+
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
+
 
     public function transactions(){
         return $this->hasMany(Transaction::class,'user_id','id');

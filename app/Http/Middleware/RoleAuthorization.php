@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 
 use JWTAuth;
@@ -15,10 +16,8 @@ class RoleAuthorization
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
-       // dd("hello");
-
         try{
             $token = JWTAuth::parseToken();
             $user = $token->authenticate();
@@ -30,8 +29,8 @@ class RoleAuthorization
         }catch (JWTException $e) {
             return $this->unauthorized('Please, attach a Bearer Token to your request');
         }
-        dd($user->roles());
-        if ($user){
+
+        if ($user->hasRole($role) == true){
             return $next($request);
         }
         return $this->unauthorized();

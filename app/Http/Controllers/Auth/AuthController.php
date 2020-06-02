@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -56,6 +58,25 @@ class AuthController extends Controller
         $this->guard()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function register(Request $request){
+
+            $user = User::create([
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'phone_number' => $request->get('phone_number'),
+                'address' => $request->get('address'),
+                'address_id' => $request->get('address_id'),
+                'password' => Hash::make($request->get('password')),
+            ]);
+            $user->roles()->attach([1]);
+            return response()->json([
+                'status' => 200,
+                'message' => 'User created successfully',
+                'data' => $user
+            ]);
+
     }
 
     /**

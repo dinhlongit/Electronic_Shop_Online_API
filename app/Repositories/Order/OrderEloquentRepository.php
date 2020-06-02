@@ -89,5 +89,4 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
        return $bigdata;
     }
 
-
 }
