@@ -21,13 +21,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *             url="http://www.apache.org/licenses/LICENSE-2.0.html"
  *         )
  *     ),
- *     @OA\Server(
- *         description="OpenApi host",
+ *         @OA\Server(
+ *         description="OpenApi serve",
  *         url="/public"
  *     ),
  *     @OA\ExternalDocumentation(
  *         description="Find out more about Swagger",
- *         url="http://swagger.ioa"
+ *         url="http://swagger.io"
  *     )
  * )
  */
