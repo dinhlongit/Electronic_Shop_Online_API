@@ -378,10 +378,7 @@ class DocumentController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Success with some route data"
-     *     ),
-     *     security={
-     *         {"bearer": {}}
-     *     }
+     *     )
      * )
      */
 
@@ -424,7 +421,10 @@ class DocumentController extends Controller
      *   ),
      *   @OA\Response(response=200, description="successful operation"),
      *   @OA\Response(response=400, description="Invalid id supplied"),
-     *   @OA\Response(response=404, description="category not found")
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
      * )
      */
 
@@ -573,7 +573,10 @@ class DocumentController extends Controller
      *   ),
      *   @OA\Response(response=200, description="successful operation"),
      *   @OA\Response(response=400, description="Invalid id supplied"),
-     *   @OA\Response(response=404, description="category not found")
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
      * )
      */
 

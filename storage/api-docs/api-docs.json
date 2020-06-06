@@ -15,8 +15,8 @@
     },
     "servers": [
         {
-            "url": "/public",
-            "description": "OpenApi host"
+            "url": "/nhom5.azurewebsites.net/public",
+            "description": "OpenApi serve"
         }
     ],
     "paths": {
@@ -442,12 +442,7 @@
                     "200": {
                         "description": "Success with some route data"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/products/{id}": {
@@ -509,7 +504,12 @@
                     "404": {
                         "description": "category not found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/orders": {
@@ -659,7 +659,12 @@
                     "404": {
                         "description": "category not found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         }
     },
@@ -709,6 +714,6 @@
     },
     "externalDocs": {
         "description": "Find out more about Swagger",
-        "url": "http://swagger.ioa"
+        "url": "http://swagger.io"
     }
 }
