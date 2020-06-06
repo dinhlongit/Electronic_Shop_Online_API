@@ -27,7 +27,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *     ),
  *     @OA\ExternalDocumentation(
  *         description="Find out more about Swagger",
- *         url="http://swagger.io"
+ *         url="http://swagger.ioa"
  *     )
  * )
  */
