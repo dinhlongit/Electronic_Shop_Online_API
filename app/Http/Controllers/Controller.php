@@ -21,10 +21,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *             url="http://www.apache.org/licenses/LICENSE-2.0.html"
  *         )
  *     ),
- *     @OA\Server(
- *         description="OpenApi host",
- *         url="http://nhom5.azurewebsites.net/public"
- *     ),
+
  *     @OA\ExternalDocumentation(
  *         description="Find out more about Swagger",
  *         url="http://swagger.io"
