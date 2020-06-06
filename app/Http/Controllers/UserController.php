@@ -12,40 +12,13 @@ use App\Repositories\Post\UserInterface;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * @SWG\GET(
-     *   path="api/user",
-     *   summary="All User",
-     *   operationId="store",
-     *   tags={"User"},
-     *   security={
-     *       {"ApiKeyAuth": {}}
-     *   },
-     *     @SWG\Parameter(
-     *       name="first_name",
-     *       in="query",
-     *       required=true,
-     *       type="string"
-     *   ),
-     *   @SWG\Response(response=200, description="successful operation"),
-     *   @SWG\Response(response=406, description="not acceptable"),
-     *   @SWG\Response(response=500, description="internal server error")
-     * )
-     *
-     */
 
 
     protected $_userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
-
+        // $this->middleware('swfix');
         //$this->middleware('auth.role:Admin');
         $this->_userRepository = $userRepository;
     }

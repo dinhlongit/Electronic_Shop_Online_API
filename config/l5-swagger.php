@@ -123,6 +123,17 @@ return [
     |--------------------------------------------------------------------------
     */
     'security' => [
+
+        'bearer' => [
+            'type' => 'http',
+            'description' => 'Authorization token obtained from logging in.',
+            'name' => 'Authorization',
+            'in' => 'header',
+            'scheme' => 'bearer',
+        ],
+
+
+
         /*
         |--------------------------------------------------------------------------
         | Examples of Security definitions
@@ -147,6 +158,7 @@ return [
             ]
         ],
         */
+
 
         /* Open API 3.0 support
         'passport' => [ // Unique name of security
@@ -188,7 +200,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'swagger_version' => env('SWAGGER_VERSION', '2.0'),
+    'swagger_version' => env('SWAGGER_VERSION', '3.0'),
 
     /*
     |--------------------------------------------------------------------------

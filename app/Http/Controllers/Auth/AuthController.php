@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
+
     /**
      * Create a new AuthController instance.
      *
@@ -16,7 +18,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+
+        $this->middleware('auth:api', ['except' => ['login','register','logout','me','refresh']]);
     }
 
     /**
@@ -45,7 +48,19 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json($this->guard()->user());
+        $user = auth()->user();
+        if ($user) {
+            return response()->json([
+            'status' => 400,
+            'message' => 'You must login before logout',
+            'data' => $this->guard()->user()],400
+            );
+        }
+        return response()->json([
+            'status' => 400,
+            'message' => 'You must login before logout',
+            'data' => ''
+        ],400);
     }
 
     /**
@@ -55,27 +70,43 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        $this->guard()->logout();
+        $user = auth()->user();
+        if ($user) {
+            $this->guard()->logout();
+            return response()->json(['message' => 'Successfully logged out'],200    );
+        }
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([
+        'status' => 400,
+        'message' => 'You must login before logout',
+        'data' => ''
+    ],400);
     }
 
     public function register(Request $request){
 
-            $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'phone_number' => $request->get('phone_number'),
-                'address' => $request->get('address'),
-                'address_id' => $request->get('address_id'),
-                'password' => Hash::make($request->get('password')),
-            ]);
-            $user->roles()->attach([1]);
-            return response()->json([
-                'status' => 200,
-                'message' => 'User created successfully',
-                'data' => $user
-            ]);
+           try {
+               $user = User::create([
+                   'name' => $request->get('name'),
+                   'email' => $request->get('email'),
+                   'phone_number' => $request->get('phone_number'),
+                   'address' => $request->get('address'),
+                   'address_id' => $request->get('address_id'),
+                   'password' => Hash::make($request->get('password')),
+               ]);
+               $user->roles()->attach([3]);
+               return response()->json([
+                   'status' => 200,
+                   'message' => 'User created successfully',
+                   'data' => $user
+               ],200);
+           }catch (\Exception $ex){
+               return response()->json([
+                   'status' => 400,
+                   'message' => 'Not Ok',
+                   'data' => ''
+               ],400);
+           }
 
     }
 
@@ -85,8 +116,16 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function refresh()
-    {
-        return $this->respondWithToken($this->guard()->refresh());
+    { $user = auth()->user();
+        if ($user) {
+            return $this->respondWithToken($this->guard()->refresh());
+        }
+        return response()->json([
+            'status' => 400,
+            'message' => 'You must login to refresh',
+            'data' => ''
+        ],400);
+
     }
 
     /**
@@ -101,7 +140,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24
         ]);
     }
 

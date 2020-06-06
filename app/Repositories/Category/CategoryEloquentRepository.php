@@ -26,8 +26,5 @@ class CategoryEloquentRepository extends EloquentRepository implements CategoryR
       //  \DB::connection()->enableQueryLog();
         return Category::where('parrent_id',null)->with('childrenCategories')->select('id','name','photo','parrent_id')->get();
       //  dd($query = \DB::getQueryLog());
-
-
-
     }
 }

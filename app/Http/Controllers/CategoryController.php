@@ -16,6 +16,7 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
+        $this->middleware('auth.role:Admin',['except' => ['index','show']]);
        $this->_categoryRepository = $categoryRepository;
     }
     /**
@@ -50,15 +51,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(Request $request)
     {
         try{
             $data = $request->only('name','photo','parrent_id');
-            $this->_categoryRepository->create($data);
+          $category =   $this->_categoryRepository->create($data);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Insert Successfully',
-                'data'=> ''
+                'data'=> $category
             );
             return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
@@ -143,13 +144,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
           try {
-             $this->_categoryRepository->delete($id);
+           $cate =  $this->_categoryRepository->delete($id);
               $result = array(
                   'status' => 'OK',
                   'message'=> 'Delete Successfully',
-                  'data'=> ''
+                  'data'=> $cate
               );
-              return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
+              return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
           } catch (Exception $e) {
               $result = array(
                   'status' => 'ER',

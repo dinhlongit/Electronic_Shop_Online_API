@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 //Auth::routes();
+Route::resource('categories','CategoryController');
 Route::resource('home','HomeController');
 Route::resource('products','ProductController');
 Route::resource('imports','ImportController');
@@ -20,7 +21,6 @@ Route::resource('users','UserController');
 Route::resource('reviews','ReviewController');
 Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
-Route::resource('categories','CategoryController');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
 Route::resource('suppliers','SupplierController');
@@ -33,9 +33,9 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-
+   // Route::post('register', 'Auth\AuthController@register');
+    Route::post('register', [ 'as' => 'register', 'uses' => 'Auth\AuthController@register']);
     Route::post('login', 'Auth\AuthController@login');
-    Route::post('register', 'Auth\AuthController@register');
     Route::post('logout', 'Auth\AuthController@logout');
     Route::post('refresh', 'Auth\AuthController@refresh');
     Route::post('me', 'Auth\AuthController@me');
