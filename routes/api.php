@@ -24,8 +24,10 @@ Route::resource('promotions','PromotionController');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
 Route::resource('suppliers','SupplierController');
+
 Route::resource('orders','TransactionController');
-Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser');
+Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->middleware('auth.belongto:Admin,Nhân Viên');
+
 
 
 

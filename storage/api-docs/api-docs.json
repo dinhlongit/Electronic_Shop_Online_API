@@ -450,13 +450,75 @@
                 ]
             }
         },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Products by id",
+                "description": "",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
+        "/api/categories/{id}/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Products by Category",
+                "description": "",
+                "operationId": "getProductByCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
         "/api/orders": {
             "get": {
                 "tags": [
                     "Orders"
                 ],
                 "summary": "Get all orders",
-                "operationId": "someRoute",
+                "operationId": "index",
                 "responses": {
                     "200": {
                         "description": "Success with some route data"
@@ -467,14 +529,143 @@
                         "bearer": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Place an order",
+                "description": "",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "cart": [
+                                        {
+                                            "product_id": 1,
+                                            "amount": 3,
+                                            "price": 4
+                                        },
+                                        {
+                                            "product_id": 2,
+                                            "amount": 44,
+                                            "price": 4
+                                        }
+                                    ],
+                                    "transaction_info": {
+                                        "user_id": 1,
+                                        "full_name": "dinh long",
+                                        "street": "27 Thai Thi Boi",
+                                        "address_id": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/orders/{id}": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Update Status order by id",
+                "description": "",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "query",
+                        "description": "name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         }
     },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
-    },
     "components": {
+        "schemas": {
+            "Orders": {
+                "properties": {
+                    "product_id": {
+                        "type": "integer"
+                    },
+                    "amount": {
+                        "type": "integer"
+                    },
+                    "price": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Transactions": {
+                "properties": {
+                    "full_name": {
+                        "type": "json"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "street": {
+                        "type": "string"
+                    },
+                    "address_id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "securitySchemes": {
             "bearer": {
                 "type": "http",
@@ -484,5 +675,9 @@
                 "scheme": "bearer"
             }
         }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
     }
 }

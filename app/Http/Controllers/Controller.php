@@ -23,7 +23,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *     ),
  *     @OA\Server(
  *         description="OpenApi host",
- *         url="http://127.0.0.1:8000"
+ *         url="http://nhom5.azurewebsites.net/public"
  *     ),
  *     @OA\ExternalDocumentation(
  *         description="Find out more about Swagger",

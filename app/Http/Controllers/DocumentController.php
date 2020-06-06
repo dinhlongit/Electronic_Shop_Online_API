@@ -385,6 +385,52 @@ class DocumentController extends Controller
      * )
      */
 
+
+
+
+    /**
+     * @OA\Get(path="/api/products/{id}",
+     *   tags={"Product"},
+     *   summary="Get Products by id",
+     *   description="",
+     *   operationId="show",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found")
+     * )
+     */
+
+    /**
+     * @OA\Get(path="/api/categories/{id}/products",
+     *   tags={"Product"},
+     *   summary="Get Products by Category",
+     *   description="",
+     *   operationId="getProductByCategory",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found")
+     * )
+     */
+
+
+
+
 //*******************************************************Order*******************************************************************//
 
     /**
@@ -392,7 +438,7 @@ class DocumentController extends Controller
      *     path="/api/orders",
      *     tags={"Orders"},
      *     summary="Get all orders",
-     *     operationId="someRoute",
+     *     operationId="index",
      *     @OA\Response(
      *         response=200,
      *         description="Success with some route data"
@@ -403,8 +449,111 @@ class DocumentController extends Controller
      * )
      */
 
+    /**
+     * @OA\Schema(
+     *   schema="Orders",
+     *   @OA\Property(
+     *     property="product_id",
+     *     type="integer"
+     *   ),
+     *   @OA\Property(
+     *     property="amount",
+     *     type="integer"
+     *   ),
+     *   @OA\Property(
+     *     property="price",
+     *     type="integer"
+     *   ),
+     * )
+     */
 
 
+    /**
+     * @OA\Schema(
+     *   schema="Transactions",
+     *   @OA\Property(
+     *     property="full_name",
+     *     type="json"
+     *   ),
+     *   @OA\Property(
+     *     property="user_id",
+     *     type="integer"
+     *   ),
+     *   @OA\Property(
+     *     property="street",
+     *     type="string"
+     *   ),
+     *   @OA\Property(
+     *     property="address_id",
+     *     type="integer"
+     *   ),
+     * )
+     */
+
+
+
+    /**
+     * @OA\Post(path="/api/orders",
+     *   tags={"Orders"},
+     *   summary="Place an order",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *                 example={"cart":{{"product_id" : 1, "amount" : 3, "price" : 4},{"product_id" : 2, "amount" : 44, "price" : 4}},"transaction_info" : {"user_id" : 1, "full_name" : "dinh long" ,"street" : "27 Thai Thi Boi", "address_id" : 1}}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+    /**
+     * @OA\PUT(path="/api/orders/{id}",
+     *   tags={"Orders"},
+     *   summary="Update Status order by id",
+     *   description="",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="status_id",
+     *     required=true,
+     *     in="query",
+     *     description="name",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
 
 
 

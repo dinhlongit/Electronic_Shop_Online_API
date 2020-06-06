@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Transaction;
 use App\User;
+use http\Message\Body;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,6 +16,7 @@ class TransactionController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
+        $this->middleware('auth.role:Admin,Nhân Viên',['except' => ['store','getOrderByUser']]);
         $this->_orderRepository = $orderRepository;
     }
 
@@ -47,13 +49,19 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $cart = $request->only('cart');
-            $cart = json_decode($cart['cart']);
-            $transaction_info = $request->only('full_name','user_id','street','address_id','status_id');
-            $this->_orderRepository->submitOrder($cart,$transaction_info);
 
-           // dd($cart);
+        $transaction_info = $request->only('transaction_info')["transaction_info"];
+        $cart = $request->only('cart')["cart"];
+
+
+        try{
+          //  $cart = $request->only('cart');
+          //  $cart = json_decode($cart['cart']);
+            //$cart = json_decode($cart);
+
+            //$transaction_info = ['Thi Nhan',4,'123 Nguyen Luong Bang',2,1];
+
+            $this->_orderRepository->submitOrder($cart,$transaction_info);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Insert Successfully',
@@ -101,6 +109,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $transaction_id)
     {
+
         try {
             $data_find = $this->_orderRepository->find($transaction_id);
             if (is_null($data_find)){
@@ -144,8 +153,29 @@ class TransactionController extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+
+
+    public function destroy(Transaction $transaction, $transaction_id)
     {
-        //
+        try {
+            $data_find = $this->_orderRepository->find($transaction_id);
+            if (is_null($data_find)){
+                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            }
+            $this->_orderRepository->update($transaction_id,5);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Update Successfully',
+                'data'=> $data_find
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Update Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 }

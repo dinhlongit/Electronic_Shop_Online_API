@@ -49,12 +49,13 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
              DB::beginTransaction();
              // create an transaction
              $transaction = Transaction::create($transaction_info);
+
              foreach ($cart as $item) {
              DB::table('transaction_products')->insert(
                   [
-                      'product_id' => $item->product_id,
-                      'amount' => $item->amount,
-                      'price' => $item->price,
+                      'product_id' => $item['product_id'],
+                      'amount' => $item['amount'],
+                      'price' => $item['price'],
                       'transaction_id' =>$transaction['id']
                   ]
               );
