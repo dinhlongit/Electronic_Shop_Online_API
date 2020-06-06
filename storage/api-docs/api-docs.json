@@ -13,6 +13,12 @@
         },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "/public",
+            "description": "OpenApi host"
+        }
+    ],
     "paths": {
         "/api/auth/login": {
             "post": {
