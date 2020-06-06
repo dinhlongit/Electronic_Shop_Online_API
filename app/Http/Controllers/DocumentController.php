@@ -556,6 +556,28 @@ class DocumentController extends Controller
      */
 
 
+    /**
+     * @OA\Get(path="/api/users/{id}/orders",
+     *   tags={"Orders"},
+     *   summary="Get Order of user",
+     *   description="",
+     *   operationId="getOrderByUser",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found")
+     * )
+     */
+
+
+
 
 
 }
