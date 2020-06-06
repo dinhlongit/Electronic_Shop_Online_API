@@ -566,6 +566,7 @@ class DocumentController extends Controller
      *     name="id",
      *     in="path",
      *     required=true,
+
      *     @OA\Schema(
      *         type="string"
      *     )
