@@ -584,4 +584,547 @@ class DocumentController extends Controller
 
 
 
+
+    //*******************************************************Role*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/roles",
+     *     tags={"Role"},
+     *     summary="Get all role ",
+     *     operationId="someRoute",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     ),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     *
+     */
+
+    /**
+     * @OA\Get(path="/api/roles/{id}",
+     *   tags={"Role"},
+     *   summary="Get Role by id",
+     *   description="",
+     *   operationId="show",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+    /**
+     * @OA\Post(path="/api/roles",
+     *   tags={"Role"},
+     *   summary="Add Role",
+     *   description="Add new Eole",
+     *   operationId="store",
+     *   @OA\Parameter(
+     *     name="name",
+     *     required=true,
+     *     in="query",
+     *     description="name",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid "),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+    /**
+     * @OA\Delete(path="/api/roles/{id}",
+     *   tags={"Role"},
+     *   summary="Delete Role by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="Role not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+    /**
+     * @OA\PUT(path="/api/roles/{id}",
+     *   tags={"Role"},
+     *   summary="Edit Role",
+     *   description="Edit new Eole",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     required=true,
+     *     in="path",
+     *     description="id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="name",
+     *     required=true,
+     *     in="query",
+     *     description="name",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid "),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+
+
+
+
+
+
+    //*******************************************************Producer*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/producers",
+     *     tags={"Producer"},
+     *     summary="Get all producer ",
+     *     operationId="someRoute",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     ),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     *
+     */
+
+    /**
+     * @OA\Get(path="/api/producers/{id}",
+     *   tags={"Producer"},
+     *   summary="Get producer by id",
+     *   description="",
+     *   operationId="show",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+    /**
+     * @OA\Post(path="/api/producers",
+     *   tags={"Producer"},
+     *   summary="Add Producer",
+     *   description="Add new Producer",
+     *   operationId="store",
+     *   @OA\Parameter(
+     *     name="name",
+     *     required=true,
+     *     in="query",
+     *     description="name",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid "),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+    /**
+     * @OA\Delete(path="/api/producers/{id}",
+     *   tags={"Producer"},
+     *   summary="Delete producer by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="Role not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+    /**
+     * @OA\PUT(path="/api/producers/{id}",
+     *   tags={"Producer"},
+     *   summary="Edit Producer",
+     *   description="Edit Producer",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     required=true,
+     *     in="path",
+     *     description="id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="name",
+     *     required=true,
+     *     in="query",
+     *     description="name",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid "),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+    //*******************************************************User*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/users",
+     *     tags={"User"},
+     *     summary="Get all user ",
+     *     operationId="someRoute",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     ),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     *
+     */
+    /**
+     * @OA\Get(path="/api/users/{id}",
+     *   tags={"User"},
+     *   summary="Get user by id",
+     *   description="",
+     *   operationId="show",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+    /**
+     * @OA\Post(path="/api/users",
+     *   tags={"User"},
+     *   summary="Add new User",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *               example = {"name":"dinhlong","phone_number":"0888999043","email":"dinhlongit1998@gmail.com","birthday":"2012-02-02","password":"123456","address":"Phu Da","address_id":"1","roles": 1}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+    /**
+     * @OA\PUT(path="/api/users/{id}",
+     *   tags={"User"},
+     *   summary="Edit User",
+     *   description="",
+     *   operationId="placeOrder",
+     *   @OA\Parameter(
+     *     name="id",
+     *     required=true,
+     *     in="path",
+     *     description="id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *               example = {"name":"dinhlong","phone_number":"0888999043","email":"dinhlongit1998@gmail.com","birthday":"2012-02-02","password":"123456","address":"Phu Da","address_id":"1","roles": 1}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+    /**
+     * @OA\Delete(path="/api/users/{id}",
+     *   tags={"User"},
+     *   summary="Delete user by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="Role not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+
+    //*******************************************************Review*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/reviews",
+     *     tags={"Review"},
+     *     summary="Get all reviews ",
+     *     operationId="someRoute",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     ),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     *
+     */
+
+    /**
+     * @OA\Get(path="/api/reviews/{id}",
+     *   tags={"Review"},
+     *   summary="Get reviews by id",
+     *   description="",
+     *   operationId="show",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+    /**
+     * @OA\Post(path="/api/users/{user_id}/reviews",
+     *   tags={"Review"},
+     *   summary="Add reviews",
+     *   description="Add new reviews",
+     *   operationId="store",
+     *   @OA\Parameter(
+     *     name="user_id",
+     *     required=true,
+     *     in="path",
+     *     description="user_id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="content",
+     *     required=true,
+     *     in="query",
+     *     description="content",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="rating",
+     *     required=true,
+     *     in="query",
+     *     description="rating",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="product_id",
+     *     required=true,
+     *     in="query",
+     *     description="product_id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid "),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
+    /**
+     * @OA\Delete(path="/api/reviews/{id}",
+     *   tags={"Review"},
+     *   summary="Delete reviews by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="Role not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+    /**
+     * @OA\PUT(path="/api/reviews/{id}",
+     *   tags={"Review"},
+     *   summary="Edit reviews",
+     *   description="Edit reviews",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     required=true,
+     *     in="path",
+     *     description="id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="content",
+     *     required=true,
+     *     in="query",
+     *     description="content",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid "),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
 }

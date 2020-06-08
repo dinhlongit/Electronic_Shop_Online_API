@@ -17,16 +17,24 @@ Route::resource('categories','CategoryController');
 Route::resource('home','HomeController');
 Route::resource('products','ProductController');
 Route::resource('imports','ImportController');
+Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');
 Route::resource('users','UserController');
+
+Route::Post('users/{user_id}/reviews', 'ReviewController@store');
 Route::resource('reviews','ReviewController');
+
 Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
 Route::resource('suppliers','SupplierController');
-
 Route::resource('orders','TransactionController');
 Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->middleware('auth.belongto:Admin,Nhân Viên');
+
+//Route::get('users/{id}', 'UserController@show')->middleware('auth.belongto:Admin');
+//Route::PUT('users/{id}', 'UserController@update')->middleware('auth.belongto:Admin');
+
+
 
 
 

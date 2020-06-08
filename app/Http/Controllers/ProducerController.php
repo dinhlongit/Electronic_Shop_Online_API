@@ -17,6 +17,7 @@ class ProducerController extends Controller
     private $_producerRepository;
     public function __construct(ProducerRepositoryInterface $producerRepository)
     {
+        $this->middleware('auth.role:Admin');
         $this->_producerRepository = $producerRepository;
     }
 

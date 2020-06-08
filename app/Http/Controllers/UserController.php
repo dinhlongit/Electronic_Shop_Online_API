@@ -18,8 +18,7 @@ class UserController extends Controller
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
-        // $this->middleware('swfix');
-        //$this->middleware('auth.role:Admin');
+        $this->middleware('auth.role:Admin',['except' => ['show']]);
         $this->_userRepository = $userRepository;
     }
 
@@ -49,10 +48,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        dd("sdfdsf");
         $check = '';
         try{
-            $data = $request->only('name','phone_number','email','birthday','password','address','address_id','roles');
-            //dd($data);
+            $data = $request->all();
+
             $check =   $this->_userRepository->addUser($data) == true ? "OK" : "ER";
             $result = array(
                 'status' => $check,
@@ -157,8 +157,7 @@ class UserController extends Controller
                 'message'=> 'Delete Successfully',
                 'data'=> ''
             );
-            dd($result);
-            return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => $check,

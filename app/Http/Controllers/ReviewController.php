@@ -17,6 +17,7 @@ class ReviewController extends Controller
     private $_reviewRepository;
     public function __construct(ReviewRepositoryInterface $reviewRepository)
     {
+        $this->middleware('auth.role:Admin',['except' => ['store'] ]);
         $this->_reviewRepository = $reviewRepository;
     }
 
@@ -44,11 +45,13 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$user_id)
     {
+
+
         try {
 
-            $data = $request->only('content','rating','product_id','user_id');
+            $data = $request->only('content','rating','product_id') + ['user_id' => $user_id];
 
             $this->_reviewRepository->create($data);
             $result = array(
@@ -145,7 +148,7 @@ class ReviewController extends Controller
                 'message'=> 'Delete Successfully',
                 'data'=> $data
             );
-            return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',

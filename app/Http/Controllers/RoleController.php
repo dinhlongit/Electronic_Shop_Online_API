@@ -13,9 +13,9 @@ class RoleController extends Controller
     private $_roleRepository;
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
+        $this->middleware('auth.role:Admin');
         $this->_roleRepository = $roleRepository;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -45,9 +45,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
 
             $data = $request->only('name');
+
             $role =  $this->_roleRepository->create($data);
             $result = array(
                 'status' => 'OK',
@@ -141,7 +143,7 @@ class RoleController extends Controller
         try {
             $data_find = $this->_roleRepository->find($id);
             if (is_null($data_find)){
-                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+                return response()->json("Record is not found",Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
             }
             $data = $this->_roleRepository->delete($id);
             $result = array(
@@ -149,7 +151,7 @@ class RoleController extends Controller
                 'message'=> 'Delete Successfully',
                 'data'=> $data
             );
-            return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
