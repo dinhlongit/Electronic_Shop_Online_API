@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
+    protected $fillable = ['name','photo','description','information','category_id','producer_id','status_id'];
     public function producer()
     {
         return $this->belongsTo('App/Producer','producer_id','id');

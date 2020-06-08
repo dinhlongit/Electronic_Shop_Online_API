@@ -443,6 +443,101 @@
                         "description": "Success with some route data"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "ADD a product",
+                "description": "",
+                "operationId": "store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "photo": {
+                                        "description": "file",
+                                        "type": "file",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "information": {
+                                        "description": "information",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "category_id": {
+                                        "description": "category_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "producer_id": {
+                                        "description": "producer_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "status_id": {
+                                        "description": "status_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/products/{id}": {
@@ -474,6 +569,145 @@
                         "description": "category not found"
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "EDIT a product  <input type=hidden name=_method value=PUT> ",
+                "description": "",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "photo": {
+                                        "description": "file",
+                                        "type": "file",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "information": {
+                                        "description": "information",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "category_id": {
+                                        "description": "category_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "producer_id": {
+                                        "description": "producer_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "status_id": {
+                                        "description": "status_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete product by id",
+                "description": "",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "Role not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/categories/{id}/products": {
@@ -504,12 +738,7 @@
                     "404": {
                         "description": "category not found"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/orders": {
@@ -1363,6 +1592,44 @@
                     },
                     "400": {
                         "description": "Invalid "
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/imports": {
+            "get": {
+                "tags": [
+                    "Import"
+                ],
+                "summary": "Get all imports c ",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/importproducts": {
+            "get": {
+                "tags": [
+                    "ImportDetail"
+                ],
+                "summary": "Get all imports Detail ",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
                     }
                 },
                 "security": [

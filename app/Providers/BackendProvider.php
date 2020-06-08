@@ -67,6 +67,13 @@ class BackendProvider extends ServiceProvider
         );
 
 
+        $this->app->bind(
+            \App\Repositories\ImportProduct\ImportProductRepositoryInterface::class,
+            \App\Repositories\ImportProduct\ImportProductEloquentRepository::class
+        );
+
+
+
     }
 
     /**

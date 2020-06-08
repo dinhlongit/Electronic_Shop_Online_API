@@ -422,13 +422,185 @@ class DocumentController extends Controller
      *   @OA\Response(response=200, description="successful operation"),
      *   @OA\Response(response=400, description="Invalid id supplied"),
      *   @OA\Response(response=404, description="category not found"),
+     * )
+     */
+
+
+
+    /**
+     * @OA\Post(path="/api/products",
+     *   tags={"Product"},
+     *   summary="ADD a product",
+     *   description="",
+     *   operationId="store",
+     *     	@OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="photo",
+     *                      description="file",
+     *                      type="file",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="name",
+     *                      description="name",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="description",
+     *                      description="description",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="information",
+     *                      description="information",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="category_id",
+     *                      description="category_id",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="producer_id",
+     *                      description="producer_id",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="status_id",
+     *                      description="status_id",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *               ),
+     *           ),
+     *       ),
+     *
+     *      @OA\Response(response=200,description="successful operation",
+     *          @OA\MediaType(mediaType="application/json")
+     *      ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     *  )
+     *  )
+
+     * ...
+     */
+
+
+    /**
+     * @OA\PUT(path="/api/products/{id}",
+     *   tags={"Product"},
+     *   summary="EDIT a product  <input type=hidden name=_method value=PUT> ",
+     *   description="",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     	@OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="photo",
+     *                      description="file",
+     *                      type="file",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="name",
+     *                      description="name",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="description",
+     *                      description="description",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="information",
+     *                      description="information",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="category_id",
+     *                      description="category_id",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="producer_id",
+     *                      description="producer_id",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *                  @OA\Property(
+     *                      property="status_id",
+     *                      description="status_id",
+     *                      type="string",
+     *                      @OA\Items(type="string", format="binary")
+     *                   ),
+     *               ),
+     *           ),
+     *       ),
+     *
+     *      @OA\Response(response=200,description="successful operation",
+     *          @OA\MediaType(mediaType="application/json")
+     *      ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     *  )
+
+     * ...
+     */
+
+
+
+    /**
+     * @OA\Delete(path="/api/products/{id}",
+     *   tags={"Product"},
+     *   summary="Delete product by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="Role not found"),
      *     security={
      *         {"bearer": {}}
      *     }
      * )
      */
-
-
 
 
 //*******************************************************Order*******************************************************************//
@@ -1126,5 +1298,46 @@ class DocumentController extends Controller
      *     }
      * )
      */
+
+
+
+
+
+//*******************************************************Import*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/imports",
+     *     tags={"Import"},
+     *     summary="Get all imports c ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     ),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     *
+     */
+
+//*******************************************************Import Detail*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/importproducts",
+     *     tags={"ImportDetail"},
+     *     summary="Get all imports Detail ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     ),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     *
+     */
+
 
 }

@@ -54,7 +54,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try{
-            $data = $request->only('name','photo','parrent_id');
+          $data = $request->only('name','photo','parrent_id');
           $category =   $this->_categoryRepository->create($data);
             $result = array(
                 'status' => 'OK',

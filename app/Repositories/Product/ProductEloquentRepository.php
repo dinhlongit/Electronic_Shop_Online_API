@@ -64,8 +64,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->orWhere('categories.parrent_id',$id)
             ->groupBy('p.id')
             ->get();
-//         $singleCategory = Category::find($id);
-//         return $singleCategory->products;
+     //    $singleCategory = Category::find($id);
+       //  return $singleCategory->products;
 
     }
 

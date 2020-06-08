@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\ImportProduct;
+use App\Repositories\ImportProduct\ImportProductRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ImportProductController extends Controller
 {
@@ -12,9 +14,21 @@ class ImportProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $_importProduct;
+    public function __construct(ImportProductRepositoryInterface $importProductRepository)
+    {
+        $this->_importProduct = $importProductRepository;
+    }
+
     public function index()
     {
-        //
+        $data = $this->_importProduct->getAll();
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Fetch Successfully',
+            'data'=> $data
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -24,7 +38,7 @@ class ImportProductController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +49,23 @@ class ImportProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $data = $request->only('amount','export_price','import_price','product_id','import_id');
+            $import_product =   $this->_importProduct->create($data);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Insert Successfully',
+                'data'=> $import_product
+            );
+            return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
+        }catch (Exception $e){
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Insert Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
@@ -44,9 +74,18 @@ class ImportProductController extends Controller
      * @param  \App\ImportProduct  $importProduct
      * @return \Illuminate\Http\Response
      */
-    public function show(ImportProduct $importProduct)
+    public function show($id)
     {
-        //
+        $data_find = $this->_importProduct->find($id);
+        if (is_null($data_find)){
+            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        }
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Show Successfully',
+            'data'=> $data_find
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -67,9 +106,28 @@ class ImportProductController extends Controller
      * @param  \App\ImportProduct  $importProduct
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ImportProduct $importProduct)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $data_find = $this->_importProduct->find($id);
+            if (is_null($data_find)){
+                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            }
+            $this->_importProduct->update($id,$request->only('amount','export_price','import_price','product_id','import_id'));
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Update Successfully',
+                'data'=> $data_find
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Update Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
@@ -78,8 +136,23 @@ class ImportProductController extends Controller
      * @param  \App\ImportProduct  $importProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ImportProduct $importProduct)
+    public function destroy($id)
     {
-        //
+        try {
+            $import_product =  $this->_importProduct->delete($id);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Delete Successfully',
+                'data'=> $import_product
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Delete Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 }

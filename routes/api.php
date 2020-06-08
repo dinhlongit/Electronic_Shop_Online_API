@@ -2,7 +2,13 @@
 
 use Illuminate\Http\Request;
 
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+// add any additional headers you need to support here
+header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Authorization');
 /*
+ *
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -17,6 +23,7 @@ Route::resource('categories','CategoryController');
 Route::resource('home','HomeController');
 Route::resource('products','ProductController');
 Route::resource('imports','ImportController');
+Route::resource('importproducts','ImportProductController');
 Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');
 Route::resource('users','UserController');
 

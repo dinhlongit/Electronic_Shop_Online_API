@@ -147,7 +147,7 @@ class ImportController extends Controller
      * @param  \App\Import  $import
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Import $import)
+    public function destroy($id)
     {
         //
     }
