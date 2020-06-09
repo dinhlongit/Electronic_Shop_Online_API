@@ -382,8 +382,122 @@ class DocumentController extends Controller
      * )
      */
 
+    /**
+     * @OA\Get(
+     *     path="/api/products/search/getSale",
+     *     tags={"Product"},
+     *     summary="Get all Sale products",
+     *     operationId="getSaleProduct",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
+
+    /**
+     * @OA\Get(
+     *     path="/api/products/search/getSale?limit={limit}&page={page}",
+     *     tags={"Product"},
+     *     summary="Get sale products paginate",
+     *     operationId="getSaleProductpaginate",
+     *   @OA\Parameter(
+     *     name="limit",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="page",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
 
 
+    /**
+     * @OA\Get(
+     *     path="/api/products/search/getNew",
+     *     tags={"Product"},
+     *     summary="Get all New products",
+     *     operationId="getNewProduct",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
+
+    /**
+     * @OA\Get(
+     *     path="/api/products/search/getNew?limit={limit}&page={page}",
+     *     tags={"Product"},
+     *     summary="Get new products paginate",
+     *     operationId="indnex",
+     *   @OA\Parameter(
+     *     name="limit",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="page",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
+
+
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/products?limit={limit}&page={page}",
+     *     tags={"Product"},
+     *     summary="Get products paginate",
+     *     operationId="indnex",
+     *   @OA\Parameter(
+     *     name="limit",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="page",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
 
     /**
      * @OA\Get(path="/api/products/{id}",
@@ -413,6 +527,42 @@ class DocumentController extends Controller
      *   operationId="getProductByCategory",
      *   @OA\Parameter(
      *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     * )
+     */
+
+    /**
+     * @OA\Get(path="/api/categories/{id}/products?limit={limit}&page={page}",
+     *   tags={"Product"},
+     *   summary="Get Products by Category paginate",
+     *   description="",
+     *   operationId="getProductByCategorypaginate",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="limit",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="page",
      *     in="path",
      *     required=true,
      *     @OA\Schema(
@@ -1308,7 +1458,7 @@ class DocumentController extends Controller
      * @OA\Get(
      *     path="/api/imports",
      *     tags={"Import"},
-     *     summary="Get all imports c ",
+     *     summary="Get all imports  ",
      *     operationId="index",
      *     @OA\Response(
      *         response=200,
@@ -1320,6 +1470,63 @@ class DocumentController extends Controller
      * )
      *
      */
+
+
+    /**
+     * @OA\Post(path="/api/imports",
+     *   tags={"Import"},
+     *   summary="Add new import",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *            example = {"import_date" : "01-02-2020", "user_id":2, "supplier_id" : 2}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+    /**
+     * @OA\Delete(path="/api/imports/{id}",
+     *   tags={"Import"},
+     *   summary="Delete import by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
+
 
 //*******************************************************Import Detail*******************************************************************//
     /**
@@ -1338,6 +1545,61 @@ class DocumentController extends Controller
      * )
      *
      */
+
+    /**
+     * @OA\Post(path="/api/importproducts",
+     *   tags={"ImportDetail"},
+     *   summary="Add new import",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *            example = {"amount" : 100, "export_price":100, "import_price" : 100, "product_id" : 1 , "import_id" : 5}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+    /**
+     * @OA\Delete(path="/api/importproducts/{id}",
+     *   tags={"ImportDetail"},
+     *   summary="Delete importdetail by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
 
 
 }

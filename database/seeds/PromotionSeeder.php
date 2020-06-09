@@ -11,24 +11,22 @@ class PromotionSeeder extends Seeder
      */
     public function run()
     {
+        //
         Schema::disableForeignKeyConstraints();
         DB::table('promotions')->truncate();
-        $reviews = [
-            ['good product',5,1,1],
-            ['hey everyone best to bye', 5,2,2],
+        $promotions = [
+            ['Khuyen Mai Trong Thang 6','2020/06/01','2020/06/30'],
+            ['khuyen mai trong thang 7','2020/07/01','2020/07/30'],
         ];
-        foreach ($reviews as $review) {
-            App\Review::create([
-                'content'=>$review[0],
-                'rating'=>$review[1],
-                'product_id'=>$review[2],
-                'user_id'=>$review[3]
+        foreach ($promotions as $promotion) {
+            App\Promotion::create([
+                'name'=>$promotion[0],
+                'start_date'=>$promotion[1],
+                'end_date'=>$promotion[2]
             ]);
         }
 
 
         Schema::enableForeignKeyConstraints();
-
-        //
     }
 }

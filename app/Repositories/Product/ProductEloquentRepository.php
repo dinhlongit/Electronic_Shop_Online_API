@@ -40,8 +40,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                   ->where('promotion_products.title',null)
                   ->Orwhere('promotions.start_date','<=',$nows)
                   ->where('promotions.end_date','>=',$nows)
-                  ->groupBy('p.id')
-                  ->get();
+                  ->groupBy('p.id');
+
     }
 
     public function getProductByCategory($id)
@@ -56,14 +56,12 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->leftJoin('categories','p.category_id','=','categories.id')
             ->leftJoin('producers','producers.id','=','p.producer_id')
             ->leftJoin('import_products','import_products.product_id','=','p.id')
-
             ->select('p.id','p.name','p.photo','p.description',
                 DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'))
             ->where('categories.id',$id)
             ->orWhere('categories.parrent_id',$id)
-            ->groupBy('p.id')
-            ->get();
+            ->groupBy('p.id');
      //    $singleCategory = Category::find($id);
        //  return $singleCategory->products;
 
@@ -112,8 +110,7 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 'producers.name as producer')
             ->Orwhere('promotions.start_date','<=',$nows)
             ->where('promotions.end_date','>=',$nows)
-            ->groupBy('p.id')
-            ->get();
+            ->groupBy('p.id');
     }
 
 
@@ -129,8 +126,7 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'),
                 'producers.name as producer')
-            ->groupBy('p.id')
-            ->get();
+            ->groupBy('p.id');
 
     }
 

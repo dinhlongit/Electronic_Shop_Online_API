@@ -149,6 +149,21 @@ class ImportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $imp =  $this->_importRepository->delete($id);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Delete Successfully',
+                'data'=> $imp
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Delete Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 }

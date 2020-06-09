@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
     {
-      $this->middleware('auth.role:Admin',['except' => ['index','show']]);
+    //  $this->middleware('auth.role:Admin',['except' => ['index','show']]);
      $this->_productRepository = $productRepository;
      $this->_categoryRepository = $categoryRepository;
     }
@@ -24,10 +24,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //sdd($this->_productRepository->getProducts());
-        return response()->json($this->_productRepository->getProducts());
+        $paginate = $request->only('limit','page');
+        if (count($paginate) > 0){
+            return response()->json($this->_productRepository->getProducts()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_productRepository->getProducts()->get());
     }
 
     /**
@@ -114,17 +117,27 @@ class ProductController extends Controller
 
     }
 
-    public function getProductByCategory($cat){
+    public function getProductByCategory(Request $request,$cat){
 
         $data_find = $this->_categoryRepository->find($cat);
         if (is_null($data_find)){
             return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
         }
 
+        $paginate = $request->only('limit','page');
+        if (count($paginate) > 0){
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Show Successfully',
+                'data'=> $this->_productRepository->getProductByCategory($cat)->paginate($paginate['limit'])
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        }
+
         $result = array(
             'status' => 'OK',
             'message'=> 'Show Successfully',
-            'data'=> $this->_productRepository->getProductByCategory($cat)
+            'data'=> $this->_productRepository->getProductByCategory($cat)->get()
         );
         return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
@@ -195,4 +208,21 @@ class ProductController extends Controller
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
     }
+
+    public function getNewProduct(Request $request){
+        $paginate = $request->only('limit','page');
+        if (count($paginate) > 0){
+            return response()->json($this->_productRepository->getNewProduct()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_productRepository->getProducts()->get());
+    }
+
+    public function getSaleProduct(Request $request){
+        $paginate = $request->only('limit','page');
+        if (count($paginate) > 0){
+            return response()->json($this->_productRepository->getProducts()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_productRepository->getSaleProduct()->get());
+    }
+
 }

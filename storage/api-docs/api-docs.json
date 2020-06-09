@@ -540,6 +540,130 @@
                 ]
             }
         },
+        "/api/products/search/getSale": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all Sale products",
+                "operationId": "getSaleProduct",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products/search/getSale?limit={limit}&page={page}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get sale products paginate",
+                "operationId": "getSaleProductpaginate",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products/search/getNew": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all New products",
+                "operationId": "getNewProduct",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products/search/getNew?limit={limit}&page={page}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get new products paginate",
+                "operationId": "indnex",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products?limit={limit}&page={page}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get products paginate",
+                "operationId": "indnex",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
         "/api/products/{id}": {
             "get": {
                 "tags": [
@@ -721,6 +845,53 @@
                 "parameters": [
                     {
                         "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
+        "/api/categories/{id}/products?limit={limit}&page={page}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Products by Category paginate",
+                "description": "",
+                "operationId": "getProductByCategorypaginate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -1606,11 +1777,87 @@
                 "tags": [
                     "Import"
                 ],
-                "summary": "Get all imports c ",
+                "summary": "Get all imports  ",
                 "operationId": "index",
                 "responses": {
                     "200": {
                         "description": "Success with some route data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Import"
+                ],
+                "summary": "Add new import",
+                "description": "",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "import_date": "01-02-2020",
+                                    "user_id": 2,
+                                    "supplier_id": 2
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/imports/{id}": {
+            "delete": {
+                "tags": [
+                    "Import"
+                ],
+                "summary": "Delete import by id",
+                "description": "",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
                     }
                 },
                 "security": [
@@ -1630,6 +1877,84 @@
                 "responses": {
                     "200": {
                         "description": "Success with some route data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "ImportDetail"
+                ],
+                "summary": "Add new import",
+                "description": "",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": 100,
+                                    "export_price": 100,
+                                    "import_price": 100,
+                                    "product_id": 1,
+                                    "import_id": 5
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/importproducts/{id}": {
+            "delete": {
+                "tags": [
+                    "ImportDetail"
+                ],
+                "summary": "Delete importdetail by id",
+                "description": "",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
                     }
                 },
                 "security": [

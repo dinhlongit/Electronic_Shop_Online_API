@@ -29,10 +29,10 @@ class HomeController extends Controller
     public function index()
     {
         $categories = $this->_categoryRepository->getCategories();
-        $samsungphone = $this->_productRepository->getProductByCategory(14);
-        $fan = $this->_productRepository->getProductByCategory(13);
-        $fridge = $this->_productRepository->getProductByCategory(52);
-        $tivi = $this->_productRepository->getProductByCategory(60);
+        $samsungphone = $this->_productRepository->getProductByCategory(14)->get();
+        $fan = $this->_productRepository->getProductByCategory(13)->get();
+        $fridge = $this->_productRepository->getProductByCategory(52)->get();
+        $tivi = $this->_productRepository->getProductByCategory(60)->get();
         $bestsell = [
             array(
                 "id"=> 11,
@@ -65,8 +65,8 @@ class HomeController extends Controller
                 "price" => 1000000
             )
         ];
-        $newproduct =$this->_productRepository->getNewProduct();
-        $saleproduct =$this->_productRepository->getSaleProduct();
+        $newproduct =$this->_productRepository->getNewProduct()->get();
+        $saleproduct =$this->_productRepository->getSaleProduct()->get();
 
         $result = array(
             'status' => 'OK',

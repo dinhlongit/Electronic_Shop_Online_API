@@ -28,8 +28,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             ->select('users.id','users.name','users.phone_number','users.email',
              'users.address','users.password','users.profile_photo','users.birthday',
              'users.address_id','users.remember_token',DB::raw('GROUP_CONCAT(roles.name) as role'))
-             ->groupBy('users.id')
-             ->get();
+             ->groupBy('users.id');
     }
     public function getUserById($id){
 

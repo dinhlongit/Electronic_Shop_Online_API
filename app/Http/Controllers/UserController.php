@@ -23,10 +23,13 @@ class UserController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-
-        $result=$this->_userRepository->getUsers();
+        $paginate = $request->only('limit','page');
+        if (count($paginate) > 0){
+            return response()->json($this->_userRepository->getUsers()->paginate($paginate['limit']),Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        }
+        $result=$this->_userRepository->getUsers()->get();
         return response()->json(UserResource::collection($result),Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 

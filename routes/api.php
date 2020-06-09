@@ -21,7 +21,12 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 //Auth::routes();
 Route::resource('categories','CategoryController');
 Route::resource('home','HomeController');
+
+
+
 Route::resource('products','ProductController');
+Route::get('products/search/getSale','ProductController@getSaleProduct');
+Route::get('products/search/getNew','ProductController@getNewProduct');
 Route::resource('imports','ImportController');
 Route::resource('importproducts','ImportProductController');
 Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');
