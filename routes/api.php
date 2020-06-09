@@ -52,7 +52,7 @@ Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->mi
 
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api','cors'],
     'prefix' => 'auth'
 ], function ($router) {
    // Route::post('register', 'Auth\AuthController@register');
