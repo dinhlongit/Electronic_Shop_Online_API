@@ -15,10 +15,11 @@ class ProductController extends Controller
 
     public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
     {
-    //  $this->middleware('auth.role:Admin',['except' => ['index','show']]);
+      $this->middleware('auth.role:Admin',['except' => ['index','show','filterProductByPrice','getPhotosOfProduct','getSaleProduct','getNewProduct','getProductByCategory']]);
      $this->_productRepository = $productRepository;
      $this->_categoryRepository = $categoryRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -223,6 +224,22 @@ class ProductController extends Controller
             return response()->json($this->_productRepository->getProducts()->paginate($paginate['limit']));
         }
         return response()->json($this->_productRepository->getSaleProduct()->get());
+    }
+
+    public function filterProductByPrice(Request $request){
+        $limit = $request->only('start','end');
+        if (count($limit) == 0 ){
+            return response()->json("Please fill param {start} {end} price",400);
+        }
+        $paginate = $request->only('limit','page');
+        if (count($paginate) > 0){
+            return response()->json($this->_productRepository->filterProductByPrice($limit['start'],$limit['end'])->paginate($paginate['limit']));
+        }
+        return response()->json($this->_productRepository->filterProductByPrice($limit['start'],$limit['end'])->get());
+    }
+
+    public function getPhotosOfProduct($id){
+        return response()->json($this->_productRepository->getPhotosOfProduct($id),200);
     }
 
 }

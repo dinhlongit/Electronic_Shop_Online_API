@@ -33,7 +33,6 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
@@ -142,7 +141,9 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24,
-            'role' => $user->roles->pluck('name')
+            'role' => $user->roles->pluck('name'),
+            'id' => $user['id'],
+            'username' => $user['name']
         ]);
     }
 

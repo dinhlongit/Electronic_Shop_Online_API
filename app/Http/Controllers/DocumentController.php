@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-//*******************************************************Authentication*******************************************************************//
+
+    //*******************************************************Authentication*******************************************************************//
+
     /**
      * @OA\Post(path="/api/auth/login",
      *   tags={"Auth"},
@@ -54,6 +55,7 @@ class DocumentController extends Controller
      *   @OA\Response(response=400, description="Invalid username/password supplied")
      * )
      */
+
 
     /**
      * @OA\Post(
@@ -384,7 +386,29 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/products/search/getSale",
+     *     path="/api/products/{id}/photos",
+     *     tags={"Product"},
+     *     summary="Get all photos of product",
+     *     operationId="getPhotosOfProduct",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/products/filter/getSale",
      *     tags={"Product"},
      *     summary="Get all Sale products",
      *     operationId="getSaleProduct",
@@ -397,7 +421,7 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/products/search/getSale?limit={limit}&page={page}",
+     *     path="/api/products/filter/getSale?limit={limit}&page={page}",
      *     tags={"Product"},
      *     summary="Get sale products paginate",
      *     operationId="getSaleProductpaginate",
@@ -424,10 +448,41 @@ class DocumentController extends Controller
      * )
      */
 
+    /**
+     * @OA\Get(
+     *     path="/api/products/filter/price?start={start}&end={end}",
+     *     tags={"Product"},
+     *     summary="filter product by price",
+     *     operationId="indnex",
+     *   @OA\Parameter(
+     *     name="start",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="end",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
+
+
+
 
     /**
      * @OA\Get(
-     *     path="/api/products/search/getNew",
+     *     path="/api/products/filter/getNew",
      *     tags={"Product"},
      *     summary="Get all New products",
      *     operationId="getNewProduct",
@@ -440,7 +495,7 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/products/search/getNew?limit={limit}&page={page}",
+     *     path="/api/products/filter/getNew?limit={limit}&page={page}",
      *     tags={"Product"},
      *     summary="Get new products paginate",
      *     operationId="indnex",
@@ -1598,8 +1653,4 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
-
-
-
 }

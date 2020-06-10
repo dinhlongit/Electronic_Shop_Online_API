@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Swagger Petstore",
-        "description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+        "title": "Do An Cong Nge Phan Mem",
+        "description": "Link Luu Anh Cua San Pham :  http://nhom5.azurewebsites.net/public/upload/product/LUHIYYAYY4mAWkuKQS0kQtE2XyMX8iJCENHJFKwT.jpeg",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "email": "apiteam@swagger.io"
@@ -540,7 +540,31 @@
                 ]
             }
         },
-        "/api/products/search/getSale": {
+        "/api/products/{id}/photos": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all photos of product",
+                "operationId": "getPhotosOfProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products/filter/getSale": {
             "get": {
                 "tags": [
                     "Product"
@@ -554,7 +578,7 @@
                 }
             }
         },
-        "/api/products/search/getSale?limit={limit}&page={page}": {
+        "/api/products/filter/getSale?limit={limit}&page={page}": {
             "get": {
                 "tags": [
                     "Product"
@@ -586,7 +610,39 @@
                 }
             }
         },
-        "/api/products/search/getNew": {
+        "/api/products/filter/price?start={start}&end={end}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "filter product by price",
+                "operationId": "indnex",
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products/filter/getNew": {
             "get": {
                 "tags": [
                     "Product"
@@ -600,7 +656,7 @@
                 }
             }
         },
-        "/api/products/search/getNew?limit={limit}&page={page}": {
+        "/api/products/filter/getNew?limit={limit}&page={page}": {
             "get": {
                 "tags": [
                     "Product"

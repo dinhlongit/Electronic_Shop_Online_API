@@ -19,25 +19,29 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 |
 */
 //Auth::routes();
-Route::resource('categories','CategoryController');
 Route::resource('home','HomeController');
 
-
+Route::resource('categories','CategoryController');
+Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 
 Route::resource('products','ProductController');
-Route::get('products/search/getSale','ProductController@getSaleProduct');
-Route::get('products/search/getNew','ProductController@getNewProduct');
+Route::get('products/filter/getSale','ProductController@getSaleProduct');
+Route::get('products/filter/getNew','ProductController@getNewProduct');
+Route::get('products/filter/price','ProductController@filterProductByPrice');
+Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
+
+
 Route::resource('imports','ImportController');
 Route::resource('importproducts','ImportProductController');
+
+
 Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');
 Route::resource('users','UserController');
-
 Route::Post('users/{user_id}/reviews', 'ReviewController@store');
-Route::resource('reviews','ReviewController');
 
+Route::resource('reviews','ReviewController');
 Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
-Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 Route::resource('producers','ProducerController');
 Route::resource('suppliers','SupplierController');
 Route::resource('orders','TransactionController');

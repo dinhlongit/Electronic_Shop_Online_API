@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Order;
 
-
 use App\Product;
 use App\Repositories\EloquentRepository;
 use App\Transaction;

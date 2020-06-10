@@ -11,6 +11,7 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
+        
         Schema::disableForeignKeyConstraints();
         $addresses = array(
             array('id' => '1','name' => 'Đà Nẵng','parrent_id' => NULL,'created_at' => '2019-04-29 03:32:54','updated_at' => '2019-04-29 03:32:54'),

@@ -12,6 +12,12 @@ class Product extends Model
     {
         return $this->belongsTo('App/Producer','producer_id','id');
     }
+
+    public function photos()
+    {
+        return $this->hasMany(\App\PhotoArray::class);
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Category','category_id','id');

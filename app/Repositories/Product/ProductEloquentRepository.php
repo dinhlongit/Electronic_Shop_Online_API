@@ -130,8 +130,39 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
 
     }
 
+
+    public function filterProductByPrice($start,$end)
+    {
+        $nows = date(now()->toDateString());
+        return DB::table('products as p')
+            ->leftJoin('categories','p.category_id','=','categories.id')
+            ->leftJoin('producers','producers.id','=','p.producer_id')
+            ->leftJoin('import_products','import_products.product_id','=','p.id')
+            ->leftJoin('promotion_products','p.id','=','promotion_products.product_id')
+            ->leftJoin('promotions','promotion_products.promotion_id','=','promotions.id')
+            ->select('p.id','p.name','p.photo','p.description',
+                DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
+                DB::raw('MAX(import_products.export_price) AS price'),
+                DB::raw('MAX(promotion_products.title) AS discount'),
+                'producers.name as producer')
+            ->where('promotion_products.title',null)
+            ->Orwhere('promotions.start_date','<=',$nows)
+            ->where('promotions.end_date','>=',$nows)
+            ->groupBy('p.id')
+            ->having('price','>=',$start)
+            ->having('price','<=',$end);
+    }
+
     public function getBestSellProduct()
     {
         // TODO: Implement getBestSellProduct() method.
     }
+
+    public function getPhotosOfProduct($id)
+    {
+       $product = Product::find($id);
+       return $product->photos()->pluck('photo');
+    }
+
+
 }
