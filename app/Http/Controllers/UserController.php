@@ -54,7 +54,7 @@ class UserController extends Controller
         $check = '';
         try{
             $data = $request->all();
-            $check =   $this->_userRepository->addUser($data) == true;
+            $check =   $this->_userRepository->addUser($data);
             $result = array(
                 'status' => "OK",
                 'message'=> 'Insert Successfully',
