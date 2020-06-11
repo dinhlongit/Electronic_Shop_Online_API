@@ -152,16 +152,16 @@ class UserController extends Controller
             if (is_null($data_find)){
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
-            $check = $this->_userRepository->deleteUser($id) == true ? "OK" : "ER";
+            $check = $this->_userRepository->deleteUser($id);
             $result = array(
-                'status' => $check,
+                'status' => "OK",
                 'message'=> 'Delete Successfully',
-                'data'=> ''
+                'data'=> $data_find
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
-                'status' => $check,
+                'status' => "ERR",
                 'message'=> 'Delete Failed',
                 'data'=> ''
             );

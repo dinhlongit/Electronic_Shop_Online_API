@@ -53,11 +53,11 @@ class ReviewController extends Controller
 
             $data = $request->only('content','rating','product_id') + ['user_id' => $user_id];
 
-            $this->_reviewRepository->create($data);
+           $review =  $this->_reviewRepository->create($data);
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
-                'data' => ''
+                'data' => $review
             );
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
