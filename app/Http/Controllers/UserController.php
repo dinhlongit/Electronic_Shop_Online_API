@@ -54,16 +54,16 @@ class UserController extends Controller
         $check = '';
         try{
             $data = $request->all();
-            $check =   $this->_userRepository->addUser($data) == true ? "OK" : "ER";
+            $check =   $this->_userRepository->addUser($data) == true;
             $result = array(
-                'status' => $check,
+                'status' => "OK",
                 'message'=> 'Insert Successfully',
-                'data'=> ''
+                'data'=> $check
             );
             return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
             $result = array(
-                'status' => $check,
+                'status' => "ERR",
                 'message'=> 'Insert Failed',
                 'data'=> ''
             );
