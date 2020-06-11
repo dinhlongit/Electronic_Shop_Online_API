@@ -15,7 +15,7 @@
     },
     "servers": [
         {
-            "url": "",
+            "url": "/public",
             "description": "OpenApi serve"
         }
     ],
@@ -1098,50 +1098,6 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "400": {
-                        "description": "Invalid id supplied"
-                    },
-                    "404": {
-                        "description": "category not found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
-        "/api/users/{user_id}/orders/{order_id}": {
-            "delete": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Delete Order of user",
-                "description": "",
-                "operationId": "destroy",
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "order_id",
                         "in": "path",
                         "required": true,
                         "schema": {
