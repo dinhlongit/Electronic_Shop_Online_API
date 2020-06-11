@@ -58,14 +58,14 @@ class UserController extends Controller
             $result = array(
                 'status' => "OK",
                 'message'=> 'Insert Successfully',
-                'data'=> $check
+                'data'=> $data
             );
             return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
             $result = array(
                 'status' => "ERR",
                 'message'=> 'Insert Failed',
-                'data'=> ''
+                'data'=> 'ERR'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }

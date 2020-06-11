@@ -52,14 +52,14 @@ class SupplierController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
-                'data' => ''
+                'data' => $data
             );
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
                 'message' => 'Insert Failed',
-                'data' => $supplier
+                'data' => ''
             );
             return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
@@ -116,7 +116,7 @@ class SupplierController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data
+                'data'=> $data_find
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
