@@ -17,7 +17,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *             email="apiteam@swagger.io"
  *         ),
  *         @OA\License(
- *             name="Apache 2.0",
+ *             name="Apache 3.0",
  *             url="http://www.apache.org/licenses/LICENSE-2.0.html"
  *         )
  *     ),

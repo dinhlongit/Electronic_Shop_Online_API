@@ -50,14 +50,14 @@ class AuthController extends Controller
         $user = auth()->user();
         if ($user) {
             return response()->json([
-            'status' => 400,
-            'message' => 'You must login before logout',
-            'data' => $this->guard()->user()],400
+            'status' => 200,
+            'message' => 'Success',
+            'data' => $this->guard()->user()],200
             );
         }
         return response()->json([
             'status' => 400,
-            'message' => 'You must login before logout',
+            'message' => 'You must login before see info',
             'data' => ''
         ],400);
     }
@@ -138,6 +138,7 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         return response()->json([
+            'result' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24,

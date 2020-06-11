@@ -51,11 +51,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd("sdfdsf");
         $check = '';
         try{
             $data = $request->all();
-
             $check =   $this->_userRepository->addUser($data) == true ? "OK" : "ER";
             $result = array(
                 'status' => $check,
