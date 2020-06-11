@@ -1653,4 +1653,34 @@ class DocumentController extends Controller
      *     }
      * )
      */
+
+    //*******************************************************City*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/addresses",
+     *     tags={"Address"},
+     *     summary="Get all city ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
+
+    //*******************************************************Promotion*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/promotions",
+     *     tags={"Promotion"},
+     *     summary="Get all promotion ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
 }

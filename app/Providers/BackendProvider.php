@@ -73,6 +73,10 @@ class BackendProvider extends ServiceProvider
         );
 
 
+        $this->app->bind(
+            \App\Repositories\Address\AddressRepositoryInterface::class,
+            \App\Repositories\Address\AddressEloquentRepository::class
+        );
 
     }
 

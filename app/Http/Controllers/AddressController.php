@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Repositories\Address\AddressRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use function Sodium\add;
+
 
 class AddressController extends Controller
 {
@@ -12,9 +16,22 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $_addressRepository;
+    public function __construct(AddressRepositoryInterface $addressRepository)
+    {
+        $this->_addressRepository = $addressRepository;
+    }
+
+
     public function index()
     {
-        //
+        $data = $this->_addressRepository->getAll();
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Fetch Successfully',
+            'data'=> $data
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**

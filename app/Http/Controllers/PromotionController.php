@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Promotion;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Promotion\PromotionRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PromotionController extends Controller
 {
@@ -12,9 +15,21 @@ class PromotionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $_prromotionRepository;
+    public function __construct(PromotionRepositoryInterface $promotionRepository)
+    {
+        $this->_prromotionRepository = $promotionRepository;
+    }
+
     public function index()
     {
-        //
+        $data = $this->_prromotionRepository->getAll();
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Fetch Successfully',
+            'data'=> $data
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**

@@ -49,6 +49,7 @@ Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->mi
 
 //Route::get('users/{id}', 'UserController@show')->middleware('auth.belongto:Admin');
 //Route::PUT('users/{id}', 'UserController@update')->middleware('auth.belongto:Admin');
+Route::resource('addresses','AddressController');
 
 
 
