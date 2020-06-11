@@ -16,7 +16,7 @@ class TransactionController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
-        $this->middleware('auth.role:Admin,Nhân Viên',['except' => ['store','getOrderByUser']]);
+        $this->middleware('auth.role:Admin,Nhân Viên',['except' => ['store','getOrderByUser','destroy']]);
         $this->_orderRepository = $orderRepository;
     }
 
@@ -155,8 +155,10 @@ class TransactionController extends Controller
      */
 
 
-    public function destroy(Transaction $transaction, $transaction_id)
+    public function destroy(Transaction $transaction, Request $request)
     {
+        $transaction_id = $request->segment(5);
+        dd($transaction_id);
         try {
             $data_find = $this->_orderRepository->find($transaction_id);
             if (is_null($data_find)){

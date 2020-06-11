@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $guarded=[];
+
+
     public function transactionstatus(){
         return $this->belongsTo('App\TransactionStatus','status_id','id');
     }

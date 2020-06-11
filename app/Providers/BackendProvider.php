@@ -78,6 +78,12 @@ class BackendProvider extends ServiceProvider
             \App\Repositories\Address\AddressEloquentRepository::class
         );
 
+
+        $this->app->bind(
+            \App\Repositories\OrderStatus\OrderStatusRepositoryInterface::class,
+            \App\Repositories\OrderStatus\OrderStatusEloquentRepository::class
+        );
+
     }
 
     /**

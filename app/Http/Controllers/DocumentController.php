@@ -962,6 +962,9 @@ class DocumentController extends Controller
 
 
 
+
+
+
     //*******************************************************Role*******************************************************************//
     /**
      * @OA\Get(
@@ -1675,6 +1678,22 @@ class DocumentController extends Controller
      *     path="/api/promotions",
      *     tags={"Promotion"},
      *     summary="Get all promotion ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
+
+
+    //*******************************************************Order Status*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/orderstatuses",
+     *     tags={"Order_Status"},
+     *     summary="Get all Order_Status ",
      *     operationId="index",
      *     @OA\Response(
      *         response=200,
