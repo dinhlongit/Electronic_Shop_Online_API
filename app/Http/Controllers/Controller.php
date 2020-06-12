@@ -22,7 +22,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *         )
  *     ),
  *         @OA\Server(
- *         description="OpenApi serve",
+ *         description="OpenApi serve 1",
  *         url="/public"
  *     ),
  *     @OA\ExternalDocumentation(
