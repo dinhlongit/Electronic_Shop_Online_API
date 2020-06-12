@@ -50,11 +50,11 @@ class ProducerController extends Controller
         try {
 
             $data = $request->only('name');
-            $this->_producerRepository->create($data);
+            $producer_create =  $this->_producerRepository->create($data);
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
-                'data' => ''
+                'data' => $producer_create
             );
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
@@ -139,11 +139,11 @@ class ProducerController extends Controller
     public function destroy($id)
     {
         try {
-            $this->_producerRepository->delete($id);
+           $producer =  $this->_producerRepository->delete($id);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Delete Successfully',
-                'data'=> ''
+                'data'=> $producer
             );
             return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {

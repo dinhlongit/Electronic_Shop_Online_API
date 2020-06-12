@@ -54,14 +54,14 @@ class RoleController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
-                'data' => ''
+                'data' => $role
             );
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
                 'message' => 'Insert Failed',
-                'data' => $role
+                'data' => "ERR"
             );
             return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
@@ -125,7 +125,7 @@ class RoleController extends Controller
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Update Failed',
-                'data'=> ''
+                'data'=> 'ERR'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }

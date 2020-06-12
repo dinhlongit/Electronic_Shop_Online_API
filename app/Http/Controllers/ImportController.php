@@ -49,7 +49,7 @@ class ImportController extends Controller
 
             $date = Carbon::createFromFormat('d-m-Y',$request->get('import_date'));
 
-            $this->_importRepository->create([
+           $import =  $this->_importRepository->create([
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
                 'supplier_id' => $request->get('user_id')
@@ -57,14 +57,14 @@ class ImportController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
-                'data' => ''
+                'data' => $import
             );
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
                 'message' => 'Insert Failed',
-                'data' => ''
+                'data' => 'ERR'
             );
             return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
@@ -120,7 +120,7 @@ class ImportController extends Controller
             }
             $date = Carbon::createFromFormat('d-m-Y',$request->get('import_date'));
 
-            $this->_importRepository->update($id,[
+            $data =  $this->_importRepository->update($id,[
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
                 'supplier_id' => $request->get('user_id')
@@ -128,7 +128,7 @@ class ImportController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data_find
+                'data'=> $data
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {

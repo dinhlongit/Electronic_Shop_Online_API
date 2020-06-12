@@ -54,7 +54,7 @@ class UserController extends Controller
         $check = '';
         try{
             $data = $request->all();
-            $check =   $this->_userRepository->addUser($data);
+            $user_add =   $this->_userRepository->addUser($data);
             $result = array(
                 'status' => "OK",
                 'message'=> 'Insert Successfully',
@@ -125,14 +125,14 @@ class UserController extends Controller
             $result = array(
                 'status' => $check,
                 'message'=> 'Update Successfully',
-                'data'=> $data_find
+                'data'=> $request->all()
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => $check,
                 'message'=> 'Update Failed',
-                'data'=> ''
+                'data'=> 'ERR'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
@@ -163,7 +163,7 @@ class UserController extends Controller
             $result = array(
                 'status' => "ERR",
                 'message'=> 'Delete Failed',
-                'data'=> ''
+                'data'=> 'ERR'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }

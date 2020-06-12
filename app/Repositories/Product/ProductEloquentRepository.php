@@ -90,8 +90,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'),'producers.name as producer')
               ->where('products.id',$id)
-             ->groupBy('products.id')
-             ->get();
+              ->groupBy('products.id')
+              ->get();
          return  $product->concat($promotion)->concat($review);
     }
 

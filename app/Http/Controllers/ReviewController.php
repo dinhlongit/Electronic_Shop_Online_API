@@ -127,7 +127,7 @@ class ReviewController extends Controller
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Update Failed',
-                'data'=> ''
+                'data'=> 'ERR'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
@@ -153,7 +153,7 @@ class ReviewController extends Controller
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Delete Failed',
-                'data'=> ''
+                'data'=> 'ERR'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
