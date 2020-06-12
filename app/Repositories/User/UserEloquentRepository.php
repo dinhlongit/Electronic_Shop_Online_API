@@ -56,7 +56,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             ]);
             $userCreate->roles()->attach($data['roles']);
             DB::commit();
-            $check = true;
+            $check =  $userCreate->toArray()+['roles'=>$data['roles']];
         }catch (Exception $ex){
             DB::rollback();
             return $check;
@@ -81,7 +81,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $userCreate = User::find($id);
             $userCreate->roles()->attach($data['roles']);
             DB::commit();
-            $check = true;
+            $check =  $userCreate->toArray()+['roles'=>$data['roles']];
         }catch (Exception $ex){
             DB::rollback();
             return $check;

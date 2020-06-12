@@ -58,7 +58,7 @@ class UserController extends Controller
             $result = array(
                 'status' => "OK",
                 'message'=> 'Insert Successfully',
-                'data'=> $data
+                'data'=> $user_add
             );
             return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
@@ -121,16 +121,16 @@ class UserController extends Controller
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
             $data = $request->only('name','phone_number','email','birthday','password','address','address_id','roles');
-            $check =  $this->_userRepository->updateUser($id,$data) == true ? "OK" : "ER";
+            $check =  $this->_userRepository->updateUser($id,$data);
             $result = array(
-                'status' => $check,
+                'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $request->all()
+                'data'=> $check
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
-                'status' => $check,
+                'status' => 'ER',
                 'message'=> 'Update Failed',
                 'data'=> 'ERR'
             );
