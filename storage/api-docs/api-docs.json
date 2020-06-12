@@ -15,7 +15,7 @@
     },
     "servers": [
         {
-            "url": "/public",
+            "url": "",
             "description": "OpenApi serve"
         }
     ],
@@ -2108,7 +2108,7 @@
         }
     },
     "externalDocs": {
-        "description": "Find out more about Swagger",
+        "description": "Find out more about Swagger hihi",
         "url": "http://swagger.io"
     }
 }

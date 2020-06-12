@@ -109,7 +109,6 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $transaction_id)
     {
-
         try {
             $data_find = $this->_orderRepository->find($transaction_id);
             if (is_null($data_find)){
@@ -155,16 +154,15 @@ class TransactionController extends Controller
      */
 
 
-    public function destroy(Transaction $transaction, Request $request)
+    public function destroy(Transaction $transaction, $transaction_id)
     {
-        $transaction_id = $request->segment(5);
-        dd($transaction_id);
+
         try {
-            $data_find = $this->_orderRepository->find($transaction_id);
+             $data_find = $this->_orderRepository->find($transaction_id);
             if (is_null($data_find)){
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
-            $this->_orderRepository->update($transaction_id,5);
+            $this->_orderRepository->update($transaction_id,['status_id' => 5]);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',

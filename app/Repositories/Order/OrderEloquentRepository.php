@@ -6,7 +6,6 @@ namespace App\Repositories\Order;
 use App\Product;
 use App\Repositories\EloquentRepository;
 use App\Transaction;
-
 use App\User;
 use DB;
 
@@ -83,7 +82,6 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
                    ->get();
             $status = collect($status);
             $data = $data->concat($tracsaction->products)->concat($status);
-
             $bigdata = $bigdata->add($data);
         }
        return $bigdata;

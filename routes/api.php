@@ -38,9 +38,10 @@ Route::resource('importproducts','ImportProductController');
 
 Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');
 Route::resource('users','UserController');
-Route::Post('users/{user_id}/reviews', 'ReviewController@store');
 
+Route::Post('users/{user_id}/reviews', 'ReviewController@store');
 Route::resource('reviews','ReviewController');
+
 Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
 Route::resource('producers','ProducerController');
