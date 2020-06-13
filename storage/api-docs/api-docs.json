@@ -2046,6 +2046,46 @@
                         "description": "Success with some route data"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Promotion"
+                ],
+                "summary": "Add new promotion",
+                "description": "",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Khuyen Mai Thana 9",
+                                    "start_date": "2020-09-01",
+                                    "end_date": "2020-09-29"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/orderstatuses": {

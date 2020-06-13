@@ -1718,6 +1718,29 @@ class DocumentController extends Controller
      * )
      */
 
+    /**
+     * @OA\Delete(path="/api/promotions/{id}",
+     *   tags={"Promotion"},
+     *   summary="Delete Promotion by id",
+     *   description="",
+     *   operationId="destroy",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
 
     //*******************************************************Order Status*******************************************************************//
     /**
