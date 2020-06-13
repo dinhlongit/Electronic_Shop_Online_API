@@ -122,6 +122,7 @@ class UserController extends Controller
             }
             $data = $request->only('name','phone_number','email','birthday','password','address','address_id','roles');
             $check =  $this->_userRepository->updateUser($id,$data);
+            dd($check);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',

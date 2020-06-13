@@ -1688,6 +1688,37 @@ class DocumentController extends Controller
      */
 
 
+    /**
+     * @OA\Post(path="/api/promotions",
+     *   tags={"Promotion"},
+     *   summary="Add new promotion",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *               example = {"name":"Khuyen Mai Thana 9","start_date":"2020-09-01","end_date" : "2020-09-29"}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
     //*******************************************************Order Status*******************************************************************//
     /**
      * @OA\Get(
