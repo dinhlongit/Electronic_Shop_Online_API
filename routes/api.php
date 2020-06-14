@@ -53,6 +53,8 @@ Route::resource('orderstatuses','TransactionStatusController');
 Route::resource('productstatuses','ProductStatusController');
 Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->middleware('auth.belongto:Admin,Nhân Viên');
 
+Route::resource('photoarrays','PhotoArrayController');
+
 
 //Route::get('users/{id}', 'UserController@show')->middleware('auth.belongto:Admin');
 //Route::PUT('users/{id}', 'UserController@update')->middleware('auth.belongto:Admin');

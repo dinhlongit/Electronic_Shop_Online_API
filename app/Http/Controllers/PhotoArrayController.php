@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\PhotoArray;
+use App\Repositories\PhotoArray\PhotoArrayRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 class PhotoArrayController extends Controller
 {
+    private $_photoRepository;
+
+    public function __construct(PhotoArrayRepositoryInterface $photoArrayRepository)
+    {
+        $this->_photoRepository = $photoArrayRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +45,7 @@ class PhotoArrayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

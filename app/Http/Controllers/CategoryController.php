@@ -47,12 +47,7 @@ class CategoryController extends Controller
 
     public function getAllCategory(){
         $data = $this->_categoryRepository->getAll();
-        $result = array(
-            'status' => 'OK',
-            'message'=> 'Fetch Successfully',
-            'data'=> $data
-        );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
     /**
      * Show the form for creating a new resource.

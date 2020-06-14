@@ -20,8 +20,5 @@ class PhotoArrayEloquentRepository extends  EloquentRepository implements PhotoA
     }
 
 
-    public function getPhotoProductById($id)
-    {
 
-    }
 }
