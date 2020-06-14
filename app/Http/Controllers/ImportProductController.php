@@ -150,7 +150,7 @@ class ImportProductController extends Controller
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Delete Failed',
-                'data'=> ''
+                'data'=> 'ER'
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }

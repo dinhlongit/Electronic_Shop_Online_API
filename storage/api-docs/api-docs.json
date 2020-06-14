@@ -306,6 +306,20 @@
                 ]
             }
         },
+        "/api/getcategories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get whole categories  ",
+                "operationId": "getAllCategories",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
         "/api/categories/{id}": {
             "get": {
                 "tags": [
@@ -2130,6 +2144,34 @@
                     "Order_Status"
                 ],
                 "summary": "Get all Order_Status ",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/productstatuses": {
+            "get": {
+                "tags": [
+                    "Product_Status"
+                ],
+                "summary": "Get all Product_Status ",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/suppliers": {
+            "get": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Get all suppliers ",
                 "operationId": "index",
                 "responses": {
                     "200": {
