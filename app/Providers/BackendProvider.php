@@ -84,6 +84,12 @@ class BackendProvider extends ServiceProvider
             \App\Repositories\OrderStatus\OrderStatusEloquentRepository::class
         );
 
+        $this->app->bind(
+            \App\Repositories\ProductStatus\ProductStatuRepositoryInterface::class,
+            \App\Repositories\ProductStatus\ProductStatusEloquentRepository::class
+        );
+
+
     }
 
     /**

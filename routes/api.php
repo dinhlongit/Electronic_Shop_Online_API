@@ -23,6 +23,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 Route::resource('home','HomeController');
 
 Route::resource('categories','CategoryController');
+Route::get('getcategories','CategoryController@getAllCategory');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 
 Route::resource('products','ProductController');
@@ -48,6 +49,7 @@ Route::resource('producers','ProducerController');
 Route::resource('suppliers','SupplierController');
 Route::resource('orders','TransactionController');
 Route::resource('orderstatuses','TransactionStatusController');
+Route::resource('productstatuses','ProductStatusController');
 Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->middleware('auth.belongto:Admin,Nhân Viên');
 
 

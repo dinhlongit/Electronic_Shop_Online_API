@@ -2088,6 +2088,42 @@
                 ]
             }
         },
+        "/api/promotions/{id}": {
+            "delete": {
+                "tags": [
+                    "Promotion"
+                ],
+                "summary": "Delete Promotion by id",
+                "description": "",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/orderstatuses": {
             "get": {
                 "tags": [

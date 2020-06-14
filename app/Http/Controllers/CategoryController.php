@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $this->middleware('auth.role:Admin',['except' => ['index','show']]);
+        $this->middleware('auth.role:Admin',['except' => ['index','show','getAllCategory']]);
        $this->_categoryRepository = $categoryRepository;
     }
     /**
@@ -28,6 +28,16 @@ class CategoryController extends Controller
     public function index()
     {
         $data = $this->_categoryRepository->getCategories();
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Fetch Successfully',
+            'data'=> $data
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+    }
+
+    public function getAllCategory(){
+        $data = $this->_categoryRepository->getAll();
         $result = array(
             'status' => 'OK',
             'message'=> 'Fetch Successfully',

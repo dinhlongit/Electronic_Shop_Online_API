@@ -32,11 +32,6 @@ class TransactionStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,27 +40,54 @@ class TransactionStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $data = $request->only('name');
+            $producer_create =  $this->_orderStatusRepository->create($data);
+            $result = array(
+                'status' => 'OK',
+                'message' => 'Insert Successfully',
+                'data' => $producer_create
+            );
+            return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message' => 'Insert Failed',
+                'data' => ''
+            );
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\TransactionStatus  $transactionStatus
+     * @param  \App\Producer  $producer
      * @return \Illuminate\Http\Response
      */
-    public function show(TransactionStatus $transactionStatus)
+    public function show($id)
     {
-        //
+        $data_find = $this->_orderStatusRepository->find($id);
+
+        if (is_null($data_find)){
+            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        }
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Show Successfully',
+            'data'=> $data_find
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TransactionStatus  $transactionStatus
+     * @param  \App\Producer  $producer
      * @return \Illuminate\Http\Response
      */
-    public function edit(TransactionStatus $transactionStatus)
+    public function edit(Producer $producer)
     {
         //
     }
@@ -74,22 +96,56 @@ class TransactionStatusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TransactionStatus  $transactionStatus
+     * @param  \App\Producer  $producer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TransactionStatus $transactionStatus)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $data_find = $this->_orderStatusRepository->find($id);
+            if (is_null($data_find)){
+                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            }
+            $data =  $this->_orderStatusRepository->update($id,$request->only('name'));
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Update Successfully',
+                'data'=> $data
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Update Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TransactionStatus  $transactionStatus
+     * @param  \App\Producer  $producer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TransactionStatus $transactionStatus)
+    public function destroy($id)
     {
-        //
+        try {
+            $producer =  $this->_orderStatusRepository->delete($id);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Delete Successfully',
+                'data'=> $producer
+            );
+            return response()->json($result,Response::HTTP_NO_CONTENT,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Delete Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 }

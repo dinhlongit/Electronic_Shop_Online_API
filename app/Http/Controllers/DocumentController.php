@@ -205,7 +205,19 @@ class DocumentController extends Controller
      * )
      *
      */
-
+    /**
+     * @OA\Get(
+     *     path="/api/getcategories",
+     *     tags={"Category"},
+     *     summary="Get whole categories  ",
+     *     operationId="getAllCategories",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
 
 
     /**
@@ -1756,4 +1768,37 @@ class DocumentController extends Controller
      * )
      *
      */
+
+    //*******************************************************Product Status*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/productstatuses",
+     *     tags={"Product_Status"},
+     *     summary="Get all Product_Status ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
+
+
+    //*******************************************************Supplier*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/suppliers",
+     *     tags={"Supplier"},
+     *     summary="Get all suppliers ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
+
+
 }
