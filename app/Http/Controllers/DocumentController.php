@@ -221,6 +221,21 @@ class DocumentController extends Controller
 
 
     /**
+     * @OA\Get(
+     *     path="/api/getsubcategories",
+     *     tags={"Category"},
+     *     summary="Get getsubcategories  ",
+     *     operationId="getSubCategory",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
+
+
+    /**
      * @OA\Get(path="/api/categories/{id}",
      *   tags={"Category"},
      *   summary="Get Category by id",

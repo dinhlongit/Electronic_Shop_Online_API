@@ -24,6 +24,7 @@ Route::resource('home','HomeController');
 
 Route::resource('categories','CategoryController');
 Route::get('getcategories','CategoryController@getAllCategory');
+Route::get('getsubcategories','CategoryController@getSubCategory');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 
 Route::resource('products','ProductController');
