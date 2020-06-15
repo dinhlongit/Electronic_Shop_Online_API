@@ -63,7 +63,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Log the user out (Invalidate the token)
+     * Log the user out ok (Invalidate the token)
      *
      * @return \Illuminate\Http\JsonResponse
      */
