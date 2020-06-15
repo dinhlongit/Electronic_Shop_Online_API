@@ -114,11 +114,11 @@ class TransactionController extends Controller
             if (is_null($data_find)){
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
-            $this->_orderRepository->update($transaction_id,$request->only('status_id'));
+            $data =  $this->_orderRepository->update($transaction_id,$request->only('status_id'));
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data_find
+                'data'=> $this->_orderRepository->getOrderById($transaction_id)
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
@@ -156,17 +156,16 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction, $transaction_id)
     {
-
         try {
              $data_find = $this->_orderRepository->find($transaction_id);
             if (is_null($data_find)){
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
-            $this->_orderRepository->update($transaction_id,['status_id' => 5]);
+            $data = $this->_orderRepository->update($transaction_id,['status_id' => 5]);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data_find
+                'data'=> $this->_orderRepository->getOrderById($transaction_id)
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
