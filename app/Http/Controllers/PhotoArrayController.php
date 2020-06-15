@@ -45,6 +45,35 @@ class PhotoArrayController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+            if ($request->hasFile('photo')){
+                $file = $request->file('photo');
+                $file_format = $file->getClientOriginalExtension();
+                if ($file_format != "jpg" && $file_format != "png" && $file_format != "jpeg"){
+                    return  response()->json(['content'=>'Format File Not Accept',"error"=>true],400);
+                }
+                $name=str_random(4)."_".$file->getClientOriginalName();
+                $file->move("upload/product",$name);
+
+            }   else {
+                return  response()->json(['content'=>'Please Choose File',"error"=>true],400);
+            }
+            $data = $request->only('product_id')+['photo' => $name];
+            $product =   $this->_photoRepository->create($data);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Insert Successfully',
+                'data'=> $product
+            );
+            return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
+        }catch (Exception $e){
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Insert Failed',
+                'data'=> ''
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
 
     }
 
