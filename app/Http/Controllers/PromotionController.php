@@ -109,7 +109,7 @@ class PromotionController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data
+                'data'=> $this->_prromotionRepository->find($id)
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {

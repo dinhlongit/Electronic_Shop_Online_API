@@ -400,19 +400,6 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/products",
-     *     tags={"Product"},
-     *     summary="Get all products",
-     *     operationId="someRoute",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Success with some route data"
-     *     )
-     * )
-     */
-
-    /**
-     * @OA\Get(
      *     path="/api/products/{id}/photos",
      *     tags={"Product"},
      *     summary="Get all photos of product",
@@ -435,27 +422,13 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/products/filter/getSale",
+     *     path="/api/products?filter=new&limit={limit}&page={page}",
      *     tags={"Product"},
-     *     summary="Get all Sale products",
-     *     operationId="getSaleProduct",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Success with some route data"
-     *     )
-     * )
-     */
-
-    /**
-     * @OA\Get(
-     *     path="/api/products/filter/getSale?limit={limit}&page={page}",
-     *     tags={"Product"},
-     *     summary="Get sale products paginate",
-     *     operationId="getSaleProductpaginate",
+     *     summary="Get new product",
+     *     operationId="filterProductBynew",
      *   @OA\Parameter(
      *     name="limit",
      *     in="path",
-     *     required=true,
      *     @OA\Schema(
      *         type="string"
      *     )
@@ -463,7 +436,6 @@ class DocumentController extends Controller
      *   @OA\Parameter(
      *     name="page",
      *     in="path",
-     *     required=true,
      *     @OA\Schema(
      *         type="string"
      *     )
@@ -474,62 +446,15 @@ class DocumentController extends Controller
      *     )
      * )
      */
-
     /**
      * @OA\Get(
-     *     path="/api/products/filter/price?start={start}&end={end}",
+     *     path="/api/products?filter=sale&limit={limit}&page={page}",
      *     tags={"Product"},
-     *     summary="filter product by price",
-     *     operationId="indnex",
-     *   @OA\Parameter(
-     *     name="start",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *         type="string"
-     *     )
-     *   ),
-     *   @OA\Parameter(
-     *     name="end",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *         type="string"
-     *     )
-     *   ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Success with some route data"
-     *     )
-     * )
-     */
-
-
-
-
-    /**
-     * @OA\Get(
-     *     path="/api/products/filter/getNew",
-     *     tags={"Product"},
-     *     summary="Get all New products",
-     *     operationId="getNewProduct",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Success with some route data"
-     *     )
-     * )
-     */
-
-    /**
-     * @OA\Get(
-     *     path="/api/products/filter/getNew?limit={limit}&page={page}",
-     *     tags={"Product"},
-     *     summary="Get new products paginate",
-     *     operationId="indnex",
+     *     summary="Get sale product",
+     *     operationId="filterProductBysale",
      *   @OA\Parameter(
      *     name="limit",
      *     in="path",
-     *     required=true,
      *     @OA\Schema(
      *         type="string"
      *     )
@@ -537,7 +462,6 @@ class DocumentController extends Controller
      *   @OA\Parameter(
      *     name="page",
      *     in="path",
-     *     required=true,
      *     @OA\Schema(
      *         type="string"
      *     )
@@ -549,6 +473,32 @@ class DocumentController extends Controller
      * )
      */
 
+    /**
+     * @OA\Get(
+     *     path="/api/products?filter=price&start={start_price}&end={end_price}",
+     *     tags={"Product"},
+     *     summary="Filter product by price",
+     *     operationId="filterProductByPrice",
+     *   @OA\Parameter(
+     *     name="start_price",
+     *     in="path",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="end_price",
+     *     in="path",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     */
 
 
 
@@ -601,25 +551,7 @@ class DocumentController extends Controller
      * )
      */
 
-    /**
-     * @OA\Get(path="/api/categories/{id}/products",
-     *   tags={"Product"},
-     *   summary="Get Products by Category",
-     *   description="",
-     *   operationId="getProductByCategory",
-     *   @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     required=true,
-     *     @OA\Schema(
-     *         type="string"
-     *     )
-     *   ),
-     *   @OA\Response(response=200, description="successful operation"),
-     *   @OA\Response(response=400, description="Invalid id supplied"),
-     *   @OA\Response(response=404, description="category not found"),
-     * )
-     */
+
 
     /**
      * @OA\Get(path="/api/categories/{id}/products?limit={limit}&page={page}",

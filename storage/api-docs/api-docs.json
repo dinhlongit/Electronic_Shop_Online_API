@@ -15,7 +15,7 @@
     },
     "servers": [
         {
-            "url": "/public",
+            "url": "",
             "description": "OpenApi serve"
         }
     ],
@@ -459,115 +459,6 @@
                 ]
             }
         },
-        "/api/products": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get all products",
-                "operationId": "someRoute",
-                "responses": {
-                    "200": {
-                        "description": "Success with some route data"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "ADD a product",
-                "description": "",
-                "operationId": "store",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "photo": {
-                                        "description": "file",
-                                        "type": "file",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
-                                    "name": {
-                                        "description": "name",
-                                        "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
-                                    "information": {
-                                        "description": "information",
-                                        "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
-                                    "category_id": {
-                                        "description": "category_id",
-                                        "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
-                                    "producer_id": {
-                                        "description": "producer_id",
-                                        "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    },
-                                    "status_id": {
-                                        "description": "status_id",
-                                        "type": "string",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "binary"
-                                        }
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
         "/api/products/{id}/photos": {
             "get": {
                 "tags": [
@@ -592,32 +483,17 @@
                 }
             }
         },
-        "/api/products/filter/getSale": {
+        "/api/products?filter=new&limit={limit}&page={page}": {
             "get": {
                 "tags": [
                     "Product"
                 ],
-                "summary": "Get all Sale products",
-                "operationId": "getSaleProduct",
-                "responses": {
-                    "200": {
-                        "description": "Success with some route data"
-                    }
-                }
-            }
-        },
-        "/api/products/filter/getSale?limit={limit}&page={page}": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get sale products paginate",
-                "operationId": "getSaleProductpaginate",
+                "summary": "Get new product",
+                "operationId": "filterProductBynew",
                 "parameters": [
                     {
                         "name": "limit",
                         "in": "path",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -625,7 +501,6 @@
                     {
                         "name": "page",
                         "in": "path",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -638,64 +513,17 @@
                 }
             }
         },
-        "/api/products/filter/price?start={start}&end={end}": {
+        "/api/products?filter=sale&limit={limit}&page={page}": {
             "get": {
                 "tags": [
                     "Product"
                 ],
-                "summary": "filter product by price",
-                "operationId": "indnex",
-                "parameters": [
-                    {
-                        "name": "start",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "end",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success with some route data"
-                    }
-                }
-            }
-        },
-        "/api/products/filter/getNew": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get all New products",
-                "operationId": "getNewProduct",
-                "responses": {
-                    "200": {
-                        "description": "Success with some route data"
-                    }
-                }
-            }
-        },
-        "/api/products/filter/getNew?limit={limit}&page={page}": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get new products paginate",
-                "operationId": "indnex",
+                "summary": "Get sale product",
+                "operationId": "filterProductBysale",
                 "parameters": [
                     {
                         "name": "limit",
                         "in": "path",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -703,7 +531,36 @@
                     {
                         "name": "page",
                         "in": "path",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/products?filter=price&start={start_price}&end={end_price}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Filter product by price",
+                "operationId": "filterProductByPrice",
+                "parameters": [
+                    {
+                        "name": "start_price",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "end_price",
+                        "in": "path",
                         "schema": {
                             "type": "string"
                         }
@@ -918,37 +775,6 @@
                 ]
             }
         },
-        "/api/categories/{id}/products": {
-            "get": {
-                "tags": [
-                    "Product"
-                ],
-                "summary": "Get Products by Category",
-                "description": "",
-                "operationId": "getProductByCategory",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "400": {
-                        "description": "Invalid id supplied"
-                    },
-                    "404": {
-                        "description": "category not found"
-                    }
-                }
-            }
-        },
         "/api/categories/{id}/products?limit={limit}&page={page}": {
             "get": {
                 "tags": [
@@ -994,6 +820,103 @@
                         "description": "category not found"
                     }
                 }
+            }
+        },
+        "/api/products": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "ADD a product",
+                "description": "",
+                "operationId": "store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "photo": {
+                                        "description": "file",
+                                        "type": "file",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "information": {
+                                        "description": "information",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "category_id": {
+                                        "description": "category_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "producer_id": {
+                                        "description": "producer_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "status_id": {
+                                        "description": "status_id",
+                                        "type": "string",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/orders": {

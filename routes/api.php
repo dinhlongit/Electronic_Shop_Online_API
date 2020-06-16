@@ -28,12 +28,14 @@ Route::get('getsubcategories','CategoryController@getSubCategory');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 
 Route::resource('products','ProductController');
+
+Route::get('products','ProductController@filterProduct');
+
 Route::get('products/filter/getSale','ProductController@getSaleProduct');
 Route::get('products/filter/getNew','ProductController@getNewProduct');
 Route::get('products/filter/price','ProductController@filterProductByPrice');
+
 Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
-
-
 Route::resource('imports','ImportController');
 Route::resource('importproducts','ImportProductController');
 
