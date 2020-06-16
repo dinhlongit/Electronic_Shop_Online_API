@@ -1973,7 +1973,7 @@
                     "Import"
                 ],
                 "summary": "Delete import by id",
-                "description": "",
+                "description": "Delete a imports",
                 "operationId": "destroy",
                 "parameters": [
                     {
@@ -2065,6 +2065,58 @@
             }
         },
         "/api/importproducts/{id}": {
+            "put": {
+                "tags": [
+                    "ImportDetail"
+                ],
+                "summary": "Edit an import detail product",
+                "description": "",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "amount": 100,
+                                    "export_price": 100,
+                                    "import_price": 100,
+                                    "product_id": 1,
+                                    "import_id": 5
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "ImportDetail"
@@ -2202,6 +2254,20 @@
                         "bearer": []
                     }
                 ]
+            }
+        },
+        "/api/promotionproducts": {
+            "get": {
+                "tags": [
+                    "Promotion_Product"
+                ],
+                "summary": "Get all detail promotion ",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
             }
         },
         "/api/orderstatuses": {

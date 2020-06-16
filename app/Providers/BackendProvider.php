@@ -93,6 +93,10 @@ class BackendProvider extends ServiceProvider
             \App\Repositories\PhotoArray\PhotoArrayRepositoryInterface::class,
             \App\Repositories\PhotoArray\PhotoArrayEloquentRepository::class
         );
+        $this->app->bind(
+            \App\Repositories\PromotionProduct\PromotionProductRepositoryInterface::class,
+            \App\Repositories\PromotionProduct\PromotionProductEloquentRepository::class
+        );
     }
 
     /**

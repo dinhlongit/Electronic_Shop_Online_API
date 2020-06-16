@@ -31,6 +31,7 @@ class ImportProductEloquentRepository extends EloquentRepository implements Impo
             ->get();
     }
 
+
     public function getImportDetailById($id)
     {
         return DB::table('import_products')

@@ -15,4 +15,5 @@ class ImportProduct extends Model
     public function import(){
         return $this->belongsTo('App\Import','import_id','id');
     }
+
 }

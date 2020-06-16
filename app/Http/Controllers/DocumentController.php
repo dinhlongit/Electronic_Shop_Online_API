@@ -1794,34 +1794,34 @@ class DocumentController extends Controller
 
 
     /**
-     * @OA\Post(path="/api/promotions",
-     *   tags={"Promotion"},
-     *   summary="Add new promotion",
-     *   description="",
-     *   operationId="placeOrder",
-     *        @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="string"
-     *                 ),
-     *               example = {"name":"Khuyen Mai Thana 9","start_date":"2020-09-01","end_date" : "2020-09-29"}
-     *             )
-     *         )
-     *     ),
-     *   @OA\Response(
-     *     response=200,
-     *     description="successful operation",
+ * @OA\Post(path="/api/promotions",
+ *   tags={"Promotion"},
+ *   summary="Add new promotion",
+ *   description="",
+ *   operationId="placeOrder",
+ *        @OA\RequestBody(
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 @OA\Property(
+ *                     property="id",
+ *                     type="string"
+ *                 ),
+ *               example = {"name":"Khuyen Mai Thana 9","start_date":"2020-09-01","end_date" : "2020-09-29"}
+ *             )
+ *         )
+ *     ),
+ *   @OA\Response(
+ *     response=200,
+ *     description="successful operation",
 
-     *   ),
-     *   @OA\Response(response=400, description="Invalid Order"),
-     *     security={
-     *         {"bearer": {}}
-     *     }
-     * )
-     */
+ *   ),
+ *   @OA\Response(response=400, description="Invalid Order"),
+ *     security={
+ *         {"bearer": {}}
+ *     }
+ * )
+ */
 
     /**
      * @OA\Delete(path="/api/promotions/{id}",
@@ -1845,6 +1845,54 @@ class DocumentController extends Controller
      *     }
      * )
      */
+
+    //*******************************************************Promotion Product*******************************************************************//
+    /**
+     * @OA\Get(
+     *     path="/api/promotionproducts",
+     *     tags={"Promotion_Product"},
+     *     summary="Get all detail promotion ",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success with some route data"
+     *     )
+     * )
+     *
+     */
+
+
+
+    /**
+     * @OA\Post(path="/api/promotionproducts",
+     *   tags={"Promotion_Product"},
+     *   summary="Add new promotion",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *               example = {"category_id": 24,"promotion_id": 1,"title": 0.2}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
 
 
     //*******************************************************Order Status*******************************************************************//

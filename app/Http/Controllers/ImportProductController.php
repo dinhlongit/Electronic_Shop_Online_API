@@ -56,16 +56,16 @@ class ImportProductController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Insert Successfully',
-                'data'=> $this->_importProduct->getImportDetailById($import_product->id)
+                'data'=> $return_data
             );
             return response()->json($return_data,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Insert Failed',
-                'data'=> $this->_importProduct->getImportById($import_product->id)
+                'data'=> ""
             );
-            return response()->json($return_data,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
     }
 
@@ -119,7 +119,7 @@ class ImportProductController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $this->_importProduct->getImportDetailById($id)
+                'data'=> $return_data
             );
             return response()->json($return_data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
@@ -128,7 +128,7 @@ class ImportProductController extends Controller
                 'message'=> 'Update Failed',
                 'data'=> ''
             );
-            return response()->json($return_data,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
     }
 

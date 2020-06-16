@@ -46,6 +46,7 @@ Route::resource('reviews','ReviewController');
 
 Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
+Route::resource('promotionproducts','PromotionProductController');
 Route::resource('producers','ProducerController');
 Route::resource('suppliers','SupplierController');
 Route::resource('orders','TransactionController');
