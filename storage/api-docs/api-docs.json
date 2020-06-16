@@ -2268,6 +2268,46 @@
                         "description": "Success with some route data"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Promotion_Product"
+                ],
+                "summary": "Add new promotion",
+                "description": "",
+                "operationId": "placeOrder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "category_id": 24,
+                                    "promotion_id": 1,
+                                    "title": 0.2
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/orderstatuses": {
