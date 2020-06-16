@@ -1571,7 +1571,7 @@ class DocumentController extends Controller
      *                     property="id",
      *                     type="string"
      *                 ),
-     *            example = {"import_date" : "01-02-2020", "user_id":2, "supplier_id" : 2}
+     *            example = {"import_date" : "01-02-2020", "user_id":2, "supplier_id" : 2,"name" : "nguyen dinh long"}
      *             )
      *         )
      *     ),
@@ -1586,6 +1586,45 @@ class DocumentController extends Controller
      *     }
      * )
      */
+
+    /**
+     * @OA\PUT(path="/api/imports/{id}",
+     *   tags={"Import"},
+     *   summary="Edit an import",
+     *   description="",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *            example = {"import_date" : "01-02-2020", "user_id":2, "supplier_id" : 2,"name" : "nguyen dinh long"}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
 
     /**
      * @OA\Delete(path="/api/imports/{id}",

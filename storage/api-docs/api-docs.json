@@ -15,7 +15,7 @@
     },
     "servers": [
         {
-            "url": "/public",
+            "url": "",
             "description": "OpenApi serve"
         }
     ],
@@ -313,6 +313,20 @@
                 ],
                 "summary": "Get whole categories  ",
                 "operationId": "getAllCategories",
+                "responses": {
+                    "200": {
+                        "description": "Success with some route data"
+                    }
+                }
+            }
+        },
+        "/api/getsubcategories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get getsubcategories  ",
+                "operationId": "getSubCategory",
                 "responses": {
                     "200": {
                         "description": "Success with some route data"
@@ -1880,7 +1894,8 @@
                                 "example": {
                                     "import_date": "01-02-2020",
                                     "user_id": 2,
-                                    "supplier_id": 2
+                                    "supplier_id": 2,
+                                    "name": "nguyen dinh long"
                                 }
                             }
                         }
@@ -1902,6 +1917,57 @@
             }
         },
         "/api/imports/{id}": {
+            "put": {
+                "tags": [
+                    "Import"
+                ],
+                "summary": "Edit an import",
+                "description": "",
+                "operationId": "placeOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "import_date": "01-02-2020",
+                                    "user_id": 2,
+                                    "supplier_id": 2,
+                                    "name": "nguyen dinh long"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "Import"

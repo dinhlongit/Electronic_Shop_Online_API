@@ -15,6 +15,7 @@ class CreateImportsTable extends Migration
     {
         Schema::create('imports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->nullable()->default("Hoa Don");
             $table->date('import_date');
             $table->bigInteger('user_id')->unsigned();//
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");

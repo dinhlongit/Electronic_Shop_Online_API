@@ -46,18 +46,18 @@ class ImportController extends Controller
     public function store(Request $request)
     {
         try {
-
             $date = Carbon::createFromFormat('d-m-Y',$request->get('import_date'));
-
            $import =  $this->_importRepository->create([
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
+                'name' => $request->get('name'),
                 'supplier_id' => $request->get('user_id')
             ]);
+
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
-                'data' => $import
+                'data' => $this->_importRepository->getImportId($import->id)
             );
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
@@ -113,6 +113,7 @@ class ImportController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         try {
             $data_find = $this->_importRepository->find($id);
             if (is_null($data_find)){
@@ -123,12 +124,13 @@ class ImportController extends Controller
             $data =  $this->_importRepository->update($id,[
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
+                'name' => $request->get('name'),
                 'supplier_id' => $request->get('user_id')
             ]);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data
+                'data'=> $this->_importRepository->getImportId($id)
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
@@ -149,12 +151,17 @@ class ImportController extends Controller
      */
     public function destroy($id)
     {
+        $data_find = $this->_importRepository->find($id);
+
+        if (is_null($data_find)){
+            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        }
         try {
             $imp =  $this->_importRepository->delete($id);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Delete Successfully',
-                'data'=> $imp
+                'data'=> $data_find
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
