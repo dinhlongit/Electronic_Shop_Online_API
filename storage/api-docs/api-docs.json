@@ -15,7 +15,7 @@
     },
     "servers": [
         {
-            "url": "",
+            "url": "/public",
             "description": "OpenApi serve"
         }
     ],
@@ -1923,7 +1923,7 @@
                 ],
                 "summary": "Edit an import",
                 "description": "",
-                "operationId": "placeOrder",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "id",

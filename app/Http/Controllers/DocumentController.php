@@ -1630,7 +1630,7 @@ class DocumentController extends Controller
      * @OA\Delete(path="/api/imports/{id}",
      *   tags={"Import"},
      *   summary="Delete import by id",
-     *   description="",
+     *   description="Delete a imports",
      *   operationId="destroy",
      *   @OA\Parameter(
      *     name="id",
