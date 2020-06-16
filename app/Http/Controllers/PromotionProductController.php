@@ -121,8 +121,23 @@ class PromotionProductController extends Controller
      * @param  \App\PromotionProduct  $promotionProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PromotionProduct $promotionProduct)
+    public function destroy($id)
     {
-        //
+        try {
+            $product =  $this->_promotionProductRepository->delete($id);
+            $result = array(
+                'status' => 'OK',
+                'message'=> 'Delete Successfully',
+                'data'=> $product
+            );
+            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
+            $result = array(
+                'status' => 'ER',
+                'message'=> 'Delete Failed',
+                'data'=> 'ER'
+            );
+            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
     }
 }
