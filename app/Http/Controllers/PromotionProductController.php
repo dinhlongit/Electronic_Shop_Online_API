@@ -124,11 +124,12 @@ class PromotionProductController extends Controller
     public function destroy($id)
     {
         try {
+            $promotion =  $this->_promotionProductRepository->find($id);
             $product =  $this->_promotionProductRepository->delete($id);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Delete Successfully',
-                'data'=> $product
+                'data'=>$promotion
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
