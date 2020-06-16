@@ -51,7 +51,7 @@ class PromotionController extends Controller
             return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
-                'status' => 'ER',
+                'status' => 'ERR',
                 'message' => 'Insert Failed',
                 'data' => ''
             );
