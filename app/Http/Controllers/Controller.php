@@ -23,7 +23,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *     ),
  *         @OA\Server(
  *         description="OpenApi serve",
- *         url=""
+ *         url="/public"
  *     ),
  *     @OA\ExternalDocumentation(
  *         description="Find out more about Swagger",
