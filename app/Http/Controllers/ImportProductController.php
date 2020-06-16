@@ -22,7 +22,7 @@ class ImportProductController extends Controller
 
     public function index()
     {
-        $data = $this->_importProduct->getAll();
+        $data = $this->_importProduct->getImportDetail();
         $result = array(
             'status' => 'OK',
             'message'=> 'Fetch Successfully',
@@ -55,14 +55,14 @@ class ImportProductController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Insert Successfully',
-                'data'=> $import_product
+                'data'=> $this->_importProduct->getImportDetailById($import_product->id)
             );
             return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Insert Failed',
-                'data'=> ''
+                'data'=> $this->_importProduct->getImportById($import_product->id)
             );
             return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
@@ -117,7 +117,7 @@ class ImportProductController extends Controller
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
-                'data'=> $data_find
+                'data'=> $this->_importProduct->getImportDetailById($id)
             );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
