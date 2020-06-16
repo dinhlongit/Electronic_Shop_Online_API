@@ -42,7 +42,7 @@ class CategoryController extends Controller
             'message'=> 'Fetch Successfully',
             'data'=> $data
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     public function getAllCategory(){
