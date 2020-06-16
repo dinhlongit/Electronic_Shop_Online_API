@@ -28,7 +28,7 @@ class ImportProductController extends Controller
             'message'=> 'Fetch Successfully',
             'data'=> $data
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -52,19 +52,20 @@ class ImportProductController extends Controller
         try{
             $data = $request->only('amount','export_price','import_price','product_id','import_id');
             $import_product =   $this->_importProduct->create($data);
+            $return_data = $this->_importProduct->getImportDetailById($import_product->id);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Insert Successfully',
                 'data'=> $this->_importProduct->getImportDetailById($import_product->id)
             );
-            return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
+            return response()->json($return_data,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Insert Failed',
                 'data'=> $this->_importProduct->getImportById($import_product->id)
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($return_data,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
     }
 
@@ -114,19 +115,20 @@ class ImportProductController extends Controller
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
             $this->_importProduct->update($id,$request->only('amount','export_price','import_price','product_id','import_id'));
+            $return_data = $this->_importProduct->getImportDetailById($id);
             $result = array(
                 'status' => 'OK',
                 'message'=> 'Update Successfully',
                 'data'=> $this->_importProduct->getImportDetailById($id)
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($return_data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
                 'message'=> 'Update Failed',
                 'data'=> ''
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($return_data,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
         }
     }
 

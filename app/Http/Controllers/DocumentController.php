@@ -1670,6 +1670,45 @@ class DocumentController extends Controller
      *
      */
 
+
+    /**
+     * @OA\PUT(path="/api/importproducts/{id}",
+     *   tags={"ImportDetail"},
+     *   summary="Edit an import detail product",
+     *   description="",
+     *   operationId="update",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *            example = {"amount" : 100, "export_price":100, "import_price" : 100, "product_id" : 1 , "import_id" : 5}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
     /**
      * @OA\Post(path="/api/importproducts",
      *   tags={"ImportDetail"},

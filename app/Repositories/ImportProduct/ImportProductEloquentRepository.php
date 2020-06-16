@@ -27,6 +27,7 @@ class ImportProductEloquentRepository extends EloquentRepository implements Impo
             ->join('products','import_products.product_id','=','products.id')
             ->join('imports','import_products.import_id','=','imports.id')
             ->select('import_products.*','products.name as product_name','imports.name as import_name')
+            ->orderBy('import_products.id')
             ->get();
     }
 
