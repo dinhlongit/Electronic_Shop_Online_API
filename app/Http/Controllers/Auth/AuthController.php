@@ -138,13 +138,14 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         return response()->json([
-            'result' => true,
+            'id' => $user['id'],
+            'username' => $user['name'],
+            'email' => $user['email'],
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24,
             'role' => $user->roles->pluck('name'),
-            'id' => $user['id'],
-            'username' => $user['name']
+
         ]);
     }
 

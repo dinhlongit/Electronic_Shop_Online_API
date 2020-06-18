@@ -15,8 +15,8 @@
     },
     "servers": [
         {
-            "url": "",
-            "description": "OpenApi serve"
+            "url": "/public",
+            "description": "OpenApi server"
         }
     ],
     "paths": {

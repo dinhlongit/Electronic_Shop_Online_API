@@ -46,22 +46,44 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
 
     public function getProductByCategory($id)
     {
+        $nows = date(now()->toDateString());
+        $level1 = Category::where('parrent_id',null)->get()->pluck('id')->toArray();
+
+        if (in_array($id, $level1)){
+            $need_get = Category::where('parrent_id',$id)->get()->pluck('id')->toArray();
+            return DB::table('products as p')
+                ->leftJoin('categories','p.category_id','=','categories.id')
+                ->leftJoin('producers','producers.id','=','p.producer_id')
+                ->leftJoin('import_products','import_products.product_id','=','p.id')
+                ->select('p.id','p.name','p.photo','p.description',
+                    DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
+                    DB::raw('MAX(import_products.export_price) AS price'))
+                ->whereIn('categories.id',$need_get)
+                ->orWhereIn('categories.parrent_id',$need_get)
+                ->groupBy('p.id');
+        }else{
+            return DB::table('products as p')
+                ->leftJoin('categories','p.category_id','=','categories.id')
+                ->leftJoin('producers','producers.id','=','p.producer_id')
+                ->leftJoin('import_products','import_products.product_id','=','p.id')
+                ->select('p.id','p.name','p.photo','p.description',
+                    DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
+                    DB::raw('MAX(import_products.export_price) AS price'))
+                ->where('categories.id',$id)
+                ->orWhere('categories.parrent_id',$id)
+                ->groupBy('p.id');
+        }
+
+
+
+
+
 
 //        return Category::with('categories.products')
 //            ->where('categories.id',$id)
 //            ->orWhere('categories.parrent_id',$id)
 //            ->get();
-        $nows = date(now()->toDateString());
-        return DB::table('products as p')
-            ->leftJoin('categories','p.category_id','=','categories.id')
-            ->leftJoin('producers','producers.id','=','p.producer_id')
-            ->leftJoin('import_products','import_products.product_id','=','p.id')
-            ->select('p.id','p.name','p.photo','p.description',
-                DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
-                DB::raw('MAX(import_products.export_price) AS price'))
-            ->where('categories.id',$id)
-            ->orWhere('categories.parrent_id',$id)
-            ->groupBy('p.id');
+
      //    $singleCategory = Category::find($id);
        //  return $singleCategory->products;
 
