@@ -36,6 +36,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                   DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
                   DB::raw('MAX(import_products.export_price) AS price'),
                   DB::raw('MAX(promotion_products.title) AS discount'),
+                  DB::raw("IF ( MAX(promotion_products.title) > 0,'yes','no' ) as sale"),
+                  DB::raw("IF ( p.status_id = 3 ,'yes','no' ) as new"),
                   'producers.name as producer')
                   ->where('promotion_products.title',null)
                   ->Orwhere('promotions.start_date','<=',$nows)
