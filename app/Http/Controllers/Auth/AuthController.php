@@ -143,7 +143,7 @@ class AuthController extends Controller
             'email' => $user['email'],
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24,
+            'expires_in' => $this->guard()->factory()->getTTL() * 60 * 24 * 1000,
             'role' => $user->roles->pluck('name'),
 
         ]);
