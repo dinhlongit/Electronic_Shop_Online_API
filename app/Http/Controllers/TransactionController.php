@@ -26,6 +26,7 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $result = $this->_orderRepository->getOrders();
@@ -51,7 +52,7 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_id' => 'required',
+            'cart' => 'required',
             'transaction_info' =>'required'
         ]);
         if ($validator->fails()){
@@ -117,6 +118,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $transaction_id)
     {
+
         try {
             $data_find = $this->_orderRepository->find($transaction_id);
             if (is_null($data_find)){

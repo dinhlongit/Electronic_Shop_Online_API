@@ -842,7 +842,7 @@ class DocumentController extends Controller
      *                     property="id",
      *                     type="string"
      *                 ),
-     *                 example={"cart":{{"product_id" : 1, "amount" : 3, "price" : 4},{"product_id" : 2, "amount" : 44, "price" : 4}},"transaction_info" : {"user_id" : 1, "full_name" : "dinh long" ,"street" : "27 Thai Thi Boi", "address_id" : 1}}
+     *                 example={"cart":{{"product_id" : 1, "amount" : 3, "price" : 4},{"product_id" : 2, "amount" : 44, "price" : 4}},"transaction_info" : {"user_id" : 1, "full_name" : "dinh long" ,"street" : "27 Thai Thi Boi","phone_number":888888888, "address_id" : 1}}
      *             )
      *         )
      *     ),
