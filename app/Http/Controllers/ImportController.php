@@ -66,8 +66,10 @@ class ImportController extends Controller
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
                 'name' => $request->get('name'),
-                'supplier_id' => $request->get('user_id')
+                'supplier_id' => $request->get('supplier_id')
             ]);
+
+
 
             $result = array(
                 'status' => 'OK',
@@ -149,7 +151,7 @@ class ImportController extends Controller
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
                 'name' => $request->get('name'),
-                'supplier_id' => $request->get('user_id')
+                'supplier_id' => $request->get('supplier_id')
             ]);
             $result = array(
                 'status' => 'OK',

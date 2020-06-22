@@ -17,8 +17,10 @@ class CreateImportsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable()->default("Hoa Don");
             $table->date('import_date');
+
             $table->bigInteger('user_id')->unsigned();//
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+
             $table->bigInteger('supplier_id')->unsigned();//
             $table->foreign("supplier_id")->references("id")->on("suppliers")->onDelete("cascade");
             $table->timestamps();
