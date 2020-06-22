@@ -6,6 +6,7 @@ use App\Producer;
 use App\Repositories\Producer\ProducerRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ProducerController extends Controller
 {
@@ -47,6 +48,13 @@ class ProducerController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
         try {
             $data = $request->only('name');
             $producer_create =  $this->_producerRepository->create($data);
@@ -107,6 +115,13 @@ class ProducerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
         try {
             $data_find = $this->_producerRepository->find($id);
             if (is_null($data_find)){

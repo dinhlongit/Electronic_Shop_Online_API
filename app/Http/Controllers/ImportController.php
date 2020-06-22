@@ -7,6 +7,7 @@ use App\Repositories\Import\ImportRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ImportController extends Controller
 {
@@ -49,7 +50,15 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {
-
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'import_date' => 'required',
+            'supplier_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
 
         try {
             $date = Carbon::createFromFormat('d-m-Y', $request->get('import_date'));
@@ -119,6 +128,15 @@ class ImportController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'import_date' => 'required',
+            'supplier_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
 
         try {
             $data_find = $this->_importRepository->find($id);

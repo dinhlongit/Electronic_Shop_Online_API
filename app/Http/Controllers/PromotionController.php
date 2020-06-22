@@ -7,6 +7,7 @@ use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Promotion\PromotionRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionController extends Controller
 {
@@ -39,6 +40,15 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
         try {
 
             $data = $request->only('name','start_date','end_date');
@@ -100,6 +110,16 @@ class PromotionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
+
         try {
             $data_find = $this->_prromotionRepository->find($id);
             if (is_null($data_find)){

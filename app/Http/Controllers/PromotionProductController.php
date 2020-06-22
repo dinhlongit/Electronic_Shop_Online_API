@@ -8,6 +8,7 @@ use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\PromotionProduct\PromotionProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionProductController extends Controller
 {
@@ -49,6 +50,13 @@ class PromotionProductController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
         try{
       $promotion_id = $request->only("promotion_id");
       $category_id = $request->only("category_id");

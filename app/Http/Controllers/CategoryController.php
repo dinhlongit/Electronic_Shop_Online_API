@@ -78,7 +78,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'parrent_id' => 'required|numeric|max:255',
+            'parrent_id' => 'required|numeric',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
@@ -145,7 +145,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'parrent_id' => 'required|numeric|max:255',
+            'parrent_id' => 'required|numeric',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);

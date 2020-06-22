@@ -8,6 +8,7 @@ use App\User;
 use http\Message\Body;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
@@ -49,6 +50,13 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required',
+            'transaction_info' =>'required'
+        ]);
+        if ($validator->fails()){
+            return response()->json($validator->errors()->toArray(),Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
 
         $transaction_info = $request->only('transaction_info')["transaction_info"];
         $cart = $request->only('cart')["cart"];
