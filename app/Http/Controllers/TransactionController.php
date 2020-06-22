@@ -17,7 +17,7 @@ class TransactionController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
-        $this->middleware('auth.role:Admin,Nhân Viên',['except' => ['store','getOrderByUser','destroy']]);
+        //$this->middleware('auth.role:Admin,Nhân Viên',['except' => ['store','getOrderByUser','destroy']]);
         $this->_orderRepository = $orderRepository;
     }
 
@@ -93,9 +93,11 @@ class TransactionController extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show($id)
     {
-        //
+
+        return response()->json($this->_orderRepository->getProductOfOrder($id),Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+
     }
 
     /**
@@ -155,6 +157,12 @@ class TransactionController extends Controller
         return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
 
     }
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

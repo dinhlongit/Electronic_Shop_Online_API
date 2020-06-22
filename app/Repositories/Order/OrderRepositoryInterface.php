@@ -8,4 +8,5 @@ interface OrderRepositoryInterface
     public function getOrderById($id);
     public function submitOrder($cart,$transaction_info);
     public function getOrderByUser($user_id);
+    public function getProductOfOrder($id);
 }
