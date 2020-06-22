@@ -25,7 +25,7 @@ class AddressController extends Controller
 
     public function index()
     {
-        $data = $this->_addressRepository->getAll();
+        $data = $this->_addressRepository->getAddresses();
         $result = array(
             'status' => 'OK',
             'message'=> 'Fetch Successfully',
@@ -61,9 +61,15 @@ class AddressController extends Controller
      * @param  \App\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function show(Address $address)
+    public function show($id)
     {
-        //
+        $data = $this->_addressRepository->getAddressById($id);
+        $result = array(
+            'status' => 'OK',
+            'message'=> 'Fetch Successfully',
+            'data'=> $data
+        );
+        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
     /**
