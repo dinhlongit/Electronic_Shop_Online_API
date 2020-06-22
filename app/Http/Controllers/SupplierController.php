@@ -6,6 +6,7 @@ use App\Repositories\Supplier\SupplierRepositoryInterface;
 use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 
 class SupplierController extends Controller
@@ -45,6 +46,13 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+        ]);
+        if ($validator->fails()){
+            return response()->json($validator->errors()->toArray(),Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
+
         try {
 
             $data = $request->only('name');
@@ -107,6 +115,13 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+        ]);
+        if ($validator->fails()){
+            return response()->json($validator->errors()->toArray(),Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        }
+
         try {
             $data_find = $this->_supplierRepository->find($id);
             if (is_null($data_find)){

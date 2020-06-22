@@ -17,6 +17,7 @@ class AddressController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $_addressRepository;
+
     public function __construct(AddressRepositoryInterface $addressRepository)
     {
         $this->_addressRepository = $addressRepository;
@@ -28,10 +29,10 @@ class AddressController extends Controller
         $data = $this->_addressRepository->getAddresses();
         $result = array(
             'status' => 'OK',
-            'message'=> 'Fetch Successfully',
-            'data'=> $data
+            'message' => 'Fetch Successfully',
+            'data' => $data
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -47,7 +48,7 @@ class AddressController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,7 +59,7 @@ class AddressController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Address  $address
+     * @param \App\Address $address
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,16 +67,16 @@ class AddressController extends Controller
         $data = $this->_addressRepository->getAddressById($id);
         $result = array(
             'status' => 'OK',
-            'message'=> 'Fetch Successfully',
-            'data'=> $data
+            'message' => 'Fetch Successfully',
+            'data' => $data
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Address  $address
+     * @param \App\Address $address
      * @return \Illuminate\Http\Response
      */
     public function edit(Address $address)
@@ -86,8 +87,8 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Address  $address
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Address $address
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Address $address)
@@ -98,7 +99,7 @@ class AddressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Address  $address
+     * @param \App\Address $address
      * @return \Illuminate\Http\Response
      */
     public function destroy(Address $address)

@@ -48,7 +48,6 @@ class ProducerController extends Controller
     public function store(Request $request)
     {
         try {
-
             $data = $request->only('name');
             $producer_create =  $this->_producerRepository->create($data);
             $result = array(

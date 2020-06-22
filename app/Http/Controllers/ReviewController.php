@@ -6,6 +6,7 @@ use App\Repositories\Review\ReviewRepositoryInterface;
 use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends Controller
 {
@@ -15,18 +16,18 @@ class ReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $_reviewRepository;
+
     public function __construct(ReviewRepositoryInterface $reviewRepository)
     {
-        $this->middleware('auth.role:Admin',['except' => ['store'] ]);
+        $this->middleware('auth.role:Admin', ['except' => ['store']]);
         $this->_reviewRepository = $reviewRepository;
     }
 
     public function index()
     {
         $result = $this->_reviewRepository->getAll();
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
     }
-
 
 
     /**
@@ -42,18 +43,26 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$user_id)
+    public function store(Request $request, $user_id)
     {
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|max:255',
+            'rating' => 'required|numeric|min:1|max:5',
+            'product_id' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
 
 
         try {
 
-            $data = $request->only('content','rating','product_id') + ['user_id' => $user_id];
+            $data = $request->only('content', 'rating', 'product_id') + ['user_id' => $user_id];
 
-           $review =  $this->_reviewRepository->create($data);
+            $review = $this->_reviewRepository->create($data);
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',
@@ -73,28 +82,28 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Producer  $producer
+     * @param \App\Producer $producer
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $data_find = $this->_reviewRepository->find($id);
 
-        if (is_null($data_find)){
-            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        if (is_null($data_find)) {
+            return response()->json("Record id not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
         }
         $result = array(
             'status' => 'OK',
-            'message'=> 'Show Successfully',
-            'data'=> $data_find
+            'message' => 'Show Successfully',
+            'data' => $data_find
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Producer  $producer
+     * @param \App\Producer $producer
      * @return \Illuminate\Http\Response
      */
     public function edit(Producer $producer)
@@ -105,38 +114,48 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Producer  $producer
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Producer $producer
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|max:255',
+            'rating' => 'required|numeric|min:1|max:5',
+            'product_id' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
+
         try {
             $data_find = $this->_reviewRepository->find($id);
-            if (is_null($data_find)){
-                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            if (is_null($data_find)) {
+                return response()->json("Record is not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
             }
-            $data = $this->_reviewRepository->update($id,$request->only('content','rating','product_id','user_id'));
+            $data = $this->_reviewRepository->update($id, $request->only('content', 'rating', 'product_id', 'user_id'));
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Update Successfully',
-                'data'=> $data
+                'message' => 'Update Successfully',
+                'data' => $data
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Update Failed',
-                'data'=> 'ERR'
+                'message' => 'Update Failed',
+                'data' => 'ERR'
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Producer  $producer
+     * @param \App\Producer $producer
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -145,17 +164,17 @@ class ReviewController extends Controller
             $data = $this->_reviewRepository->delete($id);
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Delete Successfully',
-                'data'=> $data
+                'message' => 'Delete Successfully',
+                'data' => $data
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Delete Failed',
-                'data'=> 'ERR'
+                'message' => 'Delete Failed',
+                'data' => 'ERR'
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 }

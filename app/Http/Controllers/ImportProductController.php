@@ -20,15 +20,16 @@ class ImportProductController extends Controller
         $this->_importProduct = $importProductRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $paginate = $request->only('limit', 'page');
         $data = $this->_importProduct->getImportDetail();
-        $result = array(
-            'status' => 'OK',
-            'message'=> 'Fetch Successfully',
-            'data'=> $data
-        );
-        return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+
+        if (count($paginate) > 0) {
+            return response()->json($this->_importProduct->getImportDetail()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_importProduct->getImportDetail()->get());
+
     }
 
     /**

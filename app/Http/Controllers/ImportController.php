@@ -7,6 +7,7 @@ use App\Repositories\Import\ImportRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
 class ImportController extends Controller
 {
     /**
@@ -14,17 +15,20 @@ class ImportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private  $_importRepository;
+    private $_importRepository;
 
     public function __construct(ImportRepositoryInterface $importRepository)
     {
         $this->_importRepository = $importRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $result = $this->_importRepository->getImports();
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        $paginate = $request->only('limit', 'page');
+        if (count($paginate) > 0) {
+            return response()->json($this->_importRepository->getImports()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_importRepository->getImports()->get());
     }
 
     /**
@@ -40,14 +44,16 @@ class ImportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+
+
         try {
-            $date = Carbon::createFromFormat('d-m-Y',$request->get('import_date'));
-           $import =  $this->_importRepository->create([
+            $date = Carbon::createFromFormat('d-m-Y', $request->get('import_date'));
+            $import = $this->_importRepository->create([
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
                 'name' => $request->get('name'),
@@ -73,29 +79,29 @@ class ImportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Import  $import
+     * @param \App\Import $import
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $data_find = $this->_importRepository->find($id);
 
-        if (is_null($data_find)){
-            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        if (is_null($data_find)) {
+            return response()->json("Record id not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
         }
         $data = $this->_importRepository->getImmportById($id);
         $result = array(
             'status' => 'OK',
-            'message'=> 'Show Successfully',
-            'data'=> $data
+            'message' => 'Show Successfully',
+            'data' => $data
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Import  $import
+     * @param \App\Import $import
      * @return \Illuminate\Http\Response
      */
     public function edit(Import $import)
@@ -107,8 +113,8 @@ class ImportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Import  $import
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Import $import
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -116,12 +122,12 @@ class ImportController extends Controller
 
         try {
             $data_find = $this->_importRepository->find($id);
-            if (is_null($data_find)){
-                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            if (is_null($data_find)) {
+                return response()->json("Record is not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
             }
-            $date = Carbon::createFromFormat('d-m-Y',$request->get('import_date'));
+            $date = Carbon::createFromFormat('d-m-Y', $request->get('import_date'));
 
-            $data =  $this->_importRepository->update($id,[
+            $data = $this->_importRepository->update($id, [
                 'import_date' => $date->format('Y-m-d'),
                 'user_id' => $request->get('user_id'),
                 'name' => $request->get('name'),
@@ -129,48 +135,48 @@ class ImportController extends Controller
             ]);
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Update Successfully',
-                'data'=> $this->_importRepository->getImportId($id)
+                'message' => 'Update Successfully',
+                'data' => $this->_importRepository->getImportId($id)
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Update Failed',
-                'data'=> ''
+                'message' => 'Update Failed',
+                'data' => ''
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Import  $import
+     * @param \App\Import $import
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $data_find = $this->_importRepository->find($id);
 
-        if (is_null($data_find)){
-            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        if (is_null($data_find)) {
+            return response()->json("Record id not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
         }
         try {
-            $imp =  $this->_importRepository->delete($id);
+            $imp = $this->_importRepository->delete($id);
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Delete Successfully',
-                'data'=> $data_find
+                'message' => 'Delete Successfully',
+                'data' => $data_find
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Delete Failed',
-                'data'=> ''
+                'message' => 'Delete Failed',
+                'data' => ''
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 

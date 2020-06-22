@@ -28,8 +28,7 @@ class ImportEloquentRepository extends EloquentRepository implements ImportRepos
                ->leftJoin('import_products','imports.id','=','import_products.import_id')
                ->select('imports.*','users.name as full_name','suppliers.name as supplier',
                 DB::raw('SUM(import_products.amount * import_products.import_price) as total'))
-               ->groupBy('imports.id','users.name','suppliers.name')
-                ->get();
+               ->groupBy('imports.id','users.name','suppliers.name');
     }
 
 
