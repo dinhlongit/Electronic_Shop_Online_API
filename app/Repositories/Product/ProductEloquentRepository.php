@@ -33,7 +33,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                   ->leftJoin('promotion_products','p.id','=','promotion_products.product_id')
                   ->leftJoin('promotions','promotion_products.promotion_id','=','promotions.id')
                   ->select('p.id','p.name','p.photo','p.description',
-                  DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
+                  DB::raw('SUM(import_products.amount) AS amount'),
+                  'categories.name as category',
                   DB::raw('MAX(import_products.export_price) AS price'),
                   DB::raw('MAX(promotion_products.title) AS discount'),
                   DB::raw("IF ( MAX(promotion_products.title) > 0,'yes','no' ) as sale"),

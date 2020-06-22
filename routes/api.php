@@ -28,7 +28,6 @@ Route::get('getsubcategories','CategoryController@getSubCategory');
 Route::get('categories/{cat}/products', 'ProductController@getProductByCategory');
 
 Route::resource('products','ProductController');
-
 Route::get('products','ProductController@filterProduct');
 
 Route::get('products/filter/getSale','ProductController@getSaleProduct');

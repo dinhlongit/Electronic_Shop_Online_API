@@ -21,6 +21,10 @@ class CategoryEloquentRepository extends EloquentRepository implements CategoryR
        return \App\Category::class;
     }
 
+    public function getAllCategory(){
+        return DB::table('categories')->select('categories.*');
+    }
+
     public function getCategories()
     {
       //  \DB::connection()->enableQueryLog();

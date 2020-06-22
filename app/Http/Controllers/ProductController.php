@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
     {
-        $this->middleware('auth.role:Admin', ['except' => ['index', 'show', 'filterProduct', 'filterProductByPrice', 'getPhotosOfProduct', 'getSaleProduct', 'getNewProduct', 'getProductByCategory']]);
+       // $this->middleware('auth.role:Admin', ['except' => ['index', 'show', 'filterProduct', 'filterProductByPrice', 'getPhotosOfProduct', 'getSaleProduct', 'getNewProduct', 'getProductByCategory']]);
         $this->_productRepository = $productRepository;
         $this->_categoryRepository = $categoryRepository;
     }
@@ -53,6 +53,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        print_r($request->only('photo'));
+        dd($request->only('photo'));
         try {
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');

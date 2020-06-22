@@ -45,9 +45,13 @@ class CategoryController extends Controller
         return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
     }
 
-    public function getAllCategory(){
-        $data = $this->_categoryRepository->getAll();
-        return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+    public function getAllCategory(Request $request){
+        $paginate = $request->only('limit', 'page');
+        if (count($paginate) > 0) {
+            return response()->json($this->_categoryRepository->getAllCategory()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_categoryRepository->getAllCategory()->get());
+
     }
     /**
      * Show the form for creating a new resource.
@@ -131,11 +135,11 @@ class CategoryController extends Controller
             if (is_null($data_find)){
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }
-           $data =  $this->_categoryRepository->update($id,$request->only('name','photo','parrent_id'));
+            $data =  $this->_categoryRepository->update($id,$request->only('name','photo','parrent_id'));
             $result = array(
                     'status' => 'OK',
                     'message'=> 'Update Successfully',
-                    'data'=> $data
+                    'data'=> $this->_categoryRepository->find($id)
                 );
             return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
            } catch (Exception $e) {
