@@ -215,5 +215,19 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
        return $product->photos()->pluck('photo');
     }
 
+    public function query(){
+        return DB::table('products as p')
+            ->leftJoin('categories','p.category_id','=','categories.id')
+            ->leftJoin('producers','producers.id','=','p.producer_id')
+            ->leftJoin('import_products','import_products.product_id','=','p.id')
+            ->select('p.id','p.name','p.photo','p.description',
+                DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
+                DB::raw('MAX(import_products.export_price) AS price'), 'producers.name as producer');
+    }
+
+
+
+
+
 
 }

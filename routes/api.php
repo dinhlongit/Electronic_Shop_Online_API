@@ -21,6 +21,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 //Auth::routes();
 //getProductByProducer
 
+Route::get('filter/products','ProductController@filterMultiAttribute');
 Route::get('products/{id}/reviews','ProductController@getProductReview');
 
 Route::resource('home','HomeController');

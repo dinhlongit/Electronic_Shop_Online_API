@@ -16,4 +16,5 @@ interface ProductRepositoryInterface
     public function getPhotosOfProduct($id);
     public function getProductByProducer($id);
     public function getReviewProduct($id);
+    public function query();
 }

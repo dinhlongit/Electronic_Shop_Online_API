@@ -419,6 +419,18 @@ class DocumentController extends Controller
      * )
      */
 
+    /**
+     * @OA\Get(path="/api/filter/products?category={category}&producer={producer}&price={minmax}&keyword={keyword}&limit={limit}&page={page}",
+     *   tags={"Product"},
+     *   summary="Filter Product",
+     *   description="",
+     *   operationId="FilterProduct",
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     * )
+     */
+
 
     /**
      * @OA\Get(
@@ -588,6 +600,10 @@ class DocumentController extends Controller
      *   @OA\Response(response=404, description="category not found"),
      * )
      */
+
+
+
+
 
 
     /**

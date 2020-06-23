@@ -15,7 +15,7 @@
     },
     "servers": [
         {
-            "url": "/public",
+            "url": "",
             "description": "OpenApi server"
         }
     ],
@@ -483,6 +483,27 @@
                 }
             }
         },
+        "/api/filter/products?category={category}&producer={producer}&price={minmax}&keyword={keyword}&limit={limit}&page={page}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Filter Product",
+                "description": "",
+                "operationId": "FilterProduct",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
         "/api/products?filter=new&limit={limit}&page={page}": {
             "get": {
                 "tags": [
@@ -783,6 +804,53 @@
                 "summary": "Get Products by Category paginate",
                 "description": "",
                 "operationId": "getProductByCategorypaginate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid id supplied"
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
+        "/api/producer/{id}/products?limit={limit}&page={page}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Products by Producer paginate",
+                "description": "",
+                "operationId": "getProductByProducer",
                 "parameters": [
                     {
                         "name": "id",
