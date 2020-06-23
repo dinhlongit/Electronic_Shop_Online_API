@@ -971,6 +971,7 @@
                                         "user_id": 1,
                                         "full_name": "dinh long",
                                         "street": "27 Thai Thi Boi",
+                                        "phone_number": 888888888,
                                         "address_id": 1
                                     }
                                 }
