@@ -49,13 +49,14 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
 
     public function getReviewProduct($id){
         $product = Product::find($id);
-
-//        $x = $array_merge($product->reviews->toArray(),['name' => $product->name]) ;
-//        dd();
-
-
-
-        return $product->reviews->toArray();
+        $arr =$product->reviews->toArray();
+        $arr1 = [];
+        foreach ($arr as $item){
+            $name = User::find($item['user_id'])->name;
+            array_push($item,$name);
+            array_push($arr1,$item);
+        }
+        return $arr1;
     }
 
     public function getProductByCategory($id)
@@ -109,6 +110,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->where('producers.id',$id)
             ->groupBy('p.id');
     }
+
+
 
 
 
@@ -202,6 +205,9 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
     {
         // TODO: Implement getBestSellProduct() method.
     }
+
+
+
 
     public function getPhotosOfProduct($id)
     {
