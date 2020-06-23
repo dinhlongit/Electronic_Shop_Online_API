@@ -14,4 +14,5 @@ interface ProductRepositoryInterface
     public function getBestSellProduct();
     public function filterProductByPrice($start,$end);
     public function getPhotosOfProduct($id);
+    public function getProductByProducer($id);
 }

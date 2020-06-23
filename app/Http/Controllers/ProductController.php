@@ -240,8 +240,10 @@ class ProductController extends Controller
                 $paginate = $request->only('limit', 'page');
 
                 if (count($paginate) > 0) {
-                    dd($paginate);
-                    return response()->json($this->_productRepository->filterProductByPrice($limit['start'], $limit['end'])->paginate($paginate['limit']));
+                    $numrow = count($this->_productRepository->filterProductByPrice($limit['start'], $limit['end'])->get()->toArray());
+                     $last_page = (int)ceil($numrow / $paginate['limit']);
+
+                    return response()->json($this->_productRepository->filterProductByPrice($limit['start'], $limit['end'])->simplePaginate($paginate['limit'])->toArray()+['last_page' => $last_page]);
                 }
                 return response()->json($this->_productRepository->filterProductByPrice($limit['start'], $limit['end'])->get());
             }
@@ -256,6 +258,16 @@ class ProductController extends Controller
 
     }
 
+
+    public function getProductByProducer(Request $request,$id)
+    {
+        $paginate = $request->only('limit', 'page');
+        if (count($paginate) > 0) {
+            return response()->json($this->_productRepository->getProductByProducer($id)->paginate($paginate['limit']));
+        }
+        return response()->json($this->_productRepository->getProductByProducer($id)->get());
+    }
+
     public function getNewProduct(Request $request)
     {
         $paginate = $request->only('limit', 'page');
@@ -264,6 +276,8 @@ class ProductController extends Controller
         }
         return response()->json($this->_productRepository->getNewProduct()->get());
     }
+
+
 
     public function getSaleProduct(Request $request)
     {

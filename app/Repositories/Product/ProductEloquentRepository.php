@@ -76,12 +76,6 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 ->orWhere('categories.parrent_id',$id)
                 ->groupBy('p.id');
         }
-
-
-
-
-
-
 //        return Category::with('categories.products')
 //            ->where('categories.id',$id)
 //            ->orWhere('categories.parrent_id',$id)
@@ -91,6 +85,21 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
        //  return $singleCategory->products;
 
     }
+
+
+    public function getProductByProducer($id){
+        return DB::table('products as p')
+            ->leftJoin('categories','p.category_id','=','categories.id')
+            ->leftJoin('producers','producers.id','=','p.producer_id')
+            ->leftJoin('import_products','import_products.product_id','=','p.id')
+            ->select('p.id','p.name','p.photo','p.description',
+                DB::raw('SUM(import_products.amount) AS amount') ,'categories.name as category',
+                DB::raw('MAX(import_products.export_price) AS price'))
+            ->where('producers.id',$id)
+            ->groupBy('p.id');
+    }
+
+
 
     public function showProductById($id){
         $nows = date(now()->toDateString());
@@ -119,6 +128,7 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
               ->get();
          return  $product->concat($promotion)->concat($review);
     }
+
 
     public function getSaleProduct(){
         $nows = date(now()->toDateString());
@@ -152,7 +162,6 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 DB::raw('MAX(import_products.export_price) AS price'),
                 'producers.name as producer')
             ->groupBy('p.id');
-
     }
 
 

@@ -19,7 +19,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 |
 */
 //Auth::routes();
-
+//getProductByProducer
 Route::resource('home','HomeController');
 
 Route::resource('categories','CategoryController');
@@ -33,7 +33,7 @@ Route::get('products','ProductController@filterProduct');
 Route::get('products/filter/getSale','ProductController@getSaleProduct');
 Route::get('products/filter/getNew','ProductController@getNewProduct');
 Route::get('products/filter/price','ProductController@filterProductByPrice');
-
+Route::get('producers/{id}/products','ProductController@getProductByProducer');
 Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
 Route::resource('imports','ImportController');
 Route::resource('importproducts','ImportProductController');
@@ -49,6 +49,8 @@ Route::resource('roles','RoleController');
 Route::resource('promotions','PromotionController');
 Route::resource('promotionproducts','PromotionProductController');
 Route::resource('producers','ProducerController');
+
+
 Route::resource('suppliers','SupplierController');
 Route::resource('orders','TransactionController');
 Route::resource('orderstatuses','TransactionStatusController');
