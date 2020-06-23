@@ -20,6 +20,9 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 */
 //Auth::routes();
 //getProductByProducer
+
+Route::get('products/{id}/reviews','ProductController@getProductReview');
+
 Route::resource('home','HomeController');
 
 Route::resource('categories','CategoryController');
@@ -30,9 +33,12 @@ Route::get('categories/{cat}/products', 'ProductController@getProductByCategory'
 Route::resource('products','ProductController');
 Route::get('products','ProductController@filterProduct');
 
+
 Route::get('products/filter/getSale','ProductController@getSaleProduct');
 Route::get('products/filter/getNew','ProductController@getNewProduct');
 Route::get('products/filter/price','ProductController@filterProductByPrice');
+
+
 Route::get('producers/{id}/products','ProductController@getProductByProducer');
 Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
 Route::resource('imports','ImportController');

@@ -47,6 +47,17 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
 
     }
 
+    public function getReviewProduct($id){
+        $product = Product::find($id);
+
+//        $x = $array_merge($product->reviews->toArray(),['name' => $product->name]) ;
+//        dd();
+
+
+
+        return $product->reviews->toArray();
+    }
+
     public function getProductByCategory($id)
     {
         $nows = date(now()->toDateString());

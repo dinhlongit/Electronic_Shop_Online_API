@@ -53,8 +53,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->only('photo'));
-        dd($request->only('photo'));
+     
         try {
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');
@@ -266,6 +265,13 @@ class ProductController extends Controller
             return response()->json($this->_productRepository->getProductByProducer($id)->paginate($paginate['limit']));
         }
         return response()->json($this->_productRepository->getProductByProducer($id)->get());
+    }
+
+
+    public function getProductReview($id)
+    {
+
+        return response()->json($this->_productRepository->getReviewProduct($id));
     }
 
     public function getNewProduct(Request $request)
