@@ -318,7 +318,7 @@ class ProductController extends Controller
     {
         $query = $this->_productRepository->query();
         if ($request->has('category')) {
-            if (count($request->get('category')) != 0) {
+            if (is_null($request->get('category')) == false) {
                 $id = $request->get('category');
                 $level1 = Category::where('parrent_id', null)->get()->pluck('id')->toArray();
                 if (in_array($id, $level1)) {
@@ -331,19 +331,19 @@ class ProductController extends Controller
         }
 
         if ($request->has('producer')) {
-            if (count($request->get('producer')) != 0) {
+            if (is_null($request->get('producer'))  == false) {
                 $query->where('producers.id', $request->get('producer'));
             }
         }
 
         if ($request->has('keyword')) {
-            if (count($request->get('keyword')) != 0) {
+            if (is_null($request->get('keyword'))  == false) {
                 $query->where('p.name', 'LIKE', '%' . $request->get('keyword') . '%');
             }
         }
 
         if ($request->has('price')) {
-            if (count($request->get('price')) != 0) {
+            if (is_null($request->get('price'))  == false) {
                 $price = explode(",", $request->get('price'));
                 if (count($price) != 0) {
                     $query->where('import_products.export_price', '>=', $price[0])->where('import_products.export_price', '<=', $price[1]);
@@ -351,12 +351,21 @@ class ProductController extends Controller
             }
         }
 
-        if ($request->has('limit') && $request->has('page')) {
-            $paginate = $request->only('limit', 'page');
-            if (count($paginate) > 0) {
-                return response()->json($query->groupBy('p.id')->paginate($paginate['limit']));
+        if ($request->has('sort')) {
+
+            if (is_null($request->get('sort'))  == false) {
+                $query->orderBy($request->get('sort'));
+              
             }
         }
+
+        if ($request->has('limit') && $request->has('page')) {
+        $paginate = $request->only('limit', 'page');
+        if (count($paginate) > 0) {
+            return response()->json($query->groupBy('p.id')->paginate($paginate['limit']));
+        }
+        }
+
         return response()->json($query->groupBy('p.id')->get());
     }
 
