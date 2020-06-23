@@ -590,6 +590,43 @@ class DocumentController extends Controller
      */
 
 
+    /**
+     * @OA\Get(path="/api/producer/{id}/products?limit={limit}&page={page}",
+     *   tags={"Product"},
+     *   summary="Get Products by Producer paginate",
+     *   description="",
+     *   operationId="getProductByProducer",
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="limit",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Parameter(
+     *     name="page",
+     *     in="path",
+     *     required=true,
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *   @OA\Response(response=200, description="successful operation"),
+     *   @OA\Response(response=400, description="Invalid id supplied"),
+     *   @OA\Response(response=404, description="category not found"),
+     * )
+     */
+
+
 
     /**
      * @OA\Post(path="/api/products",
