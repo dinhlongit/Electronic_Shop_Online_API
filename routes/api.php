@@ -40,6 +40,7 @@ Route::get('products/filter/getNew','ProductController@getNewProduct');
 Route::get('products/filter/price','ProductController@filterProductByPrice');
 
 
+
 Route::get('producers/{id}/products','ProductController@getProductByProducer');
 Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
 Route::resource('imports','ImportController');
@@ -70,9 +71,7 @@ Route::resource('photoarrays','PhotoArrayController');
 //Route::get('users/{id}', 'UserController@show')->middleware('auth.belongto:Admin');
 //Route::PUT('users/{id}', 'UserController@update')->middleware('auth.belongto:Admin');
 Route::resource('addresses','AddressController');
-
-
-
+Route::get('getproducer/{id}','ProductController@getProducerOfCategory');
 
 
 
@@ -80,7 +79,6 @@ Route::group([
     'middleware' => ['api','cors'],
     'prefix' => 'auth'
 ], function ($router) {
-   // Route::post('register', 'Auth\AuthController@register');
     Route::post('register', [ 'as' => 'register', 'uses' => 'Auth\AuthController@register']);
     Route::post('login', 'Auth\AuthController@login');
     Route::post('logout', 'Auth\AuthController@logout');
@@ -90,6 +88,3 @@ Route::group([
 });
 
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});

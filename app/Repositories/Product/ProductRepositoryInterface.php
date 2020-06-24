@@ -17,4 +17,5 @@ interface ProductRepositoryInterface
     public function getProductByProducer($id);
     public function getReviewProduct($id);
     public function query();
+    public function getProducerOfCategory($id);
 }

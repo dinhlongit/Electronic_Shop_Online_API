@@ -355,7 +355,7 @@ class ProductController extends Controller
 
             if (is_null($request->get('sort'))  == false) {
                 $query->orderBy($request->get('sort'));
-              
+
             }
         }
 
@@ -367,6 +367,10 @@ class ProductController extends Controller
         }
 
         return response()->json($query->groupBy('p.id')->get());
+    }
+
+    public function getProducerOfCategory($id){
+     return response()->json($this->_productRepository->getProducerOfCategory($id));
     }
 
 }
