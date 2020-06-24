@@ -173,6 +173,13 @@ class AuthController extends Controller
                     $user->phone_number = $request->get('phone_number');
                 }
             }
+
+            if ($request->has('birthday')){
+                if (is_null($request->get('birthday')) != true ){
+                    $user->birthday = $request->get('birthday');
+                }
+            }
+
             if ($request->has('email')){
                 if (is_null($request->get('email')) != true ){
                     $user->email = $request->get('email');
@@ -187,13 +194,13 @@ class AuthController extends Controller
 
             if ($request->has('password')){
                 if (is_null($request->get('password')) != true ){
-                    $user->password = $request->get('password');
+                    $user->password = Hash::make($request->get('password'));
                 }
             }
 
             if ($request->has('address_id')){
                 if (is_null($request->get('address_id')) != true ){
-                    $user->password = $request->get('address_id');
+                    $user->address_id = $request->get('address_id');
                 }
             }
             $user->save();
