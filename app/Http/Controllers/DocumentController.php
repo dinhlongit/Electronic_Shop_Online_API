@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 
 class DocumentController extends Controller
 {
-
     //*******************************************************Authentication*******************************************************************//
-
     /**
      * @OA\Post(path="/api/auth/login",
      *   tags={"Auth"},

@@ -6,6 +6,6 @@ namespace App\Repositories\Report;
 
 interface ReportRepositoryInterface
 {
-    public function getTranSactionStatus();
+    public function getTranSactionStatus($month);
 
 }
