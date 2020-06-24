@@ -13,7 +13,7 @@ class ReportEloquentRepository implements ReportRepositoryInterface
 {
     public function getTranSactionStatus()
     {
-      
+
     }
 
 

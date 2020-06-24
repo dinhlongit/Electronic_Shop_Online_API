@@ -41,7 +41,7 @@ class AuthController extends Controller
         }
          $result = [
              "status" => 400,
-             "data" => "unothorize"
+             "data" => "unauthorize"
          ];
         return response()->json($result, 400);
     }
