@@ -46,7 +46,6 @@ Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
 Route::resource('imports','ImportController');
 Route::resource('importproducts','ImportProductController');
 
-
 Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');
 Route::resource('users','UserController');
 

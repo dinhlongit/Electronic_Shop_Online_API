@@ -98,7 +98,7 @@ class DocumentController extends Controller
      *                     property="id",
      *                     type="string"
      *                 ),
-     *               example = {"name":"dinhlong","phone_number":"0888999043","email":"dinhlongit1998@gmail.com","birthday":"2012-02-02","password":"123456","address":"Phu Da","address_id":"1"}
+     *               example = {"name":"dinhlong","phone_number":"0888999043","email":"dinhlongit1998@gmail.com","address":"Phu Da"}
      *             )
      *         )
      *     ),

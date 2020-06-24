@@ -163,8 +163,6 @@ class AuthController extends Controller
             'email' => 'required|email',
             'phone_number' => 'required|numeric',
             'address' => 'required',
-            'address_id' => 'required|numeric',
-            'password' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
@@ -180,9 +178,6 @@ class AuthController extends Controller
                 'phone_number' => $data['phone_number'],
                 'email' => $data['email'],
                 'address' => $data['address'],
-                'address_id' => $data['address_id'],
-                'birthday' => $data['birthday'],
-                'password' => Hash::make($data['password'])
             ]);
             DB::table('user_roles')->where('user_id', $id)->delete();
             $userCreate = User::find($id);

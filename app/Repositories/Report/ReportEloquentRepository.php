@@ -18,7 +18,10 @@ class ReportEloquentRepository implements ReportRepositoryInterface
             ->leftJoin('transaction_products','t.id','=','transaction_products.transaction_id')
             ->leftJoin('addresses','t.address_id','=','addresses.id')
             ->leftJoin('transaction_statuses','t.status_id','=','transaction_statuses.id')
-            ->select(DB::raw('COUNT(t.status_id) as number_order'),'t.transaction_statuses')
+            ->select('t.status_id','t.user_id','t.full_name',
+                't.street','addresses.name as city','users.phone_number','users.name',
+                DB::raw('SUM(transaction_products.price * transaction_products.amount) as total')
+                , 'transaction_statuses.name as status')
             ->groupBy('t.status_id')
             ->get();
     }
