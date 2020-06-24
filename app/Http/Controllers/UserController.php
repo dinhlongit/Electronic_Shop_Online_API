@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->middleware('auth.role:Admin', ['except' => ['show']]);
+        //$this->middleware('auth.role:Admin', ['except' => ['show']]);
         $this->_userRepository = $userRepository;
     }
 

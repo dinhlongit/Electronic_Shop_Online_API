@@ -5,6 +5,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -19,7 +20,7 @@ class AuthController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth:api', ['except' => ['login','register','logout','me','refresh']]);
+       // $this->middleware('auth:api', ['except' => ['login','register','logout','me','refresh','update']]);
     }
 
     /**
@@ -36,8 +37,11 @@ class AuthController extends Controller
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
-
-        return response()->json([], 400);
+         $result = [
+             "status" => 400,
+             "data" => "unothorize"
+         ];
+        return response()->json($result, 400);
     }
 
     /**
@@ -147,6 +151,34 @@ class AuthController extends Controller
             'role' => $user->roles->pluck('name'),
 
         ]);
+    }
+
+
+    public function updateUser(Request $request,$id){
+
+        $data = $request->all();
+
+        $check = false;
+        try{
+            DB::beginTransaction();
+            User::where('id',$id)->update([
+                'name' => $data['name'],
+                'phone_number' => $data['phone_number'],
+                'address' => $data['address'],
+                'address_id' => $data['address_id'],
+                'birthday' => $data['birthday'],
+                'password' => Hash::make($data['password'])
+            ]);
+            DB::table('user_roles')->where('user_id', $id)->delete();
+            $userCreate = User::find($id);
+            $userCreate->roles()->attach([3]);
+            DB::commit();
+            $check =  $userCreate->toArray()+['role' => $userCreate->roles()->pluck("name")->toArray()[0]];
+        }catch (Exception $ex){
+            DB::rollback();
+            return response()->json($check);
+        }
+        return response()->json($check);
     }
 
     /**
