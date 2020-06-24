@@ -27,10 +27,13 @@ class TransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $result = $this->_orderRepository->getOrders();
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        $paginate = $request->only('limit', 'page');
+        if (count($paginate) > 0) {
+            return response()->json($this->_orderRepository->getOrders()->paginate($paginate['limit']));
+        }
+        return response()->json($this->_orderRepository->getOrders()->get());
     }
 
     /**
@@ -176,6 +179,11 @@ class TransactionController extends Controller
     {
         try {
              $data_find = $this->_orderRepository->find($transaction_id);
+
+             if ($data_find['status_id'] != 1){
+                 return response()->json("Order is processing , not allowed to delete",Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+             }
+
             if (is_null($data_find)){
                 return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
             }

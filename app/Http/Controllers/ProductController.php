@@ -365,7 +365,6 @@ class ProductController extends Controller
             return response()->json($query->groupBy('p.id')->paginate($paginate['limit']));
         }
         }
-
         return response()->json($query->groupBy('p.id')->get());
     }
 

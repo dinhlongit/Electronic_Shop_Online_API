@@ -97,6 +97,11 @@ class BackendProvider extends ServiceProvider
             \App\Repositories\PromotionProduct\PromotionProductRepositoryInterface::class,
             \App\Repositories\PromotionProduct\PromotionProductEloquentRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Report\ReportRepositoryInterface::class,
+            \App\Repositories\Report\ReportEloquentRepository::class
+        );
     }
 
     /**

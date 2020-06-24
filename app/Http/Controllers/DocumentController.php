@@ -235,6 +235,8 @@ class DocumentController extends Controller
      */
 
 
+
+
     /**
      * @OA\Get(path="/api/categories/{id}",
      *   tags={"Category"},

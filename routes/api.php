@@ -72,7 +72,7 @@ Route::resource('photoarrays','PhotoArrayController');
 //Route::PUT('users/{id}', 'UserController@update')->middleware('auth.belongto:Admin');
 Route::resource('addresses','AddressController');
 Route::get('getproducer/{id}','ProductController@getProducerOfCategory');
-
+Route::get('reports','ReportController@index');
 
 
 Route::group([
