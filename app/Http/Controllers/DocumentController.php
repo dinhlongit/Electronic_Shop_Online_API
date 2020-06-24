@@ -75,6 +75,46 @@ class DocumentController extends Controller
      */
 
 
+    /**
+     * @OA\POST(path="/api/auth/update/{id}",
+     *   tags={"Auth"},
+     *   summary="Update User",
+     *   description="",
+     *   operationId="updateuser",
+     *   @OA\Parameter(
+     *     name="id",
+     *     required=true,
+     *     in="path",
+     *     description="id",
+     *     @OA\Schema(
+     *         type="string"
+     *     )
+     *   ),
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *               example = {"name":"dinhlong","phone_number":"0888999043","email":"dinhlongit1998@gmail.com","birthday":"2012-02-02","password":"123456","address":"Phu Da","address_id":"1"}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+
+
 
     /**
      * @OA\Post(path="/api/auth/logout",

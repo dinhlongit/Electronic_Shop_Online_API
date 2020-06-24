@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -156,6 +158,18 @@ class AuthController extends Controller
 
     public function updateUser(Request $request,$id){
 
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required|numeric',
+            'address' => 'required',
+            'address_id' => 'required|numeric',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+        }
+
         $data = $request->all();
 
         $check = false;
@@ -164,6 +178,7 @@ class AuthController extends Controller
             User::where('id',$id)->update([
                 'name' => $data['name'],
                 'phone_number' => $data['phone_number'],
+                'email' => $data['email'],
                 'address' => $data['address'],
                 'address_id' => $data['address_id'],
                 'birthday' => $data['birthday'],
