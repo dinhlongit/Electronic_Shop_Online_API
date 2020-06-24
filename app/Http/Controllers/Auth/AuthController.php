@@ -158,27 +158,46 @@ class AuthController extends Controller
 
     public function updateUser(Request $request,$id){
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required|numeric',
-            'address' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
-        }
-
         $data = $request->all();
-
         $check = false;
         try{
             DB::beginTransaction();
-            User::where('id',$id)->update([
-                'name' => $data['name'],
-                'phone_number' => $data['phone_number'],
-                'email' => $data['email'],
-                'address' => $data['address'],
-            ]);
+            $user = User::find($id);
+            if ($request->has('name')){
+                if (is_null($request->get('name')) != true ){
+                $user->name = $request->get('name');
+                }
+            }
+            if ($request->has('phone_number')){
+                if (is_null($request->get('phone_number')) != true ){
+                    $user->phone_number = $request->get('phone_number');
+                }
+            }
+            if ($request->has('email')){
+                if (is_null($request->get('email')) != true ){
+                    $user->email = $request->get('email');
+                }
+            }
+            if ($request->has('address')){
+                if (is_null($request->get('address')) != true ){
+                    $user->address = $request->get('address');
+                }
+            }
+
+
+            if ($request->has('password')){
+                if (is_null($request->get('password')) != true ){
+                    $user->password = $request->get('password');
+                }
+            }
+
+            if ($request->has('address_id')){
+                if (is_null($request->get('address_id')) != true ){
+                    $user->password = $request->get('address_id');
+                }
+            }
+            $user->save();
+
             DB::table('user_roles')->where('user_id', $id)->delete();
             $userCreate = User::find($id);
             $userCreate->roles()->attach([3]);
