@@ -22,13 +22,12 @@ class PromotionProductEloquentRepository extends EloquentRepository implements P
 
     public function getPromotionDetail()
     {
-        return DB::table('promotion_products')
-            ->join('products','promotion_products.product_id','=','products.id')
-            ->join('promotions','promotion_products.promotion_id','=','promotions.id')
+        return DB::table('promotions')
+            ->join('promotion_products','promotion_products.promotion_id','=','promotions.id')
+            ->join('products','products.id','=','promotion_products.product_id')
             ->select('promotion_products.*','products.name as product_name','promotions.name as promotion_name')
             ->orderBy('promotion_products.id')
-             ->groupBy('products.id')
-             ->get();
+            ->get();
     }
 
     public function getPromotionDetailById($id)
@@ -56,10 +55,9 @@ class PromotionProductEloquentRepository extends EloquentRepository implements P
     {
         $check = false;
 
-        if (count($this->getPromotionDetailByListId($list_product)->toArray()) != 0 ){
-            return $check;
-        }else
+
         try{
+
             DB::beginTransaction();
             $promotion = Promotion::find($promotion_id);
             $promotion->products()->attach($list_product);

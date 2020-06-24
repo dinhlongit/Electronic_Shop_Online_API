@@ -33,8 +33,12 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->leftJoin('promotion_products', 'p.id', '=', 'promotion_products.product_id')
             ->leftJoin('promotions', 'promotion_products.promotion_id', '=', 'promotions.id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
-                DB::raw('SUM(import_products.amount) AS amount'),
-                'categories.name as category',
+                DB::raw('SUM(import_products.amount) 
+                     - (SELECT SUM(transaction_products.amount) FROM transaction_products 
+                     INNER JOIN transactions ON transaction_products.transaction_id = transactions.id
+                     INNER JOIN transaction_statuses ON transaction_statuses.id = transactions.status_id
+                     WHERE transaction_products.product_id = p.id AND transaction_statuses.id <> 5)
+                     AS amount'),
                 DB::raw('MAX(import_products.export_price) AS price'),
                 DB::raw('MAX(promotion_products.title) AS discount'),
                 DB::raw("IF ( MAX(promotion_products.title) > 0,'yes','no' ) as sale"),
@@ -72,7 +76,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
                 ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
                 ->select('p.id', 'p.name', 'p.photo', 'p.description',
-                    DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
+                    DB::raw('SUM(import_products.amount) AS amount'),
+                    'categories.name as category',
                     DB::raw('MAX(import_products.export_price) AS price'))
                 ->whereIn('categories.id', $need_get)
                 ->orWhereIn('categories.parrent_id', $need_get)
@@ -89,14 +94,6 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 ->orWhere('categories.parrent_id', $id)
                 ->groupBy('p.id');
         }
-//        return Category::with('categories.products')
-//            ->where('categories.id',$id)
-//            ->orWhere('categories.parrent_id',$id)
-//            ->get();
-
-        //    $singleCategory = Category::find($id);
-        //  return $singleCategory->products;
-
     }
 
 
@@ -135,7 +132,13 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->leftJoin('producers', 'producers.id', '=', 'products.producer_id')
             ->leftJoin('import_products', 'import_products.product_id', '=', 'products.id')
             ->select('products.id', 'products.name', 'products.photo', 'products.description', 'products.information',
-                DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
+                DB::raw('SUM(import_products.amount) 
+                     - (SELECT SUM(transaction_products.amount) FROM transaction_products 
+                     INNER JOIN transactions ON transaction_products.transaction_id = transactions.id
+                     INNER JOIN transaction_statuses ON transaction_statuses.id = transactions.status_id
+                     WHERE transaction_products.product_id = products.id AND transaction_statuses.id <> 5)
+                     AS amount'),
+                'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'), 'producers.name as producer')
             ->where('products.id', $id)
             ->groupBy('products.id')
@@ -225,7 +228,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 DB::raw('MAX(import_products.export_price) AS price'), 'producers.name as producer');
     }
 
-    public function getProducerOfCategory($id){
+    public function getProducerOfCategory($id)
+    {
         $nows = date(now()->toDateString());
         $level1 = Category::where('parrent_id', null)->get()->pluck('id')->toArray();
 
