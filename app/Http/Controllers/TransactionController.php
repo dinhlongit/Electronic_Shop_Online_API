@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
+use App\Product;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Transaction;
 use App\User;
@@ -79,6 +81,17 @@ class TransactionController extends Controller
                 'message'=> 'Insert Successfully',
                 'data'=> $cart,$transaction_info
             );
+            if (isset($transaction_info['user_id'])){
+                $newCart = [];
+                foreach ($cart as $item){
+                    $newItem = $item;
+                    $newItem['name'] =  Product::find($item['product_id'])->name;
+                    $newItem['photo'] =  Product::find($item['product_id'])->photo;
+                    $newCart[] = $newItem;
+                }
+                dispatch(new SendEmailJob($transaction_info,$newCart,User::find($transaction_info['user_id'])->email));
+                //  Mail::to(User::find($transaction_info['user_id'])->email)->send(new MailNotify($transaction_info,$cart));
+            }
             return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
         }catch (Exception $e){
             $result = array(
