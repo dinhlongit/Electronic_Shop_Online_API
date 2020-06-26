@@ -75,7 +75,12 @@ class TransactionController extends Controller
 
             //$transaction_info = ['Thi Nhan',4,'123 Nguyen Luong Bang',2,1];
 
-            $this->_orderRepository->submitOrder($cart, $transaction_info);
+            $rs =  $this->_orderRepository->submitOrder($cart, $transaction_info);
+
+            if ($rs == false) {
+                return response()->json("San Pham het hang", Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+            }
+
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',

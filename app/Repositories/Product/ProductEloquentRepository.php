@@ -28,27 +28,25 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
         $nows = date(now()->toDateString());
         return DB::table('products as p')
             ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+            ->leftJoin('producers', 'p.producer_id', '=', 'producers.id')
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->leftJoin('promotion_products', 'p.id', '=', 'promotion_products.product_id')
-            ->leftJoin('promotions', 'promotion_products.promotion_id', '=', 'promotions.id')
+            ->leftJoin('promotions', 'promotions.id', '=', 'promotion_products.promotion_id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
+                'promotions.start_date as discount_start',
+                'promotions.end_date as discount_end',
                 DB::raw('SUM(import_products.amount) 
-                     - (SELECT SUM(transaction_products.amount) FROM transaction_products 
-                     INNER JOIN transactions ON transaction_products.transaction_id = transactions.id
-                     INNER JOIN transaction_statuses ON transaction_statuses.id = transactions.status_id
-                     WHERE transaction_products.product_id = p.id AND transaction_statuses.id <> 5)
-                     AS amount'),
+                 - (SELECT IFNULL(SUM(transaction_products.amount),0) FROM transaction_products 
+                 INNER JOIN transactions ON transaction_products.transaction_id = transactions.id
+                 INNER JOIN transaction_statuses ON transaction_statuses.id = transactions.status_id
+                 WHERE transaction_products.product_id = p.id AND transaction_statuses.id <> 5)
+                 AS amount'),
                 DB::raw('MAX(import_products.export_price) AS price'),
-                DB::raw('MAX(promotion_products.title) AS discount'),
-                DB::raw("IF ( MAX(promotion_products.title) > 0,'yes','no' ) as sale"),
+                DB::raw('promotion_products.title AS discount'),
+                DB::raw("IF (  (promotions.start_date < CURDATE()) and (promotions.end_date > CURDATE()) ,'yes','no' ) as sale"),
                 DB::raw("IF ( p.status_id = 3 ,'yes','no' ) as new"),
                 'producers.name as producer')
-            ->where('promotion_products.title', null)
-            ->Orwhere('promotions.start_date', '<=', $nows)
-            ->where('promotions.end_date', '>=', $nows)
-            ->groupBy('p.id');
-
+                ->groupBy('p.id');
     }
 
     public function getReviewProduct($id)
@@ -68,28 +66,27 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
     {
         $nows = date(now()->toDateString());
         $level1 = Category::where('parrent_id', null)->get()->pluck('id')->toArray();
-
         if (in_array($id, $level1)) {
             $need_get = Category::where('parrent_id', $id)->get()->pluck('id')->toArray();
             return DB::table('products as p')
                 ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-                ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-                ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+                ->leftJoin('producers', 'p.producer_id', '=', 'producers.id')
+                ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
                 ->select('p.id', 'p.name', 'p.photo', 'p.description',
-                    DB::raw('SUM(import_products.amount) AS amount'),
-                    'categories.name as category',
-                    DB::raw('MAX(import_products.export_price) AS price'))
+                 DB::raw('SUM(import_products.amount) AS amount'),
+                 'categories.name as category',
+                 DB::raw('MAX(import_products.export_price) AS price'))
                 ->whereIn('categories.id', $need_get)
                 ->orWhereIn('categories.parrent_id', $need_get)
                 ->groupBy('p.id');
         } else {
             return DB::table('products as p')
                 ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-                ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-                ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+                ->leftJoin('producers', 'p.producer_id', '=', 'producers.id')
+                ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
                 ->select('p.id', 'p.name', 'p.photo', 'p.description',
-                    DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
-                    DB::raw('MAX(import_products.export_price) AS price'))
+                 DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
+                 DB::raw('MAX(import_products.export_price) AS price'))
                 ->where('categories.id', $id)
                 ->orWhere('categories.parrent_id', $id)
                 ->groupBy('p.id');
@@ -100,9 +97,9 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
     public function getProductByProducer($id)
     {
         return DB::table('products as p')
-            ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+            ->leftJoin('categories', 'p.category_id', '=','categories.id')
+            ->leftJoin('producers','p.producer_id' , '=','producers.id' )
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
                 DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'))
@@ -127,13 +124,14 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->where('p.id', $id)
             ->get()];
 
+
         $product = DB::table('products')
-            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'products.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'products.id')
+            ->leftJoin('categories', 'products.category_id', '=','categories.id')
+            ->leftJoin('producers','products.producer_id' , '=','producers.id' )
+            ->leftJoin('import_products', 'products.id', '=', 'import_products.product_id')
             ->select('products.id', 'products.name', 'products.photo', 'products.description', 'products.information',
                 DB::raw('SUM(import_products.amount) 
-                     - (SELECT SUM(transaction_products.amount) FROM transaction_products 
+                     - (SELECT IFNULL(SUM(transaction_products.amount),0) FROM transaction_products 
                      INNER JOIN transactions ON transaction_products.transaction_id = transactions.id
                      INNER JOIN transaction_statuses ON transaction_statuses.id = transactions.status_id
                      WHERE transaction_products.product_id = products.id AND transaction_statuses.id <> 5)
@@ -152,8 +150,8 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
         $nows = date(now()->toDateString());
         return DB::table('products as p')
             ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+            ->leftJoin('producers', 'p.producer_id', '=', 'producers.id')
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->leftJoin('promotion_products', 'p.id', '=', 'promotion_products.product_id')
             ->leftJoin('promotions', 'promotion_products.promotion_id', '=', 'promotions.id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
@@ -161,7 +159,7 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
                 DB::raw('MAX(import_products.export_price) AS price'),
                 DB::raw('MAX(promotion_products.title) AS discount'),
                 'producers.name as producer')
-            ->Orwhere('promotions.start_date', '<=', $nows)
+            ->where('promotions.start_date', '<=', $nows)
             ->where('promotions.end_date', '>=', $nows)
             ->groupBy('p.id');
     }
@@ -172,9 +170,9 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
         $nows = date(now()->toDateString());
         return DB::table('products as p')
             ->where('p.status_id', 3)
-            ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+            ->leftJoin('categories', 'p.category_id', '=','categories.id')
+            ->leftJoin('producers','p.producer_id' , '=','producers.id' )
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
                 DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'),
@@ -187,9 +185,9 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
     {
         $nows = date(now()->toDateString());
         return DB::table('products as p')
-            ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+            ->leftJoin('categories', 'p.category_id', '=','categories.id')
+            ->leftJoin('producers','p.producer_id' , '=','producers.id' )
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->leftJoin('promotion_products', 'p.id', '=', 'promotion_products.product_id')
             ->leftJoin('promotions', 'promotion_products.promotion_id', '=', 'promotions.id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
@@ -220,9 +218,9 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
     public function query()
     {
         return DB::table('products as p')
-            ->leftJoin('categories', 'p.category_id', '=', 'categories.id')
-            ->leftJoin('producers', 'producers.id', '=', 'p.producer_id')
-            ->leftJoin('import_products', 'import_products.product_id', '=', 'p.id')
+            ->leftJoin('categories', 'p.category_id', '=','categories.id')
+            ->leftJoin('producers','p.producer_id' , '=','producers.id' )
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->select('p.id', 'p.name', 'p.photo', 'p.description',
                 DB::raw('SUM(import_products.amount) AS amount'), 'categories.name as category',
                 DB::raw('MAX(import_products.export_price) AS price'), 'producers.name as producer');

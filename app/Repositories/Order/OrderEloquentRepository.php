@@ -22,6 +22,8 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
     }
 
 
+
+
     public function getOrders()
     {
         return DB::table('transactions as t')
@@ -33,7 +35,24 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
                 't.street','addresses.name as city','users.phone_number','users.name',
                 DB::raw('SUM(transaction_products.price * transaction_products.amount) as total')
                 , 'transaction_statuses.name as status')
-                   ->groupBy('t.id');
+                ->groupBy('t.id');
+    }
+
+
+    public function getAmountProduct($id)
+    {
+        $nows = date(now()->toDateString());
+        return DB::table('products as p')
+            ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
+            ->select(
+                DB::raw('SUM(import_products.amount) 
+                 - (SELECT IFNULL(SUM(transaction_products.amount),0) FROM transaction_products 
+                 INNER JOIN transactions ON transaction_products.transaction_id = transactions.id
+                 INNER JOIN transaction_statuses ON transaction_statuses.id = transactions.status_id
+                 WHERE transaction_products.product_id = p.id AND transaction_statuses.id <> 5)
+                 AS amount'))
+            ->where('p.id',$id)
+            ->get()->toArray();
     }
 
      public function submitOrder($cart,$transaction_info){
@@ -41,13 +60,34 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
          // transactioninfo = 'full_name', 'user_id',street,address_id,status_id,
          // ['Thi Nhan',4,'123 Nguyen Luong Bang',2,1],
 
+
+         $nows = date(now()->toDateString());
+
+         $newCart = [];
+         foreach ($cart as $item){
+             $amount = $this->getAmountProduct($item['product_id']);
+             if ($amount[0]->amount <= 0){
+                 return false;
+             }
+             $ar = Product::find($item['product_id'])->promotions
+                 ->where('end_date','>=',$nows)
+                 ->where('start_date','<=',$nows)->pluck('pivot.title')->toArray();
+             $newItem = $item;
+
+             if (count($ar)){
+                 $newItem['price'] = $newItem['price']  * (100 - (int)$ar[0])/100;
+             }
+             $newCart[] = $newItem;
+         }
+
+
          $check = false;
          try{
              DB::beginTransaction();
              // create an transaction
              $transaction = Transaction::create($transaction_info);
 
-             foreach ($cart as $item) {
+             foreach ($newCart as $item) {
              DB::table('transaction_products')->insert(
                   [
                       'product_id' => $item['product_id'],
