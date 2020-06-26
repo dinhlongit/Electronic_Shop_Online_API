@@ -103,7 +103,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -111,7 +110,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
 
 
     /**
@@ -273,8 +271,6 @@ class DocumentController extends Controller
      */
 
 
-
-
     /**
      * @OA\Get(path="/api/categories/{id}",
      *   tags={"Category"},
@@ -294,8 +290,6 @@ class DocumentController extends Controller
      *   @OA\Response(response=404, description="category not found")
      * )
      */
-
-
 
 
     /**
@@ -434,7 +428,6 @@ class DocumentController extends Controller
      */
 
 
-
 //*******************************************************Product*******************************************************************//
 
 
@@ -553,7 +546,6 @@ class DocumentController extends Controller
      */
 
 
-
     /**
      * @OA\Get(
      *     path="/api/products?limit={limit}&page={page}",
@@ -604,7 +596,6 @@ class DocumentController extends Controller
      */
 
 
-
     /**
      * @OA\Get(path="/api/categories/{id}/products?limit={limit}&page={page}",
      *   tags={"Product"},
@@ -642,10 +633,6 @@ class DocumentController extends Controller
      */
 
 
-
-
-
-
     /**
      * @OA\Get(path="/api/producer/{id}/products?limit={limit}&page={page}",
      *   tags={"Product"},
@@ -681,7 +668,6 @@ class DocumentController extends Controller
      *   @OA\Response(response=404, description="category not found"),
      * )
      */
-
 
 
     /**
@@ -751,7 +737,6 @@ class DocumentController extends Controller
      *     }
      *  )
      *  )
-
      * ...
      */
 
@@ -830,10 +815,8 @@ class DocumentController extends Controller
      *         {"bearer": {}}
      *     }
      *  )
-
      * ...
      */
-
 
 
     /**
@@ -920,7 +903,6 @@ class DocumentController extends Controller
      */
 
 
-
     /**
      * @OA\Post(path="/api/orders",
      *   tags={"Orders"},
@@ -942,7 +924,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -995,7 +976,6 @@ class DocumentController extends Controller
      *     name="id",
      *     in="path",
      *     required=true,
-
      *     @OA\Schema(
      *         type="string"
      *     )
@@ -1008,13 +988,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
-
-
-
-
-
-
 
 
     //*******************************************************Role*******************************************************************//
@@ -1059,7 +1032,6 @@ class DocumentController extends Controller
      */
 
 
-
     /**
      * @OA\Post(path="/api/roles",
      *   tags={"Role"},
@@ -1082,7 +1054,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
 
 
     /**
@@ -1141,13 +1112,6 @@ class DocumentController extends Controller
      */
 
 
-
-
-
-
-
-
-
     //*******************************************************Producer*******************************************************************//
     /**
      * @OA\Get(
@@ -1190,7 +1154,6 @@ class DocumentController extends Controller
      */
 
 
-
     /**
      * @OA\Post(path="/api/producers",
      *   tags={"Producer"},
@@ -1213,7 +1176,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
 
 
     /**
@@ -1334,7 +1296,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1374,7 +1335,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1405,8 +1365,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
-
 
 
     //*******************************************************Review*******************************************************************//
@@ -1449,7 +1407,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
 
 
     /**
@@ -1501,7 +1458,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
 
 
     /**
@@ -1560,9 +1516,6 @@ class DocumentController extends Controller
      */
 
 
-
-
-
 //*******************************************************Import*******************************************************************//
     /**
      * @OA\Get(
@@ -1603,7 +1556,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1641,7 +1593,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1673,8 +1624,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
-
 
 
 //*******************************************************Import Detail*******************************************************************//
@@ -1725,7 +1674,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1755,7 +1703,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1819,34 +1766,33 @@ class DocumentController extends Controller
 
 
     /**
- * @OA\Post(path="/api/promotions",
- *   tags={"Promotion"},
- *   summary="Add new promotion",
- *   description="",
- *   operationId="placeOrder",
- *        @OA\RequestBody(
- *         @OA\MediaType(
- *             mediaType="application/json",
- *             @OA\Schema(
- *                 @OA\Property(
- *                     property="id",
- *                     type="string"
- *                 ),
- *               example = {"name":"Khuyen Mai Thana 9","start_date":"2020-09-01","end_date" : "2020-09-29"}
- *             )
- *         )
- *     ),
- *   @OA\Response(
- *     response=200,
- *     description="successful operation",
-
- *   ),
- *   @OA\Response(response=400, description="Invalid Order"),
- *     security={
- *         {"bearer": {}}
- *     }
- * )
- */
+     * @OA\Post(path="/api/promotions",
+     *   tags={"Promotion"},
+     *   summary="Add new promotion",
+     *   description="",
+     *   operationId="placeOrder",
+     *        @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="id",
+     *                     type="string"
+     *                 ),
+     *               example = {"name":"Khuyen Mai Thana 9","start_date":"2020-09-01","end_date" : "2020-09-29"}
+     *             )
+     *         )
+     *     ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="successful operation",
+     *   ),
+     *   @OA\Response(response=400, description="Invalid Order"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
 
     /**
      * @OA\Delete(path="/api/promotions/{id}",
@@ -1887,7 +1833,6 @@ class DocumentController extends Controller
      */
 
 
-
     /**
      * @OA\Post(path="/api/promotionproducts",
      *   tags={"Promotion_Product"},
@@ -1909,7 +1854,6 @@ class DocumentController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="successful operation",
-
      *   ),
      *   @OA\Response(response=400, description="Invalid Order"),
      *     security={
@@ -1917,7 +1861,6 @@ class DocumentController extends Controller
      *     }
      * )
      */
-
 
 
     //*******************************************************Order Status*******************************************************************//

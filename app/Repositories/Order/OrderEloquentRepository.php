@@ -77,7 +77,7 @@ class OrderEloquentRepository extends EloquentRepository implements OrderReposit
           $status = DB::table('transactions as t')
                    ->join('transaction_statuses','transaction_statuses.id','=','t.status_id')
                    ->where('t.id',$tran)
-                   ->select('transaction_statuses.name as status')
+                   ->select('transaction_statuses.name as status','t.updated_at as order_date')
                    ->get();
             $status = collect($status);
             $data = $data->concat($tracsaction->products)->concat($status);

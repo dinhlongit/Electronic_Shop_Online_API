@@ -14,7 +14,8 @@ class PromotionProductController extends Controller
 {
 
 
-    private $_promotionProductRepository,$_productRepository;
+    private $_promotionProductRepository, $_productRepository;
+
     public function __construct(PromotionProductRepositoryInterface $promotionProductRepository, ProductRepositoryInterface $productRepository)
     {
         $this->_promotionProductRepository = $promotionProductRepository;
@@ -29,7 +30,7 @@ class PromotionProductController extends Controller
     public function index()
     {
         $data = $this->_promotionProductRepository->getPromotionDetail();
-        return response()->json($data,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($data, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -45,7 +46,7 @@ class PromotionProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,34 +58,34 @@ class PromotionProductController extends Controller
             return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
 
-        try{
-      $promotion_id = $request->only("promotion_id");
-      $category_id = $request->only("category_id");
-      $title = $request->only("title");
-      $listproduct = $this->_productRepository->getProductByCategory($category_id)->pluck("id")->toArray();
-      if (count($listproduct) == 0 ) {
-      return response()->json("Not have Product In This Category",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
-      }
-      $check =  $this->_promotionProductRepository->addPromotionProduct($promotion_id['promotion_id'],$listproduct,$title['title']);
-      if ($check){
-       $return_data = $this->_promotionProductRepository->getPromotionDetailByListId($listproduct);
+        try {
+            $promotion_id = $request->only("promotion_id");
+            $category_id = $request->only("category_id");
+            $title = $request->only("title");
+            $listproduct = $this->_productRepository->getProductByCategory($category_id)->pluck("id")->toArray();
+            if (count($listproduct) == 0) {
+                return response()->json("Not have Product In This Category", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
+            }
+            $check = $this->_promotionProductRepository->addPromotionProduct($promotion_id['promotion_id'], $listproduct, $title['title']);
+            if ($check) {
+                $return_data = $this->_promotionProductRepository->getPromotionDetailByListId($listproduct);
 
-       return response()->json($return_data,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
-      }else{
-          $result = array(
-              'status' => 'ER',
-              'message'=> 'Insert Failed',
-              'data'=> ""
-          );
-          return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
-      }
-        }catch (Exception $e) {
+                return response()->json($return_data, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
+            } else {
+                $result = array(
+                    'status' => 'ER',
+                    'message' => 'Insert Failed',
+                    'data' => ""
+                );
+                return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
+            }
+        } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Insert Failed',
-                'data'=> ""
+                'message' => 'Insert Failed',
+                'data' => ""
             );
-      return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
 
     }
@@ -92,7 +93,7 @@ class PromotionProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PromotionProduct  $promotionProduct
+     * @param \App\PromotionProduct $promotionProduct
      * @return \Illuminate\Http\Response
      */
     public function show(PromotionProduct $promotionProduct)
@@ -103,7 +104,7 @@ class PromotionProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PromotionProduct  $promotionProduct
+     * @param \App\PromotionProduct $promotionProduct
      * @return \Illuminate\Http\Response
      */
     public function edit(PromotionProduct $promotionProduct)
@@ -114,8 +115,8 @@ class PromotionProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PromotionProduct  $promotionProduct
+     * @param \Illuminate\Http\Request $request
+     * @param \App\PromotionProduct $promotionProduct
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PromotionProduct $promotionProduct)
@@ -126,27 +127,27 @@ class PromotionProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PromotionProduct  $promotionProduct
+     * @param \App\PromotionProduct $promotionProduct
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         try {
-            $promotion =  $this->_promotionProductRepository->find($id);
-            $product =  $this->_promotionProductRepository->delete($id);
+            $promotion = $this->_promotionProductRepository->find($id);
+            $product = $this->_promotionProductRepository->delete($id);
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Delete Successfully',
-                'data'=>$promotion
+                'message' => 'Delete Successfully',
+                'data' => $promotion
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Delete Failed',
-                'data'=> 'ER'
+                'message' => 'Delete Failed',
+                'data' => 'ER'
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 }

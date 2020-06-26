@@ -70,7 +70,6 @@ class ImportController extends Controller
             ]);
 
 
-
             $result = array(
                 'status' => 'OK',
                 'message' => 'Insert Successfully',

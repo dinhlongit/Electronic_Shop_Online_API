@@ -51,75 +51,75 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'cart' => 'required',
-            'transaction_info' =>'required'
+            'transaction_info' => 'required'
         ]);
-        if ($validator->fails()){
-            return response()->json($validator->errors()->toArray(),Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
 
         $transaction_info = $request->only('transaction_info')["transaction_info"];
         $cart = $request->only('cart')["cart"];
 
 
-        try{
-          //  $cart = $request->only('cart');
-          //  $cart = json_decode($cart['cart']);
+        try {
+            //  $cart = $request->only('cart');
+            //  $cart = json_decode($cart['cart']);
             //$cart = json_decode($cart);
 
             //$transaction_info = ['Thi Nhan',4,'123 Nguyen Luong Bang',2,1];
 
-            $this->_orderRepository->submitOrder($cart,$transaction_info);
+            $this->_orderRepository->submitOrder($cart, $transaction_info);
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Insert Successfully',
-                'data'=> $cart,$transaction_info
+                'message' => 'Insert Successfully',
+                'data' => $cart, $transaction_info
             );
-            if (isset($transaction_info['user_id'])){
+            if (isset($transaction_info['user_id'])) {
                 $newCart = [];
-                foreach ($cart as $item){
+                foreach ($cart as $item) {
                     $newItem = $item;
-                    $newItem['name'] =  Product::find($item['product_id'])->name;
-                    $newItem['photo'] =  Product::find($item['product_id'])->photo;
+                    $newItem['name'] = Product::find($item['product_id'])->name;
+                    $newItem['photo'] = Product::find($item['product_id'])->photo;
                     $newCart[] = $newItem;
                 }
-                dispatch(new SendEmailJob($transaction_info,$newCart,User::find($transaction_info['user_id'])->email));
+                dispatch(new SendEmailJob($transaction_info, $newCart, User::find($transaction_info['user_id'])->email));
                 //  Mail::to(User::find($transaction_info['user_id'])->email)->send(new MailNotify($transaction_info,$cart));
             }
-            return response()->json($result,Response::HTTP_CREATED,[],JSON_NUMERIC_CHECK);
-        }catch (Exception $e){
+            return response()->json($result, Response::HTTP_CREATED, [], JSON_NUMERIC_CHECK);
+        } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Insert Failed',
-                'data'=> ''
+                'message' => 'Insert Failed',
+                'data' => ''
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Transaction  $transaction
+     * @param \App\Transaction $transaction
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
 
-        return response()->json($this->_orderRepository->getProductOfOrder($id),Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($this->_orderRepository->getProductOfOrder($id), Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Transaction  $transaction
+     * @param \App\Transaction $transaction
      * @return \Illuminate\Http\Response
      */
     public function edit(Transaction $transaction)
@@ -130,8 +130,8 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Transaction  $transaction
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Transaction $transaction
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $transaction_id)
@@ -139,51 +139,47 @@ class TransactionController extends Controller
 
         try {
             $data_find = $this->_orderRepository->find($transaction_id);
-            if (is_null($data_find)){
-                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            if (is_null($data_find)) {
+                return response()->json("Record is not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
             }
-            $data =  $this->_orderRepository->update($transaction_id,$request->only('status_id'));
+            $data = $this->_orderRepository->update($transaction_id, $request->only('status_id'));
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Update Successfully',
-                'data'=> $this->_orderRepository->getOrderById($transaction_id)
+                'message' => 'Update Successfully',
+                'data' => $this->_orderRepository->getOrderById($transaction_id)
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Update Failed',
-                'data'=> ''
+                'message' => 'Update Failed',
+                'data' => ''
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 
-    public function getOrderByUser($user_id){
+    public function getOrderByUser($user_id)
+    {
         $find_user = User::find($user_id);
-        if (is_null($find_user)){
-            return response()->json("Record id not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+        if (is_null($find_user)) {
+            return response()->json("Record id not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
         }
         $data_find = $this->_orderRepository->getOrderByUser($user_id);
         $result = array(
             'status' => 'OK',
-            'message'=> 'Show Successfully',
-            'data'=> $data_find
+            'message' => 'Show Successfully',
+            'data' => $data_find
         );
-        return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+        return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
 
     }
-
-
-
-
-
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Transaction  $transaction
+     * @param \App\Transaction $transaction
      * @return \Illuminate\Http\Response
      */
 
@@ -191,29 +187,29 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction, $transaction_id)
     {
         try {
-             $data_find = $this->_orderRepository->find($transaction_id);
+            $data_find = $this->_orderRepository->find($transaction_id);
 
-             if ($data_find['status_id'] != 1){
-                 return response()->json("Order is processing , not allowed to delete",Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
-             }
-
-            if (is_null($data_find)){
-                return response()->json("Record is not found",Response::HTTP_NOT_FOUND,[],JSON_NUMERIC_CHECK);
+            if ($data_find['status_id'] != 1) {
+                return response()->json("Order is processing , not allowed to delete", Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
             }
-            $data = $this->_orderRepository->update($transaction_id,['status_id' => 5]);
+
+            if (is_null($data_find)) {
+                return response()->json("Record is not found", Response::HTTP_NOT_FOUND, [], JSON_NUMERIC_CHECK);
+            }
+            $data = $this->_orderRepository->update($transaction_id, ['status_id' => 5]);
             $result = array(
                 'status' => 'OK',
-                'message'=> 'Update Successfully',
-                'data'=> $this->_orderRepository->getOrderById($transaction_id)
+                'message' => 'Update Successfully',
+                'data' => $this->_orderRepository->getOrderById($transaction_id)
             );
-            return response()->json($result,Response::HTTP_OK,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_OK, [], JSON_NUMERIC_CHECK);
         } catch (Exception $e) {
             $result = array(
                 'status' => 'ER',
-                'message'=> 'Update Failed',
-                'data'=> ''
+                'message' => 'Update Failed',
+                'data' => ''
             );
-            return response()->json($result,Response::HTTP_BAD_REQUEST,[],JSON_NUMERIC_CHECK);
+            return response()->json($result, Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);
         }
     }
 }

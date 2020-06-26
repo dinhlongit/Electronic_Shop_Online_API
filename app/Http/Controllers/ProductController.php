@@ -331,19 +331,19 @@ class ProductController extends Controller
         }
 
         if ($request->has('producer')) {
-            if (is_null($request->get('producer'))  == false) {
+            if (is_null($request->get('producer')) == false) {
                 $query->where('producers.id', $request->get('producer'));
             }
         }
 
         if ($request->has('keyword')) {
-            if (is_null($request->get('keyword'))  == false) {
+            if (is_null($request->get('keyword')) == false) {
                 $query->where('p.name', 'LIKE', '%' . $request->get('keyword') . '%');
             }
         }
 
         if ($request->has('price')) {
-            if (is_null($request->get('price'))  == false) {
+            if (is_null($request->get('price')) == false) {
                 $price = explode(",", $request->get('price'));
                 if (count($price) != 0) {
                     $query->where('import_products.export_price', '>=', $price[0])->where('import_products.export_price', '<=', $price[1]);
@@ -353,23 +353,24 @@ class ProductController extends Controller
 
         if ($request->has('sort')) {
 
-            if (is_null($request->get('sort'))  == false) {
+            if (is_null($request->get('sort')) == false) {
                 $query->orderBy($request->get('sort'));
 
             }
         }
 
         if ($request->has('limit') && $request->has('page')) {
-        $paginate = $request->only('limit', 'page');
-        if (count($paginate) > 0) {
-            return response()->json($query->groupBy('p.id')->paginate($paginate['limit']));
-        }
+            $paginate = $request->only('limit', 'page');
+            if (count($paginate) > 0) {
+                return response()->json($query->groupBy('p.id')->paginate($paginate['limit']));
+            }
         }
         return response()->json($query->groupBy('p.id')->get());
     }
 
-    public function getProducerOfCategory($id){
-     return response()->json($this->_productRepository->getProducerOfCategory($id));
+    public function getProducerOfCategory($id)
+    {
+        return response()->json($this->_productRepository->getProducerOfCategory($id));
     }
 
 }

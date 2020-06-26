@@ -14,7 +14,8 @@ class ReportController extends Controller
         $this->reportRepository = $reportRepository;
     }
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $month = $request->only('month');
         return response()->json($this->reportRepository->getTranSactionStatus($month['month']));
     }
