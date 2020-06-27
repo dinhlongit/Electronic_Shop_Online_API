@@ -44,6 +44,7 @@ Route::get('products/filter/price','ProductController@filterProductByPrice');
 Route::get('producers/{id}/products','ProductController@getProductByProducer');
 Route::get('products/{id}/photos','ProductController@getPhotosOfProduct');
 Route::resource('imports','ImportController');
+Route::get('imports/{id}/products','ImportController@getProductOfImport');
 Route::resource('importproducts','ImportProductController');
 
 Route::get('users/{user_id}', 'UserController@show')->middleware('auth.belongto:Admin,Nhân Viên');

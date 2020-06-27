@@ -45,6 +45,10 @@ class ImportEloquentRepository extends EloquentRepository implements ImportRepos
             ->get();
     }
 
+    public function getProductOfImport($id){
+        return Import::find($id)->products;
+    }
+
 
     public function getImmportById($id)
     {
