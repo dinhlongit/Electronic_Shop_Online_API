@@ -157,6 +157,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
 
+
         try {
             if ($request->hasFile('photo')) {
                 $file = $request->file('photo');

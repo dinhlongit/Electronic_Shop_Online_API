@@ -32,7 +32,7 @@ class ProductEloquentRepository extends EloquentRepository implements ProductRep
             ->leftJoin('import_products', 'p.id', '=', 'import_products.product_id')
             ->leftJoin('promotion_products', 'p.id', '=', 'promotion_products.product_id')
             ->leftJoin('promotions', 'promotions.id', '=', 'promotion_products.promotion_id')
-            ->select('p.id', 'p.name', 'p.photo', 'p.description',
+            ->select('p.id', 'p.name', 'p.photo', 'p.description', 'categories.name as category',
                 'promotions.start_date as discount_start',
                 'promotions.end_date as discount_end',
                 DB::raw('SUM(import_products.amount) 
