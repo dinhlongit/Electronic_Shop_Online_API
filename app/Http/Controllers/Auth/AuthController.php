@@ -90,6 +90,16 @@ class AuthController extends Controller
 
     public function register(Request $request){
 
+           $user_exist = User::where('email',$request->get('email'))->get()->toArray();
+           if (count($user_exist) > 0 ){
+               return response()->json([
+                   'status' => 400,
+                   'message' => 'Email Exist',
+                   'data' => ''
+               ],400);
+           }
+
+
            try {
                $user = User::create([
                    'name' => $request->get('name'),
@@ -154,7 +164,6 @@ class AuthController extends Controller
 
         ]);
     }
-
 
     public function updateUser(Request $request,$id){
 

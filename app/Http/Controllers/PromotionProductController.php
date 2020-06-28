@@ -52,7 +52,7 @@ class PromotionProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
+            'title' => 'required|numeric|min:1|max:100',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toArray(), Response::HTTP_BAD_REQUEST, [], JSON_NUMERIC_CHECK);

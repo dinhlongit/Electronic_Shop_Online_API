@@ -19,11 +19,9 @@ header('Access-Control-Allow-Headers: Origin, Content-Type,X-Requested-With,Auth
 |
 */
 //Auth::routes();
-//getProductByProducer
 
 Route::get('filter/products','ProductController@filterMultiAttribute');
 Route::get('products/{id}/reviews','ProductController@getProductReview');
-
 Route::resource('home','HomeController');
 
 Route::resource('categories','CategoryController');
@@ -33,12 +31,9 @@ Route::get('categories/{cat}/products', 'ProductController@getProductByCategory'
 
 Route::resource('products','ProductController');
 Route::get('products','ProductController@filterProduct');
-
-
 Route::get('products/filter/getSale','ProductController@getSaleProduct');
 Route::get('products/filter/getNew','ProductController@getNewProduct');
 Route::get('products/filter/price','ProductController@filterProductByPrice');
-
 
 
 Route::get('producers/{id}/products','ProductController@getProductByProducer');
@@ -66,10 +61,6 @@ Route::resource('productstatuses','ProductStatusController');
 Route::get('users/{user_id}/orders', 'TransactionController@getOrderByUser')->middleware('auth.belongto:Admin,Nhân Viên');
 
 Route::resource('photoarrays','PhotoArrayController');
-
-
-//Route::get('users/{id}', 'UserController@show')->middleware('auth.belongto:Admin');
-//Route::PUT('users/{id}', 'UserController@update')->middleware('auth.belongto:Admin');
 Route::resource('addresses','AddressController');
 Route::get('getproducer/{id}','ProductController@getProducerOfCategory');
 Route::get('reports','ReportController@index');
@@ -86,5 +77,3 @@ Route::group([
     Route::post('me', 'Auth\AuthController@me');
     Route::post('update/{id}', 'Auth\AuthController@updateUser');
 });
-
-

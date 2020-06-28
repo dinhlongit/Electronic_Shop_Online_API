@@ -52,6 +52,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $user_exist = User::where('email',$request->get('email'))->get()->toArray();
+        if (count($user_exist) > 0 ){
+            return response()->json([
+                'status' => 400,
+                'message' => 'Email Exist',
+                'data' => ''
+            ],400);
+        }
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
             'password' => 'required',
